@@ -6,7 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "prettier": "prettier --write .",
+    "db:deploy": "./scripts/db-deploy.sh",
+    "db:migrate": "npx prisma migrate dev"
   },
   "dependencies": {
     "@prisma/client": "^6.5.0",
