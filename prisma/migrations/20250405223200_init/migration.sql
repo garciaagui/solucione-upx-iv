@@ -42,7 +42,7 @@ CREATE TABLE "occurrences" (
 CREATE TABLE "occurrences_replies" (
     "id" SERIAL NOT NULL,
     "description" VARCHAR(255) NOT NULL,
-    "imageUrl" VARCHAR(255) DEFAULT '',
+    "image_url" VARCHAR(255) DEFAULT '',
     "user_id" INTEGER NOT NULL,
     "occurrence_id" INTEGER NOT NULL,
     "occurrence_status" "StatusUpdate" NOT NULL,

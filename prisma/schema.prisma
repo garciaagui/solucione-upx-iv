@@ -45,7 +45,7 @@ model Occurrence {
 model OccurrenceReply {
     id               Int          @id @default(autoincrement())
     description      String       @db.VarChar(255)
-    imageUrl         String?      @default("") @db.VarChar(255)
+    imageUrl         String?      @default("") @map(name: "image_url") @db.VarChar(255)
     userId           Int          @map(name: "user_id")
     occurrenceId     Int          @map(name: "occurrence_id")
     occurrenceStatus StatusUpdate @map(name: "occurrence_status")
