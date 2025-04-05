@@ -45,7 +45,7 @@ CREATE TABLE "occurrences_replies" (
     "imageUrl" VARCHAR(255) DEFAULT '',
     "user_id" INTEGER NOT NULL,
     "occurrence_id" INTEGER NOT NULL,
-    "occurrenceStatus" "StatusUpdate" NOT NULL,
+    "occurrence_status" "StatusUpdate" NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
 

@@ -8,13 +8,14 @@ datasource db {
 }
 
 model User {
-    id              Int               @id @default(autoincrement())
-    name            String            @db.VarChar(255)
-    email           String            @unique
-    password        String            @db.VarChar(255)
-    role            Role
-    createdAt       DateTime          @default(now()) @map(name: "created_at")
-    updatedAt       DateTime          @updatedAt @map(name: "updated_at")
+    id        Int      @id @default(autoincrement())
+    name      String   @db.VarChar(255)
+    email     String   @unique
+    password  String   @db.VarChar(255)
+    role      Role
+    createdAt DateTime @default(now()) @map(name: "created_at")
+    updatedAt DateTime @updatedAt @map(name: "updated_at")
+
     Occurrence      Occurrence[]
     OccurrenceReply OccurrenceReply[]
 
@@ -47,7 +48,7 @@ model OccurrenceReply {
     imageUrl         String?      @default("") @db.VarChar(255)
     userId           Int          @map(name: "user_id")
     occurrenceId     Int          @map(name: "occurrence_id")
-    occurrenceStatus StatusUpdate
+    occurrenceStatus StatusUpdate @map(name: "occurrence_status")
     createdAt        DateTime     @default(now()) @map(name: "created_at")
     updatedAt        DateTime     @updatedAt @map(name: "updated_at")
 
