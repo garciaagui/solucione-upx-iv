@@ -1,9 +1,9 @@
 -- Inserindo usuários
 INSERT INTO "users" (id, name, email, password, role, created_at, updated_at) VALUES
-  (1, 'João Silva', 'joao@example.com', '$2a$12$Y5A6LfbOspKyOp4yCFvAUutzoynEHUkS0neXCObTl8SOTt5TtXxwe', 'admin', NOW(), NOW()),
-  (2, 'Maria Oliveira', 'maria@example.com', '$2a$12$urjFcjIR5nPJ1Y/MYaIqXu1p9Y//VbhuQKmugxuFL8Hm1dzdHZhn6', 'employee', NOW(), NOW()),
-  (3, 'Carlos Santos', 'carlos@example.com', '$2a$12$KYs9rCDu/eggg9BIRKz9Ke0a6gthYJTIdbbwiveFT8SewrYzN42YW', 'user', NOW(), NOW()),
-  (4, 'Ana Moares', 'ana@example.com', '$2a$12$g/0yx6eToVec0xHqEWqquOVWhoi4cEhRRXmy.G0Fv.4hP02OrvA4q', 'user', NOW(), NOW());
+  (1, 'João Silva', 'joao@example.com', '123456', 'admin', NOW(), NOW()),
+  (2, 'Maria Oliveira', 'maria@example.com', '123456', 'employee', NOW(), NOW()),
+  (3, 'Carlos Santos', 'carlos@example.com', '123456', 'user', NOW(), NOW()),
+  (4, 'Ana Moares', 'ana@example.com', '123456', 'user', NOW(), NOW());
 
 -- Inserindo ocorrências
 INSERT INTO "occurrences" (id, title, description, neighborhood, street, zip_code, reference, status, image, user_id, created_at, updated_at) VALUES
