@@ -7,8 +7,7 @@ import {
 } from '@/components/ui/dialog'
 import { Separator } from '@/components/ui/separator'
 import { Occurrence } from '@prisma/client'
-import Image from 'next/image'
-import { Location, MetaInfo } from './_components'
+import { ImageContainer, Location, MetaInfo } from './_components'
 
 interface Props {
   data: Occurrence
@@ -45,15 +44,7 @@ export default function OccurrenceDetails({ data, isOpen, handleOpen }: Props) {
 
           <Separator />
 
-          <div className="overflow-hidden rounded-md">
-            <Image
-              src={image}
-              alt="Imagem da ocorrência"
-              width={800}
-              height={400}
-              className="h-auto max-h-[400px] w-full rounded-lg object-cover"
-            />
-          </div>
+          <ImageContainer url={image} />
 
           <div>
             <h3 className="text-base font-medium">Descrição</h3>

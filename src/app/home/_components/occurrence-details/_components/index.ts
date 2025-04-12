@@ -1,4 +1,5 @@
+import ImageContainer from './image-container'
 import Location from './location'
 import MetaInfo from './meta-info'
 
-export { Location, MetaInfo }
+export { ImageContainer, Location, MetaInfo }
