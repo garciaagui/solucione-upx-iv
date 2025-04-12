@@ -40,8 +40,10 @@ export default function CreateOccurrence() {
 
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Nova reclamação</DialogTitle>
-          <DialogDescription>Nova reclamação</DialogDescription>
+          <DialogTitle className="text-2xl font-semibold">Nova reclamação</DialogTitle>
+          <DialogDescription className="text-muted-foreground">
+            Preencha os campos abaixo para registrar uma nova ocorrência
+          </DialogDescription>
         </DialogHeader>
 
         <Form {...form}>
@@ -53,7 +55,7 @@ export default function CreateOccurrence() {
                 <FormItem>
                   <FormLabel>Título</FormLabel>
                   <FormControl>
-                    <Input placeholder="Exemplo: Falta de coleta de lixo" type="text" {...field} />
+                    <Input placeholder="Ex: Falta de coleta de lixo" type="text" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -68,7 +70,7 @@ export default function CreateOccurrence() {
                   <FormLabel>Descrição</FormLabel>
                   <FormControl>
                     <Textarea
-                      placeholder="Forneça uma descrição detalhada do problema"
+                      placeholder="Descreva detalhadamente o problema ocorrido, mencionando horários, frequência e impacto"
                       {...field}
                     />
                   </FormControl>
@@ -88,7 +90,7 @@ export default function CreateOccurrence() {
                 <FormItem>
                   <FormLabel>Rua</FormLabel>
                   <FormControl>
-                    <Input placeholder="X" type="text" {...field} />
+                    <Input placeholder="Ex: Rua das Flores, n. 123" type="text" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -102,7 +104,7 @@ export default function CreateOccurrence() {
                 <FormItem>
                   <FormLabel>Bairro</FormLabel>
                   <FormControl>
-                    <Input placeholder="X" type="text" {...field} />
+                    <Input placeholder="Ex: Centro" type="text" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -117,7 +119,7 @@ export default function CreateOccurrence() {
                   <FormLabel>CEP</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="X"
+                      placeholder="Ex: 18.540-000"
                       type="text"
                       maxLength={10}
                       {...field}
@@ -139,7 +141,7 @@ export default function CreateOccurrence() {
                 <FormItem>
                   <FormLabel>Referência (opcional)</FormLabel>
                   <FormControl>
-                    <Input placeholder="X" type="text" {...field} />
+                    <Input placeholder="Ex: Na praça em frente ao mercado" type="text" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
