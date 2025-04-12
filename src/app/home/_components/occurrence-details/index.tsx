@@ -32,10 +32,12 @@ export default function OccurrenceDetails({ data, isOpen, handleOpen }: Props) {
 
   return (
     <Dialog open={isOpen} onOpenChange={handleOpen}>
-      <DialogContent>
+      <DialogContent className="max-w-3xl">
         <DialogHeader>
-          <DialogTitle>{title}</DialogTitle>
-          <DialogDescription>{description}</DialogDescription>
+          <DialogTitle className="text-xl font-semibold">{title}</DialogTitle>
+          <DialogDescription className="text-muted-foreground">
+            Detalhes completos da ocorrência registrada
+          </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4">
