@@ -7,21 +7,13 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import { formatDate } from '@/utils/functions/date'
 import { Occurrence } from '@prisma/client'
 import { useState } from 'react'
 import OccurrenceDetails from './occurrence-details'
 
 interface Props {
   data: Occurrence[] | undefined
-}
-
-const formatDate = (input: Date): string => {
-  const date = new Date(input)
-  const day = String(date.getDate()).padStart(2, '0')
-  const month = String(date.getMonth() + 1).padStart(2, '0')
-  const year = date.getFullYear()
-
-  return `${day}/${month}/${year}`
 }
 
 export default function OccurrencesTable({ data }: Props) {
