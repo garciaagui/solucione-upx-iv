@@ -1,3 +1,4 @@
+import Location from './location'
 import MetaInfo from './meta-info'
 
-export { MetaInfo }
+export { Location, MetaInfo }

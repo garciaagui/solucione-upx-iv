@@ -8,7 +8,7 @@ import {
 import { Separator } from '@/components/ui/separator'
 import { Occurrence } from '@prisma/client'
 import Image from 'next/image'
-import { MetaInfo } from './_components'
+import { Location, MetaInfo } from './_components'
 
 interface Props {
   data: Occurrence
@@ -40,6 +40,7 @@ export default function OccurrenceDetails({ data, isOpen, handleOpen }: Props) {
 
         <div className="space-y-4">
           <MetaInfo createdAt={createdAt} id={id} status={status} />
+
           <Separator />
 
           <div className="overflow-hidden rounded-md">
@@ -56,6 +57,13 @@ export default function OccurrenceDetails({ data, isOpen, handleOpen }: Props) {
             <h3 className="text-base font-medium">Descrição</h3>
             <p className="text-sm text-muted-foreground">{description}</p>
           </div>
+
+          <Location
+            neighborhood={neighborhood}
+            reference={reference}
+            street={street}
+            zipCode={zipCode}
+          />
         </div>
       </DialogContent>
     </Dialog>
