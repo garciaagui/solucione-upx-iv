@@ -1,7 +1,5 @@
 import { z } from 'zod'
 
-const VALID_FORMATS = ['.jpg', '.jpeg', '.png']
-
 export const createOccurrenceSchema = z.object({
   title: z
     .string({
