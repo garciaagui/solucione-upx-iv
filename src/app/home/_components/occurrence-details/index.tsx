@@ -6,6 +6,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { Occurrence } from '@prisma/client'
+import { MetaInfo } from './_components'
 
 interface Props {
   data: Occurrence
@@ -14,7 +15,18 @@ interface Props {
 }
 
 export default function OccurrenceDetails({ data, isOpen, handleOpen }: Props) {
-  const { description, title } = data
+  const {
+    id,
+    title,
+    description,
+    createdAt,
+    image,
+    neighborhood,
+    street,
+    zipCode,
+    reference,
+    status,
+  } = data
 
   return (
     <Dialog open={isOpen} onOpenChange={handleOpen}>
@@ -23,6 +35,10 @@ export default function OccurrenceDetails({ data, isOpen, handleOpen }: Props) {
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
+
+        <div className="space-y-4">
+          <MetaInfo createdAt={createdAt} id={id} status={status} />
+        </div>
       </DialogContent>
     </Dialog>
   )
