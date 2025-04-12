@@ -1,3 +1,4 @@
+import CreateOccurrence from './create-occurrence'
 import OccurrencesTable from './occurrences-table'
 
-export { OccurrencesTable }
+export { CreateOccurrence, OccurrencesTable }
