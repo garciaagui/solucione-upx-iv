@@ -45,7 +45,7 @@ const uploadImage = async (file: File) => {
   const params: PutObjectRequest = {
     Bucket: 'upx',
     Key: 'TESTE1',
-    Body: arrayBuffer,
+    Body: buffer,
     ContentType: file.type,
   }
 
