@@ -19,18 +19,47 @@ import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
 import { Textarea } from '@/components/ui/textarea'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useSession } from 'next-auth/react'
 import { useForm } from 'react-hook-form'
 import { createOccurrenceSchema, CreateOccurrenceType } from './_utils/constants'
 import { zipCodeMask } from './_utils/functions'
 
 export default function CreateOccurrence() {
+  const { data: session } = useSession()
+  const userId = session?.token.user.id
+
   const form = useForm<CreateOccurrenceType>({
     resolver: zodResolver(createOccurrenceSchema),
   })
 
   const { handleSubmit, control } = form
 
-  const create = () => console.log('TESTE')
+  const generateFormData = (occurrenceData: CreateOccurrenceType, userId: number): FormData => {
+    const formData = new FormData()
+
+    formData.set('title', occurrenceData.title)
+    formData.set('description', occurrenceData.description)
+    formData.set('street', occurrenceData.street)
+    formData.set('neighborhood', occurrenceData.neighborhood)
+    formData.set('zipCode', occurrenceData.zipCode)
+    formData.set('image', occurrenceData.image)
+    formData.set('userId', String(userId))
+
+    if (occurrenceData.reference) {
+      formData.set('reference', occurrenceData.reference)
+    }
+
+    return formData
+  }
+
+  const create = async (data: CreateOccurrenceType) => {
+    const formData = generateFormData(data, userId)
+
+    await fetch('/api/occurrences', {
+      method: 'POST',
+      body: formData,
+    })
+  }
 
   return (
     <Dialog>
