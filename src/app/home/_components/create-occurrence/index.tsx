@@ -22,7 +22,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useSession } from 'next-auth/react'
 import { useForm } from 'react-hook-form'
 import { createOccurrenceSchema, CreateOccurrenceType } from './_utils/constants'
-import { zipCodeMask } from './_utils/functions'
+import { generateFormData, zipCodeMask } from './_utils/functions'
 
 export default function CreateOccurrence() {
   const { data: session } = useSession()
@@ -33,24 +33,6 @@ export default function CreateOccurrence() {
   })
 
   const { handleSubmit, control } = form
-
-  const generateFormData = (occurrenceData: CreateOccurrenceType, userId: number): FormData => {
-    const formData = new FormData()
-
-    formData.set('title', occurrenceData.title)
-    formData.set('description', occurrenceData.description)
-    formData.set('street', occurrenceData.street)
-    formData.set('neighborhood', occurrenceData.neighborhood)
-    formData.set('zipCode', occurrenceData.zipCode)
-    formData.set('image', occurrenceData.image)
-    formData.set('userId', String(userId))
-
-    if (occurrenceData.reference) {
-      formData.set('reference', occurrenceData.reference)
-    }
-
-    return formData
-  }
 
   const create = async (data: CreateOccurrenceType) => {
     const formData = generateFormData(data, userId)
