@@ -26,7 +26,7 @@ import { zipCodeMask } from './_utils/functions'
 
 export default function CreateOccurrence() {
   const { data: session } = useSession()
-  const userId = session?.token.user.id
+  const userId = Number(session?.token.user.id)
 
   const form = useForm<CreateOccurrenceType>({
     resolver: zodResolver(createOccurrenceSchema),
