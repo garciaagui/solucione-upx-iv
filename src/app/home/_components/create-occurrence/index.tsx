@@ -18,7 +18,9 @@ import {
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
 import { Textarea } from '@/components/ui/textarea'
+import { QUERY_KEYS } from '@/constants/query-keys'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useSession } from 'next-auth/react'
 import { useForm } from 'react-hook-form'
 import { createOccurrenceSchema, CreateOccurrenceType } from './_utils/constants'
@@ -26,6 +28,7 @@ import { generateFormData, zipCodeMask } from './_utils/functions'
 
 export default function CreateOccurrence() {
   const { data: session } = useSession()
+  const queryClient = useQueryClient()
   const userId = Number(session?.token.user.id)
 
   const form = useForm<CreateOccurrenceType>({
@@ -34,13 +37,23 @@ export default function CreateOccurrence() {
 
   const { handleSubmit, control } = form
 
-  const create = async (data: CreateOccurrenceType) => {
-    const formData = generateFormData(data, userId)
+  const createMutation = useMutation({
+    mutationFn: async (data: CreateOccurrenceType) => {
+      const formData = generateFormData(data, userId)
+      await fetch('/api/occurrences', {
+        method: 'POST',
+        body: formData,
+      })
+    },
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.OCCURRENCES],
+      })
+    },
+  })
 
-    await fetch('/api/occurrences', {
-      method: 'POST',
-      body: formData,
-    })
+  const handleCreation = (formData: CreateOccurrenceType) => {
+    createMutation.mutate(formData)
   }
 
   return (
@@ -58,7 +71,7 @@ export default function CreateOccurrence() {
         </DialogHeader>
 
         <Form {...form}>
-          <form onSubmit={handleSubmit(create)} id="create-occurrence-form">
+          <form onSubmit={handleSubmit(handleCreation)} id="create-occurrence-form">
             <FormField
               control={control}
               name="title"
