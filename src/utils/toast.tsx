@@ -10,13 +10,13 @@ interface ToastOptions {
 
 function showToast({ message, title, color, icon: Icon }: ToastOptions) {
   toast(
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-2">
       <div className="flex gap-2">
         <Icon width={20} height={20} className={`text-${color}`} />
         <span className="text-sm font-medium">{title}</span>
       </div>
 
-      <span className="text-sm">{message}</span>
+      <span className="text-sm text-muted-foreground">{message}</span>
     </div>,
     {
       style: {
