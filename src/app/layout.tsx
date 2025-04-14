@@ -1,5 +1,6 @@
 import AppSidebar from '@/components/app-sidebar'
-import { SidebarProvider } from '@/components/ui/sidebar'
+import Header from '@/components/header'
+import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
 import { Toaster } from '@/components/ui/sonner'
 import { QueryProvider } from '@/contexts/query-provider'
 import SessionProvider from '@/contexts/session-provider'
@@ -39,7 +40,10 @@ export default function RootLayout({
           <QueryProvider>
             <SidebarProvider defaultOpen={defaultOpen}>
               <AppSidebar />
-              <main className="w-full">{children}</main>
+              <SidebarInset>
+                <Header />
+                <main className="w-full p-4">{children}</main>
+              </SidebarInset>
             </SidebarProvider>
           </QueryProvider>
           <Toaster duration={3000} expand={true} />
