@@ -1,4 +1,4 @@
-import { Badge } from '@/components/ui/badge'
+import StatusBadge from '@/components/status-badge'
 import {
   Table,
   TableBody,
@@ -59,7 +59,7 @@ export default function OccurrencesTable({ data }: Props) {
                   <TableCell>{title}</TableCell>
                   <TableCell>{formattedDate}</TableCell>
                   <TableCell>
-                    <Badge>{status}</Badge>
+                    <StatusBadge status={status} />
                   </TableCell>
                   <TableCell>{neighborhood}</TableCell>
                   <TableCell>{street}</TableCell>
