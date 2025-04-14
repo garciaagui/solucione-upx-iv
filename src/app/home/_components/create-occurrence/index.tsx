@@ -22,11 +22,15 @@ import { QUERY_KEYS } from '@/constants/query-keys'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useSession } from 'next-auth/react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { createOccurrenceSchema, CreateOccurrenceType } from './_utils/constants'
 import { generateFormData, zipCodeMask } from './_utils/functions'
 
 export default function CreateOccurrence() {
+  const [isOpen, setIsOpen] = useState(false)
+  const [loading, setLoading] = useState(false)
+
   const { data: session } = useSession()
   const queryClient = useQueryClient()
   const userId = Number(session?.token.user.id)
@@ -39,6 +43,7 @@ export default function CreateOccurrence() {
 
   const createMutation = useMutation({
     mutationFn: async (data: CreateOccurrenceType) => {
+      setLoading(true)
       const formData = generateFormData(data, userId)
       await fetch('/api/occurrences', {
         method: 'POST',
@@ -49,6 +54,10 @@ export default function CreateOccurrence() {
       await queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.OCCURRENCES],
       })
+      setIsOpen(false)
+    },
+    onSettled: () => {
+      setLoading(false)
     },
   })
 
@@ -57,7 +66,7 @@ export default function CreateOccurrence() {
   }
 
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button variant="default">Abrir reclamação</Button>
       </DialogTrigger>
