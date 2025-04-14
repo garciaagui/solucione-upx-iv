@@ -1,4 +1,4 @@
-import { Badge } from '@/components/ui/badge'
+import StatusBadge from '@/components/status-badge'
 import { formatDate } from '@/utils/functions/date'
 import { Status } from '@prisma/client'
 import { CalendarDays, Hash } from 'lucide-react'
@@ -22,7 +22,7 @@ export default function MetaInfo({ createdAt, id, status }: Props) {
         <span>ID: {id}</span>
       </div>
 
-      <Badge>{status}</Badge>
+      <StatusBadge status={status} />
     </div>
   )
 }
