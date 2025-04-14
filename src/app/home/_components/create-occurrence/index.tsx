@@ -1,3 +1,4 @@
+import ConfirmDialog from '@/components/confirm-dialog'
 import LoadingMessage from '@/components/loading-message'
 import { Button } from '@/components/ui/button'
 import {
@@ -21,6 +22,7 @@ import { generateFormData, requestOccurrenceCreation } from './_utils/functions'
 export default function CreateOccurrence() {
   const [isOpen, setIsOpen] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false)
 
   const { data: session } = useSession()
   const queryClient = useQueryClient()
@@ -40,7 +42,27 @@ export default function CreateOccurrence() {
     },
   })
 
-  const { reset } = form
+  const { reset, watch } = form
+
+  const formFields = watch()
+  const hasFilledFields = Object.values(formFields).some((value) =>
+    typeof value === 'string' ? value.trim() !== '' : !!value,
+  )
+
+  const handleDialogOpenChange = (open: boolean) => {
+    if (!open && hasFilledFields && !loading) {
+      setShowConfirmDialog(true)
+    } else if (!loading) {
+      setIsOpen(open)
+      if (!open) reset()
+    }
+  }
+
+  const closeConfirmDialog = () => {
+    setShowConfirmDialog(false)
+    setIsOpen(false)
+    reset()
+  }
 
   const createMutation = useMutation({
     mutationFn: async (data: CreateOccurrenceType) => {
@@ -64,33 +86,36 @@ export default function CreateOccurrence() {
     createMutation.mutate(formData)
   }
 
-  const handleOpen = () => {
-    if (!loading) {
-      setIsOpen(!isOpen)
-      reset()
-    }
-  }
-
   return (
-    <Dialog open={isOpen} onOpenChange={handleOpen}>
-      <DialogTrigger asChild>
-        <Button variant="default">Abrir reclamação</Button>
-      </DialogTrigger>
+    <>
+      <Dialog open={isOpen} onOpenChange={handleDialogOpenChange}>
+        <DialogTrigger asChild>
+          <Button variant="default">Abrir reclamação</Button>
+        </DialogTrigger>
 
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle className="text-2xl font-semibold">Nova reclamação</DialogTitle>
-          <DialogDescription className="text-muted-foreground">
-            Preencha os campos abaixo para registrar uma nova ocorrência
-          </DialogDescription>
-        </DialogHeader>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-semibold">Nova reclamação</DialogTitle>
+            <DialogDescription className="text-muted-foreground">
+              Preencha os campos abaixo para registrar uma nova ocorrência
+            </DialogDescription>
+          </DialogHeader>
 
-        <Form form={form} loading={loading} handleCreation={handleCreation} />
+          <Form form={form} loading={loading} handleCreation={handleCreation} />
 
-        <Button disabled={loading} form="create-occurrence-form" type="submit">
-          {!loading ? 'Finalizar' : <LoadingMessage message="Criando..." />}
-        </Button>
-      </DialogContent>
-    </Dialog>
+          <Button disabled={loading} form="create-occurrence-form" type="submit">
+            {!loading ? 'Finalizar' : <LoadingMessage message="Criando..." />}
+          </Button>
+        </DialogContent>
+      </Dialog>
+
+      <ConfirmDialog
+        open={showConfirmDialog}
+        description="Há informações preenchidas. Deseja sair?"
+        title="Descartar dados?"
+        onConfirm={closeConfirmDialog}
+        onOpenChange={setShowConfirmDialog}
+      />
+    </>
   )
 }
