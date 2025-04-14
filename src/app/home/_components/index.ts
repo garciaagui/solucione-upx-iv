@@ -1,4 +1,4 @@
-import CreateOccurrence from './create-occurrence'
+import DialogButton from './dialog-button'
 import OccurrencesTable from './occurrences-table'
 
-export { CreateOccurrence, OccurrencesTable }
+export { DialogButton, OccurrencesTable }

@@ -1,6 +1,6 @@
 'use client'
 
-import { CreateOccurrence, OccurrencesTable } from './_components'
+import { DialogButton, OccurrencesTable } from './_components'
 import { useOccurrences } from './_utils/useOccurrences'
 
 export default function Home() {
@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <div>
       <h1>Início</h1>
-      <CreateOccurrence />
+      <DialogButton />
       <OccurrencesTable data={data} />
     </div>
   )

@@ -1,40 +1,17 @@
-import { NextRequestWithAuth, withAuth } from 'next-auth/middleware'
+import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
 
-export default withAuth(
-  function middleware(req: NextRequestWithAuth) {
-    const BASE_URL = req.url
-    const CURRENT_URL = req.nextUrl.pathname
+export async function middleware(req: NextRequest) {
+  const BASE_URL = req.url
+  const CURRENT_URL = req.nextUrl.pathname
 
-    if (CURRENT_URL === '/') {
-      return NextResponse.redirect(new URL('/home', BASE_URL))
-    }
-  },
-  {
-    pages: {
-      signIn: '/auth/login',
-    },
+  if (CURRENT_URL === '/') {
+    return NextResponse.redirect(new URL('/home', BASE_URL))
+  }
 
-    callbacks: {
-      async authorized(data) {
-        const token = data.token
-
-        if (token) return true
-        else return false
-      },
-    },
-  },
-)
+  return NextResponse.next()
+}
 
 export const config = {
-  matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - api (API routes)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     */
-    '/((?!api|_next/static|_next/image|favicon.ico).*)',
-  ],
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
 }
