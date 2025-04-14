@@ -64,8 +64,15 @@ export default function CreateOccurrence() {
     createMutation.mutate(formData)
   }
 
+  const handleOpen = () => {
+    if (!loading) {
+      setIsOpen(!isOpen)
+      reset()
+    }
+  }
+
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog open={isOpen} onOpenChange={handleOpen}>
       <DialogTrigger asChild>
         <Button variant="default">Abrir reclamação</Button>
       </DialogTrigger>
