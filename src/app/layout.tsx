@@ -1,3 +1,4 @@
+import { Toaster } from '@/components/ui/sonner'
 import { QueryProvider } from '@/contexts/query-provider'
 import SessionProvider from '@/contexts/session-provider'
 import type { Metadata } from 'next'
@@ -30,6 +31,7 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <SessionProvider>
           <QueryProvider>{children}</QueryProvider>
+          <Toaster toastOptions={{ duration: 3000 }} />
         </SessionProvider>
       </body>
     </html>
