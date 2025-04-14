@@ -25,7 +25,7 @@ import { useSession } from 'next-auth/react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { createOccurrenceSchema, CreateOccurrenceType } from './_utils/constants'
-import { generateFormData, zipCodeMask } from './_utils/functions'
+import { generateFormData, requestOccurrenceCreation, zipCodeMask } from './_utils/functions'
 
 export default function CreateOccurrence() {
   const [isOpen, setIsOpen] = useState(false)
@@ -45,10 +45,7 @@ export default function CreateOccurrence() {
     mutationFn: async (data: CreateOccurrenceType) => {
       setLoading(true)
       const formData = generateFormData(data, userId)
-      await fetch('/api/occurrences', {
-        method: 'POST',
-        body: formData,
-      })
+      await requestOccurrenceCreation(formData)
     },
     onSuccess: async () => {
       await queryClient.invalidateQueries({

@@ -27,3 +27,10 @@ export const generateFormData = (data: CreateOccurrenceType, userId: number): Fo
 
   return formData
 }
+
+export const requestOccurrenceCreation = async (data: FormData) => {
+  await fetch('/api/occurrences', {
+    method: 'POST',
+    body: data,
+  })
+}
