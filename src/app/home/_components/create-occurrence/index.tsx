@@ -10,6 +10,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 import { QUERY_KEYS } from '@/constants/query-keys'
+import { ToastError, ToastSuccess } from '@/utils/toast'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useSession } from 'next-auth/react'
@@ -76,6 +77,10 @@ export default function CreateOccurrence() {
       })
       setIsOpen(false)
       reset()
+      ToastSuccess('Reclamação registrada com sucesso')
+    },
+    onError: (error) => {
+      ToastError(error.message)
     },
     onSettled: () => {
       setLoading(false)
