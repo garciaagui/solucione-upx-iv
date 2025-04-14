@@ -1,3 +1,5 @@
+import AppSidebar from '@/components/app-sidebar'
+import { SidebarProvider } from '@/components/ui/sidebar'
 import { Toaster } from '@/components/ui/sonner'
 import { QueryProvider } from '@/contexts/query-provider'
 import SessionProvider from '@/contexts/session-provider'
@@ -30,7 +32,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <SessionProvider>
-          <QueryProvider>{children}</QueryProvider>
+          <QueryProvider>
+            <SidebarProvider>
+              <AppSidebar />
+              <main className="w-full">{children}</main>
+            </SidebarProvider>
+          </QueryProvider>
           <Toaster duration={3000} expand={true} />
         </SessionProvider>
       </body>
