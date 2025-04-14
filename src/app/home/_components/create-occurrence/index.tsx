@@ -1,3 +1,4 @@
+import LoadingMessage from '@/components/loading-message'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -201,8 +202,8 @@ export default function CreateOccurrence() {
           </form>
         </Form>
 
-        <Button type="submit" form="create-occurrence-form">
-          Finalizar
+        <Button disabled={loading} form="create-occurrence-form" type="submit">
+          {!loading ? 'Finalizar' : <LoadingMessage message="Criando..." />}
         </Button>
       </DialogContent>
     </Dialog>
