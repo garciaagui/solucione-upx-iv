@@ -1,3 +1,4 @@
 import Header from './header'
+import MenuItems from './menu-items'
 
-export { Header }
+export { Header, MenuItems }
