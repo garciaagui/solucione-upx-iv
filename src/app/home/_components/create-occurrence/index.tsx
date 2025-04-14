@@ -38,9 +38,18 @@ export default function CreateOccurrence() {
 
   const form = useForm<CreateOccurrenceType>({
     resolver: zodResolver(createOccurrenceSchema),
+    defaultValues: {
+      description: '',
+      image: undefined,
+      neighborhood: '',
+      reference: '',
+      street: '',
+      title: '',
+      zipCode: '',
+    },
   })
 
-  const { handleSubmit, control } = form
+  const { handleSubmit, control, reset } = form
 
   const createMutation = useMutation({
     mutationFn: async (data: CreateOccurrenceType) => {
@@ -53,6 +62,7 @@ export default function CreateOccurrence() {
         queryKey: [QUERY_KEYS.OCCURRENCES],
       })
       setIsOpen(false)
+      reset()
     },
     onSettled: () => {
       setLoading(false)
