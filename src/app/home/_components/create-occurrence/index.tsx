@@ -7,7 +7,6 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from '@/components/ui/dialog'
 import { QUERY_KEYS } from '@/constants/query-keys'
 import { ToastError, ToastSuccess } from '@/utils/toast'
@@ -20,8 +19,12 @@ import { Form } from './_components'
 import { createOccurrenceSchema, CreateOccurrenceType } from './_utils/constants'
 import { generateFormData, requestOccurrenceCreation } from './_utils/functions'
 
-export default function CreateOccurrence() {
-  const [isOpen, setIsOpen] = useState(false)
+interface Props {
+  isOpen: boolean
+  handleOpen: (open: boolean) => void
+}
+
+export default function CreateOccurrence({ isOpen, handleOpen }: Props) {
   const [loading, setLoading] = useState(false)
   const [showConfirmDialog, setShowConfirmDialog] = useState(false)
 
@@ -54,14 +57,14 @@ export default function CreateOccurrence() {
     if (!open && hasFilledFields && !loading) {
       setShowConfirmDialog(true)
     } else if (!loading) {
-      setIsOpen(open)
+      handleOpen(open)
       if (!open) reset()
     }
   }
 
   const closeConfirmDialog = () => {
     setShowConfirmDialog(false)
-    setIsOpen(false)
+    handleOpen(false)
     reset()
   }
 
@@ -75,7 +78,7 @@ export default function CreateOccurrence() {
       await queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.OCCURRENCES],
       })
-      setIsOpen(false)
+      handleOpen(false)
       reset()
       ToastSuccess('Reclamação registrada com sucesso')
     },
@@ -94,10 +97,6 @@ export default function CreateOccurrence() {
   return (
     <>
       <Dialog open={isOpen} onOpenChange={handleDialogOpenChange}>
-        <DialogTrigger asChild>
-          <Button variant="default">Abrir reclamação</Button>
-        </DialogTrigger>
-
         <DialogContent>
           <DialogHeader>
             <DialogTitle className="text-2xl font-semibold">Nova reclamação</DialogTitle>
