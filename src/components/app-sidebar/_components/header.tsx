@@ -8,7 +8,7 @@ export default function Header() {
   return (
     <SidebarHeader
       className={clsx(
-        'flex items-center justify-between border-b pb-4 transition-all duration-300',
+        'flex items-center justify-between gap-2 border-b pb-4 transition-all duration-300',
         open ? 'flex-row' : 'flex-col',
       )}
     >
