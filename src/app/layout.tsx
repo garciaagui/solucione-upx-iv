@@ -5,6 +5,7 @@ import { QueryProvider } from '@/contexts/query-provider'
 import SessionProvider from '@/contexts/session-provider'
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
+import { cookies } from 'next/headers'
 import './globals.css'
 
 const geistSans = localFont({
@@ -28,12 +29,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const cookieStore = cookies()
+  const defaultOpen = cookieStore.get('sidebar_state')?.value === 'true'
+
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <SessionProvider>
           <QueryProvider>
-            <SidebarProvider>
+            <SidebarProvider defaultOpen={defaultOpen}>
               <AppSidebar />
               <main className="w-full">{children}</main>
             </SidebarProvider>
