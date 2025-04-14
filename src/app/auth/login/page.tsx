@@ -10,6 +10,7 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { ToastError, ToastSuccess } from '@/utils/toast'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { signIn, SignInResponse } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
@@ -37,8 +38,10 @@ export default function Login() {
     const { ok, error } = response
 
     if (ok) {
+      ToastSuccess('Login bem-sucedido!')
       router.push('/home')
     } else if (!ok && error) {
+      ToastError(error)
       console.log(error)
     }
   }
