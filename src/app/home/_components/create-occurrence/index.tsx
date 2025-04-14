@@ -78,7 +78,7 @@ export default function CreateOccurrence() {
           </DialogDescription>
         </DialogHeader>
 
-        <Form form={form} handleCreation={handleCreation} />
+        <Form form={form} loading={loading} handleCreation={handleCreation} />
 
         <Button disabled={loading} form="create-occurrence-form" type="submit">
           {!loading ? 'Finalizar' : <LoadingMessage message="Criando..." />}
