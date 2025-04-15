@@ -1,7 +1,7 @@
 'use client'
 
 import { Sidebar, SidebarContent, SidebarSeparator } from '@/components/ui/sidebar'
-import { MenuItems } from './_components'
+import { Footer, MenuItems } from './_components'
 
 export default function AppSidebar() {
   return (
@@ -9,8 +9,8 @@ export default function AppSidebar() {
       <SidebarContent>
         <MenuItems />
       </SidebarContent>
-
       <SidebarSeparator />
+      <Footer />
     </Sidebar>
   )
 }

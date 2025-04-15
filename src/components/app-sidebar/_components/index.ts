@@ -1,3 +1,4 @@
+import Footer from './footer'
 import MenuItems from './menu-items'
 
-export { MenuItems }
+export { Footer, MenuItems }
