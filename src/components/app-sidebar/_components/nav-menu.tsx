@@ -17,7 +17,7 @@ const items = [
   },
 ]
 
-export default function MenuItems() {
+export default function NavMenu() {
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Navegação</SidebarGroupLabel>
