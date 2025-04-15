@@ -1,6 +1,6 @@
 'use client'
 
-import { CreateOccurrence } from '@/app/home/_components/actions-grid/_components'
+import CreateOccurrence from '@/components/create-occurrence'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { BookPlus } from 'lucide-react'
 import { useSession } from 'next-auth/react'

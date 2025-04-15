@@ -1,6 +1,6 @@
 import { BookPlus } from 'lucide-react'
 
-import { CreateOccurrence } from '@/app/home/_components/actions-grid/_components'
+import CreateOccurrence from '@/components/create-occurrence'
 import LoginDialog from '@/components/login-dialog'
 import {
   SidebarGroup,
