@@ -1,13 +1,15 @@
 import 'next-auth'
 
 declare module 'next-auth' {
+  type UserSession = {
+    id: string
+    name: string
+    email: string
+  }
+
   type Session = {
     token: {
-      user: {
-        id: string
-        name: string
-        email: string
-      }
+      user: UserSession
       exp: int
       iat: int
       jti: string
