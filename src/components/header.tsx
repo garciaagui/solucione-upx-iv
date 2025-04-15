@@ -1,7 +1,8 @@
 'use client'
 
 import CreateOccurrence from '@/components/create-occurrence'
-import { SidebarTrigger } from '@/components/ui/sidebar'
+import { SidebarTrigger, useSidebar } from '@/components/ui/sidebar'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { BookPlus } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import { useState } from 'react'
@@ -32,10 +33,22 @@ function CreateOccurrenceButton() {
 }
 
 export default function Header() {
+  const { open } = useSidebar()
+
   return (
     <div className="sticky top-0 z-10 flex shrink-0 items-center gap-8 border-b bg-background p-4">
       <div className="flex items-center gap-2">
-        <SidebarTrigger />
+        <TooltipProvider delayDuration={100}>
+          <Tooltip>
+            <TooltipTrigger>
+              <SidebarTrigger />
+            </TooltipTrigger>
+
+            <TooltipContent>
+              <p>{open ? 'Recolher menu' : 'Expandir menu'}</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
 
         <span className="text-2xl font-semibold tracking-tight text-primary">Solucione</span>
       </div>
