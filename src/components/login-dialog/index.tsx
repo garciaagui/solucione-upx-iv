@@ -74,7 +74,7 @@ export default function LoginDialog({ isOpen, handleOpen }: Props) {
 
   return (
     <Dialog open={isOpen} onOpenChange={handleDialogOpenChange}>
-      <DialogContent>
+      <DialogContent className="max-w-full sm:max-w-lg">
         <DialogHeader>
           <DialogTitle className="text-2xl font-semibold">Login</DialogTitle>
           <DialogDescription>Insira suas credenciais para acessar a plataforma</DialogDescription>
@@ -112,7 +112,7 @@ export default function LoginDialog({ isOpen, handleOpen }: Props) {
               )}
             />
 
-            <Button disabled={loading} type="submit" className="mt-2 w-full">
+            <Button disabled={loading} type="submit" className="mt-2">
               {!loading ? 'Entrar' : <LoadingMessage message="Entrando..." />}
             </Button>
           </form>
