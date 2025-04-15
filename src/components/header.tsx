@@ -40,7 +40,7 @@ export default function Header() {
       <div className="flex items-center gap-2">
         <TooltipProvider delayDuration={100}>
           <Tooltip>
-            <TooltipTrigger>
+            <TooltipTrigger asChild>
               <SidebarTrigger />
             </TooltipTrigger>
 
