@@ -1,10 +1,11 @@
 import LoginDialog from '@/components/login-dialog'
 import { Button } from '@/components/ui/button'
+import { SquareArrowOutUpRight } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import { useState } from 'react'
-import CreateOccurrence from './create-occurrence'
+import { CreateOccurrence } from './_components'
 
-export default function DialogButton() {
+export default function ActionsGrid() {
   const [openDialog, setOpenDialog] = useState(false)
   const { status } = useSession()
 
@@ -12,7 +13,12 @@ export default function DialogButton() {
 
   return (
     <>
-      <Button onClick={() => setOpenDialog(!openDialog)}>Abrir reclamação</Button>
+      <div>
+        <Button variant="outline" onClick={() => setOpenDialog(!openDialog)}>
+          <SquareArrowOutUpRight />
+          <span>Abrir reclamação</span>
+        </Button>
+      </div>
 
       {isLoggedIn ? (
         <CreateOccurrence isOpen={openDialog} handleOpen={setOpenDialog} />

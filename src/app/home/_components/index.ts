@@ -1,4 +1,4 @@
-import DialogButton from './dialog-button'
-import OccurrencesTable from './occurrences-table'
+import ActionsGrid from './actions-grid'
+import OccurrencesGrid from './occurrences-grid'
 
-export { DialogButton, OccurrencesTable }
+export { ActionsGrid, OccurrencesGrid }
