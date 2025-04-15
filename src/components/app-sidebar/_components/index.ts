@@ -1,4 +1,5 @@
+import ActionsMenu from './actions-menu'
 import Footer from './footer'
-import MenuItems from './menu-items'
+import NavMenu from './nav-menu'
 
-export { Footer, MenuItems }
+export { ActionsMenu, Footer, NavMenu }
