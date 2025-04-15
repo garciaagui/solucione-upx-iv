@@ -26,7 +26,7 @@ function UserInfo({ user }: Props) {
   const { email, name } = user
 
   return (
-    <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
+    <div className="flex items-center gap-2 text-left text-sm">
       <AvatarContainer className="h-8 w-8 rounded-lg">
         <AvatarImage
           src={`https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(name)}`}
@@ -116,7 +116,7 @@ export default function Menu({ user }: Props) {
           align="end"
           sideOffset={4}
         >
-          <DropdownMenuLabel className="p-0 font-normal">
+          <DropdownMenuLabel className="p-0 px-1 py-1.5 font-normal">
             <UserInfo user={user} />
           </DropdownMenuLabel>
 
