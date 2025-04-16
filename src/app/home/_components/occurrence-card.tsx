@@ -25,16 +25,16 @@ function ImageContainer({ title, url, username }: ImageContainerProps) {
 
       {url && (
         <>
-          <div className="group">
+          <div className="group relative h-64 w-full overflow-hidden transition-transform duration-300 hover:scale-105">
             <Image
               src={url}
               alt={`Imagem da ocorrência: ${title}`}
               fill
               onLoad={() => setIsLoaded(true)}
               onError={() => setIsLoaded(true)}
-              className="object-cover transition-transform duration-300 group-hover:scale-105"
+              className="object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent transition-transform duration-300 group-hover:scale-105" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
           </div>
 
           <div className="absolute bottom-3 left-4 z-10 text-white">
