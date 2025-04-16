@@ -53,12 +53,7 @@ function Component({ isOpen, handleOpen }: Props) {
     },
   })
 
-  const { handleSubmit, reset, watch } = form
-
-  const formFields = watch()
-  const hasFilledFields = Object.values(formFields).some((value) =>
-    typeof value === 'string' ? value.trim() !== '' : !!value,
-  )
+  const { handleSubmit, reset, formState } = form
 
   const resetForm = () => {
     reset()
@@ -66,6 +61,8 @@ function Component({ isOpen, handleOpen }: Props) {
   }
 
   const handleDialogOpenChange = (open: boolean) => {
+    const hasFilledFields = formState.isDirty
+
     if (!open && hasFilledFields && !loading) {
       setShowConfirmDialog(true)
     } else if (!loading) {
