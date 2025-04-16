@@ -1,22 +1,18 @@
 import StatusBadge from '@/components/status-badge'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
+import { OccurrenceWithRelations } from '@/types/globals'
 import { formatDate } from '@/utils/functions/date'
-import { Occurrence } from '@prisma/client'
 import Image from 'next/image'
 
 interface Props {
-  data: Occurrence
-  onClick?: () => void
+  data: OccurrenceWithRelations
 }
 
-export default function OccurrenceCard({ data, onClick }: Props) {
+export default function OccurrenceCard({ data }: Props) {
   const { title, createdAt, status, neighborhood, street, image } = data
 
   return (
-    <Card
-      className="mx-auto w-full max-w-2xl overflow-hidden border border-muted bg-background shadow-sm"
-      onClick={onClick}
-    >
+    <Card className="mx-auto w-full max-w-2xl overflow-hidden border border-muted bg-background shadow-sm">
       {image && (
         <div className="relative h-[400px] w-full">
           <Image src={image} alt={title} fill className="object-cover" />
