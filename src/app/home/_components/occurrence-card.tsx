@@ -3,7 +3,7 @@ import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 import { OccurrenceWithRelations } from '@/types/globals'
 import { formatDate } from '@/utils/functions/date'
-import { ArrowRight, CalendarDays, MapPin, User2 } from 'lucide-react'
+import { ArrowRight, CalendarDays, CameraOff, MapPin, User2 } from 'lucide-react'
 import Image from 'next/image'
 import { useState } from 'react'
 
@@ -16,8 +16,18 @@ interface ImageContainerProps {
   username: string
 }
 
-function ImageContainer({ title, url, username }: ImageContainerProps) {
+function ImageFallback() {
+  return (
+    <div className="flex h-full w-full items-center justify-center gap-2 bg-zinc-800 text-white">
+      <CameraOff size={14} />
+      <span className="text-sm">Erro ao carregar imagem</span>
+    </div>
+  )
+}
+
+export function ImageContainer({ title, url, username }: ImageContainerProps) {
   const [isLoaded, setIsLoaded] = useState(false)
+  const [hasError, setHasError] = useState(false)
 
   const handleImageLoad = () => {
     setTimeout(() => {
@@ -25,21 +35,31 @@ function ImageContainer({ title, url, username }: ImageContainerProps) {
     }, 500)
   }
 
+  const handleImageError = () => {
+    setHasError(true)
+    setIsLoaded(true)
+  }
+
   if (!url) return null
 
   return (
     <div className="relative h-64 w-full overflow-hidden">
-      {!isLoaded && <Skeleton className="h-64 w-full object-cover" />}
+      {!isLoaded && <Skeleton className="h-full w-full object-cover" />}
 
-      <div className="group relative h-64 w-full transition-transform duration-300 hover:scale-105">
-        <Image
-          src={url}
-          alt={`Imagem da ocorrência: ${title}`}
-          fill
-          onLoad={handleImageLoad}
-          onError={handleImageLoad}
-          className="object-cover"
-        />
+      <div className="group relative h-full w-full transition-transform duration-300 hover:scale-105">
+        {!hasError ? (
+          <Image
+            src={url}
+            alt={`Imagem da ocorrência: ${title}`}
+            fill
+            onLoad={handleImageLoad}
+            onError={handleImageError}
+            className="object-cover"
+          />
+        ) : (
+          <ImageFallback />
+        )}
+
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
       </div>
 
@@ -55,6 +75,7 @@ function ImageContainer({ title, url, username }: ImageContainerProps) {
     </div>
   )
 }
+
 export default function OccurrenceCard({ data }: Props) {
   const { title, createdAt, status, neighborhood, street, image, user } = data
 
