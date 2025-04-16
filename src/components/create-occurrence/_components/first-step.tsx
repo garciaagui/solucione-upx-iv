@@ -16,7 +16,7 @@ export default function FirstStep({ form, closeDialog }: Props) {
   const { nextStep } = useStepper()
 
   const handleNextStep = async () => {
-    const isValid = await trigger('firstStep')
+    const isValid = await trigger('firstStep', { shouldFocus: true })
 
     if (isValid) {
       nextStep()
