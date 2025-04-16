@@ -21,7 +21,7 @@ function ImageContainer({ title, url, username }: ImageContainerProps) {
 
   return (
     <div className="relative h-64 w-full">
-      {!isLoaded && <Skeleton className="-64 w-full object-cover" />}
+      {!isLoaded && <Skeleton className="h-64 w-full object-cover" />}
 
       {url && (
         <>
