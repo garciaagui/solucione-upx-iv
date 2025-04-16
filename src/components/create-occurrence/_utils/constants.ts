@@ -61,4 +61,10 @@ export const createOccurrenceSchema = z.object({
   thirdStep: thirdStepSchema,
 })
 
+export const steps = [
+  { step: 1, label: 'Descrição' },
+  { step: 2, label: 'Localização' },
+  { step: 3, label: 'Imagem' },
+]
+
 export type CreateOccurrenceType = z.infer<typeof createOccurrenceSchema>

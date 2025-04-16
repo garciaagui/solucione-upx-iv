@@ -15,8 +15,9 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useSession } from 'next-auth/react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import StepperProgress from '../stepper-progress'
 import { FirstStep, SecondStep, ThirdStep } from './_components'
-import { createOccurrenceSchema, CreateOccurrenceType } from './_utils/constants'
+import { createOccurrenceSchema, CreateOccurrenceType, steps } from './_utils/constants'
 import { generateFormData, requestOccurrenceCreation } from './_utils/functions'
 
 interface Props {
@@ -124,9 +125,14 @@ function Component({ isOpen, handleOpen }: Props) {
         <DialogContent>
           <DialogHeader>
             <DialogTitle className="text-2xl font-semibold">Nova reclamação</DialogTitle>
+
             <DialogDescription className="text-muted-foreground">
               Preencha os campos abaixo para registrar uma nova ocorrência
             </DialogDescription>
+
+            <div className="pt-2">
+              <StepperProgress currentStep={currentStep} stepsArray={steps} />
+            </div>
           </DialogHeader>
 
           <Form {...form}>
