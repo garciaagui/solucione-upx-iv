@@ -2,8 +2,7 @@
 
 import { useOccurrences } from '@/hooks/use-occurrences'
 import { useSession } from 'next-auth/react'
-import { OccurrenceCard } from './_components'
-import { SkeletonCard } from './_components/skeleton-card'
+import { OccurrenceCard, SkeletonCard } from './_components'
 
 export default function Home() {
   const { data, isLoading: isLoadingData } = useOccurrences()
