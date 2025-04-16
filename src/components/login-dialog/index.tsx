@@ -74,7 +74,7 @@ export default function LoginDialog({ isOpen, handleOpen }: Props) {
 
   return (
     <Dialog open={isOpen} onOpenChange={handleDialogOpenChange}>
-      <DialogContent className="max-w-full sm:max-w-lg">
+      <DialogContent>
         <DialogHeader>
           <DialogTitle className="text-2xl font-semibold">Login</DialogTitle>
           <DialogDescription>Insira suas credenciais para acessar a plataforma</DialogDescription>
