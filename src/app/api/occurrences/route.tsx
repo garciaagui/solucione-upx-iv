@@ -26,17 +26,13 @@ export async function GET(): Promise<NextResponse> {
       { status: 200 },
     )
   } catch (error: unknown) {
-    if (error instanceof HttpException) {
-      const { message, status } = error
-      console.error(message, status)
+    const message =
+      error instanceof HttpException ? error.message : 'Erro inesperado ao buscar ocorrências'
+    const status = error instanceof HttpException ? error.status : 500
 
-      return NextResponse.json({ message }, { status })
-    } else {
-      const message = 'Erro inesperado ao buscar ocorrências'
-      console.error(message, error)
+    console.error(message, error)
 
-      return NextResponse.json({ message }, { status: 500 })
-    }
+    return NextResponse.json({ message }, { status })
   }
 }
 
