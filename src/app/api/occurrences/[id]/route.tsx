@@ -1,7 +1,8 @@
 import prisma from '@/lib/prisma'
 import { OccurrenceWithRelations } from '@/types/globals'
-import { HttpException, NotFoundException } from '@/utils/exceptions'
+import { NotFoundException } from '@/utils/exceptions'
 import { NextRequest, NextResponse } from 'next/server'
+import { handleError } from '../functions'
 
 export const dynamic = 'force-dynamic'
 
@@ -32,12 +33,6 @@ export async function GET(_req: NextRequest, { params }: ParamsType): Promise<Ne
       { status: 200 },
     )
   } catch (error: unknown) {
-    const message =
-      error instanceof HttpException ? error.message : 'Erro inesperado ao buscar ocorrência'
-    const status = error instanceof HttpException ? error.status : 500
-
-    console.error(message, error)
-
-    return NextResponse.json({ message }, { status })
+    return handleError(error)
   }
 }
