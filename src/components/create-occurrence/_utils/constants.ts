@@ -10,8 +10,7 @@ const firstStepSchema = z.object({
     })
     .max(127, {
       message: 'O título pode ter no máximo 127 caracteres',
-    })
-    .toLowerCase(),
+    }),
   description: z
     .string({
       required_error: 'A descrição é obrigatória',
@@ -31,8 +30,7 @@ const secondStepSchema = z.object({
     })
     .min(1, {
       message: 'Insira o bairro',
-    })
-    .toLowerCase(),
+    }),
   zipCode: z
     .string({
       required_error: 'O CEP é obrigatório',
@@ -47,9 +45,8 @@ const secondStepSchema = z.object({
     })
     .min(1, {
       message: 'Insira a rua',
-    })
-    .toLowerCase(),
-  reference: z.string().toLowerCase().optional(),
+    }),
+  reference: z.string().optional(),
 })
 
 const thirdStepSchema = z.object({
