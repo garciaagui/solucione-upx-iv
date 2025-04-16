@@ -19,33 +19,38 @@ interface ImageContainerProps {
 function ImageContainer({ title, url, username }: ImageContainerProps) {
   const [isLoaded, setIsLoaded] = useState(false)
 
+  const handleImageLoad = () => {
+    setTimeout(() => {
+      setIsLoaded(true)
+    }, 500)
+  }
+
+  if (!url) return null
+
   return (
-    <div className="relative h-64 w-full">
+    <div className="relative h-64 w-full overflow-hidden">
       {!isLoaded && <Skeleton className="h-64 w-full object-cover" />}
 
-      {url && (
-        <>
-          <div className="group relative h-64 w-full overflow-hidden transition-transform duration-300 hover:scale-105">
-            <Image
-              src={url}
-              alt={`Imagem da ocorrência: ${title}`}
-              fill
-              onLoad={() => setIsLoaded(true)}
-              onError={() => setIsLoaded(true)}
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
-          </div>
+      <div className="group relative h-64 w-full transition-transform duration-300 hover:scale-105">
+        <Image
+          src={url}
+          alt={`Imagem da ocorrência: ${title}`}
+          fill
+          onLoad={handleImageLoad}
+          onError={handleImageLoad}
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+      </div>
 
-          <div className="absolute bottom-3 left-4 z-10 text-white">
-            <h3 className="text-lg font-semibold drop-shadow">{title}</h3>
-
-            <div className="mt-1 flex items-center gap-1 text-sm text-white/90">
-              <User2 size={16} />
-              <span className="drop-shadow">{username}</span>
-            </div>
+      {isLoaded && (
+        <div className="absolute bottom-3 left-4 z-10 text-white">
+          <h3 className="text-lg font-semibold drop-shadow">{title}</h3>
+          <div className="mt-1 flex items-center gap-1 text-sm text-white/90">
+            <User2 size={16} />
+            <span className="drop-shadow">{username}</span>
           </div>
-        </>
+        </div>
       )}
     </div>
   )
