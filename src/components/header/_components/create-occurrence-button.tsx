@@ -3,6 +3,7 @@
 import CreateOccurrence from '@/components/create-occurrence'
 import LoginDialog from '@/components/login-dialog'
 import { Button } from '@/components/ui/button'
+import { Skeleton } from '@/components/ui/skeleton'
 import { BookPlus } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import { useState } from 'react'
@@ -12,6 +13,9 @@ export default function CreateOccurrenceButton() {
   const { status } = useSession()
 
   const isLoggedIn = status === 'authenticated'
+  const isLoading = status === 'loading'
+
+  if (isLoading) return <Skeleton className="h-8 w-36 rounded-lg" />
 
   return (
     <>
