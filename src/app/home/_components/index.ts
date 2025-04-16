@@ -1,4 +1,4 @@
 import ActionsGrid from './actions-grid'
-import OccurrencesGrid from './occurrences-grid'
+import OccurrenceCard from './occurrence-card'
 
-export { ActionsGrid, OccurrencesGrid }
+export { ActionsGrid, OccurrenceCard }
