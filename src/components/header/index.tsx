@@ -6,9 +6,9 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import { BookPlus } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import { useState } from 'react'
-import LoginDialog from './login-dialog'
-import { Button } from './ui/button'
-import { Separator } from './ui/separator'
+import LoginDialog from '../login-dialog'
+import { Button } from '../ui/button'
+import { Separator } from '../ui/separator'
 
 function CreateOccurrenceButton() {
   const [openDialog, setOpenDialog] = useState(false)
