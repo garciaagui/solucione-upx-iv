@@ -36,6 +36,7 @@ function Component({ isOpen, handleOpen }: Props) {
 
   const form = useForm<CreateOccurrenceType>({
     resolver: zodResolver(createOccurrenceSchema),
+    mode: 'onChange',
     defaultValues: {
       firstStep: {
         title: '',
