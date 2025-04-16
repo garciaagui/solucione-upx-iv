@@ -1,3 +1,5 @@
-import Form from './form'
+import FirstStep from './first-step'
+import SecondStep from './second-step'
+import ThirdStep from './third-step'
 
-export { Form }
+export { FirstStep, SecondStep, ThirdStep }

@@ -1,6 +1,4 @@
 import ConfirmDialog from '@/components/confirm-dialog'
-import LoadingMessage from '@/components/loading-message'
-import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
@@ -8,15 +6,18 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
+import { Form } from '@/components/ui/form'
 import { QUERY_KEYS } from '@/constants/query-keys'
+import { StepperProvider, useStepper } from '@/contexts/stepper'
 import { ToastError, ToastSuccess } from '@/utils/toast'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useSession } from 'next-auth/react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Form } from './_components'
-import { createOccurrenceSchema, CreateOccurrenceType } from './_utils/constants'
+import StepperProgress from '../stepper-progress'
+import { FirstStep, SecondStep, ThirdStep } from './_components'
+import { createOccurrenceSchema, CreateOccurrenceType, steps } from './_utils/constants'
 import { generateFormData, requestOccurrenceCreation } from './_utils/functions'
 
 interface Props {
@@ -24,48 +25,58 @@ interface Props {
   handleOpen: (open: boolean) => void
 }
 
-export default function CreateOccurrence({ isOpen, handleOpen }: Props) {
+function Component({ isOpen, handleOpen }: Props) {
   const [loading, setLoading] = useState(false)
   const [showConfirmDialog, setShowConfirmDialog] = useState(false)
 
   const { data: session } = useSession()
+  const { currentStep, resetStep } = useStepper()
   const queryClient = useQueryClient()
 
   const userId = Number(session?.token.user.id)
 
   const form = useForm<CreateOccurrenceType>({
     resolver: zodResolver(createOccurrenceSchema),
+    mode: 'onChange',
     defaultValues: {
-      description: '',
-      image: undefined,
-      neighborhood: '',
-      reference: '',
-      street: '',
-      title: '',
-      zipCode: '',
+      firstStep: {
+        title: '',
+        description: '',
+      },
+      secondStep: {
+        neighborhood: '',
+        reference: '',
+        street: '',
+        zipCode: '',
+      },
+      thirdStep: {
+        image: undefined,
+      },
     },
   })
 
-  const { reset, watch } = form
+  const { handleSubmit, reset, formState } = form
 
-  const formFields = watch()
-  const hasFilledFields = Object.values(formFields).some((value) =>
-    typeof value === 'string' ? value.trim() !== '' : !!value,
-  )
+  const resetForm = () => {
+    reset()
+    resetStep()
+  }
 
   const handleDialogOpenChange = (open: boolean) => {
+    const hasFilledFields = formState.isDirty
+
     if (!open && hasFilledFields && !loading) {
       setShowConfirmDialog(true)
     } else if (!loading) {
       handleOpen(open)
-      if (!open) reset()
+      if (!open) resetForm()
     }
   }
 
   const closeConfirmDialog = () => {
     setShowConfirmDialog(false)
     handleOpen(false)
-    reset()
+    resetForm()
   }
 
   const createMutation = useMutation({
@@ -79,10 +90,11 @@ export default function CreateOccurrence({ isOpen, handleOpen }: Props) {
         queryKey: [QUERY_KEYS.OCCURRENCES],
       })
       handleOpen(false)
-      reset()
+      resetForm()
       ToastSuccess('Reclamação registrada com sucesso')
     },
     onError: (error) => {
+      console.error(error)
       ToastError(error.message)
     },
     onSettled: () => {
@@ -94,22 +106,44 @@ export default function CreateOccurrence({ isOpen, handleOpen }: Props) {
     createMutation.mutate(formData)
   }
 
+  const renderStep = (currentStep: number) => {
+    switch (currentStep) {
+      case 1:
+        return <FirstStep form={form} closeDialog={() => handleDialogOpenChange(false)} />
+      case 2:
+        return <SecondStep form={form} />
+      case 3:
+        return <ThirdStep form={form} loading={loading} />
+      default:
+        return null
+    }
+  }
+
   return (
     <>
       <Dialog open={isOpen} onOpenChange={handleDialogOpenChange}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle className="text-2xl font-semibold">Nova reclamação</DialogTitle>
+
             <DialogDescription className="text-muted-foreground">
               Preencha os campos abaixo para registrar uma nova ocorrência
             </DialogDescription>
+
+            <div className="py-2">
+              <StepperProgress currentStep={currentStep} stepsArray={steps} />
+            </div>
           </DialogHeader>
 
-          <Form form={form} loading={loading} handleCreation={handleCreation} />
-
-          <Button disabled={loading} form="create-occurrence-form" type="submit">
-            {!loading ? 'Finalizar' : <LoadingMessage message="Criando..." />}
-          </Button>
+          <Form {...form}>
+            <form
+              id="create-occurrence-form"
+              className="space-y-4"
+              onSubmit={handleSubmit(handleCreation)}
+            >
+              {renderStep(currentStep)}
+            </form>
+          </Form>
         </DialogContent>
       </Dialog>
 
@@ -121,5 +155,13 @@ export default function CreateOccurrence({ isOpen, handleOpen }: Props) {
         onOpenChange={setShowConfirmDialog}
       />
     </>
+  )
+}
+
+export default function CreateOccurrence({ isOpen, handleOpen }: Props) {
+  return (
+    <StepperProvider stepsNumber={3}>
+      <Component isOpen={isOpen} handleOpen={handleOpen} />
+    </StepperProvider>
   )
 }

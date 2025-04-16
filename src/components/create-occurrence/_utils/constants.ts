@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export const createOccurrenceSchema = z.object({
+const firstStepSchema = z.object({
   title: z
     .string({
       required_error: 'O título é obrigatório',
@@ -10,8 +10,7 @@ export const createOccurrenceSchema = z.object({
     })
     .max(127, {
       message: 'O título pode ter no máximo 127 caracteres',
-    })
-    .toLowerCase(),
+    }),
   description: z
     .string({
       required_error: 'A descrição é obrigatória',
@@ -21,16 +20,17 @@ export const createOccurrenceSchema = z.object({
     })
     .max(255, {
       message: 'A descrição pode ter no máximo 255 caracteres',
-    })
-    .toLowerCase(),
+    }),
+})
+
+const secondStepSchema = z.object({
   neighborhood: z
     .string({
       required_error: 'O bairro é obrigatório',
     })
     .min(1, {
       message: 'Insira o bairro',
-    })
-    .toLowerCase(),
+    }),
   zipCode: z
     .string({
       required_error: 'O CEP é obrigatório',
@@ -45,12 +45,26 @@ export const createOccurrenceSchema = z.object({
     })
     .min(1, {
       message: 'Insira a rua',
-    })
-    .toLowerCase(),
-  reference: z.string().toLowerCase().optional(),
+    }),
+  reference: z.string().optional(),
+})
+
+const thirdStepSchema = z.object({
   image: z.custom<File>((file) => file instanceof File, {
     message: 'A imagem é obrigatória',
   }),
 })
+
+export const createOccurrenceSchema = z.object({
+  firstStep: firstStepSchema,
+  secondStep: secondStepSchema,
+  thirdStep: thirdStepSchema,
+})
+
+export const steps = [
+  { step: 1, label: 'Descrição' },
+  { step: 2, label: 'Localização' },
+  { step: 3, label: 'Imagem' },
+]
 
 export type CreateOccurrenceType = z.infer<typeof createOccurrenceSchema>

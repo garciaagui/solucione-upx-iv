@@ -12,7 +12,7 @@ function showToast({ message, title, color, icon: Icon }: ToastOptions) {
   toast(
     <div className="flex flex-col gap-2">
       <div className="flex gap-2">
-        <Icon width={20} height={20} className={`text-${color}`} />
+        <Icon width={20} height={20} color={`hsl(var(--${color}))`} />
         <span className="text-sm font-medium">{title}</span>
       </div>
 

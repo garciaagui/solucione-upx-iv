@@ -11,18 +11,20 @@ export const zipCodeMask = (value: string): string => {
 }
 
 export const generateFormData = (data: CreateOccurrenceType, userId: number): FormData => {
+  const { firstStep, secondStep, thirdStep } = data
   const formData = new FormData()
 
-  formData.set('title', data.title)
-  formData.set('description', data.description)
-  formData.set('street', data.street)
-  formData.set('neighborhood', data.neighborhood)
-  formData.set('zipCode', data.zipCode)
-  formData.set('image', data.image)
+  formData.set('title', firstStep.title)
+  formData.set('description', firstStep.description)
+  formData.set('street', secondStep.street)
+  formData.set('neighborhood', secondStep.neighborhood)
+  formData.set('zipCode', secondStep.zipCode)
+  formData.set('image', thirdStep.image)
+
   formData.set('userId', String(userId))
 
-  if (data.reference) {
-    formData.set('reference', data.reference)
+  if (secondStep.reference) {
+    formData.set('reference', secondStep.reference)
   }
 
   return formData
