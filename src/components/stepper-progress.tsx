@@ -36,7 +36,7 @@ function StepComponent({ currentStep, stepLabel, stepNumber, totalSteps }: StepC
   }
 
   const renderDivider = () => {
-    const bgColor = stepNumber <= currentStep ? 'bg-primary' : 'bg-muted'
+    const bgColor = stepNumber < currentStep ? 'bg-primary' : 'bg-muted'
 
     if (stepNumber < totalSteps) {
       return <Separator className={`${bgColor} hidden flex-1 sm:block`} />
