@@ -30,7 +30,7 @@ function StepComponent({ currentStep, stepLabel, stepNumber, totalSteps }: StepC
   }
 
   const renderText = () => {
-    const textColor = stepNumber > currentStep ? 'text-muted' : 'text-primary'
+    const textColor = stepNumber > currentStep ? 'text-muted-foreground' : 'text-primary'
 
     return <span className={`${textColor} text-sm font-medium`}>{stepLabel}</span>
   }

@@ -93,7 +93,7 @@ export default function Menu({ user }: Props) {
   const { isMobile } = useSidebar()
 
   const onConfirmLogout = () => {
-    signOut()
+    signOut({ redirect: false })
     setOpenDialog(false)
   }
 
