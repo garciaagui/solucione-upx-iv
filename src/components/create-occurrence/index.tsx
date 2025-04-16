@@ -130,7 +130,7 @@ function Component({ isOpen, handleOpen }: Props) {
               Preencha os campos abaixo para registrar uma nova ocorrência
             </DialogDescription>
 
-            <div className="pt-2">
+            <div className="py-2">
               <StepperProgress currentStep={currentStep} stepsArray={steps} />
             </div>
           </DialogHeader>
