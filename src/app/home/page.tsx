@@ -1,7 +1,7 @@
 'use client'
 
+import { useOccurrences } from '@/hooks/useOccurrences'
 import { OccurrencesGrid } from './_components'
-import { useOccurrences } from './_utils/useOccurrences'
 
 export default function Home() {
   const { data } = useOccurrences()
