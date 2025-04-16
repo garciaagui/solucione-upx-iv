@@ -1,4 +1,5 @@
 import prisma from '@/lib/prisma'
+import { OccurrenceWithRelations } from '@/types/globals'
 import { HttpException, NotFoundException } from '@/utils/exceptions'
 import { Status } from '@prisma/client'
 import { NextRequest, NextResponse } from 'next/server'
@@ -8,8 +9,9 @@ export const dynamic = 'force-dynamic'
 
 export async function GET(): Promise<NextResponse> {
   try {
-    const occurrences = await prisma.occurrence.findMany({
+    const occurrences: OccurrenceWithRelations[] = await prisma.occurrence.findMany({
       orderBy: { id: 'desc' },
+      include: { user: true, occurrenceReplies: true },
     })
 
     if (!occurrences) {
