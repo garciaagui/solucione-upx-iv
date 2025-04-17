@@ -18,7 +18,7 @@ export async function GET(_req: NextRequest, { params }: ParamsType): Promise<Ne
   try {
     const occurrence: OccurrenceWithRelations | null = await prisma.occurrence.findUnique({
       where: { id: Number(id) },
-      include: { user: true, occurrenceReplies: true },
+      include: { user: true, occurrenceReplies: { include: { user: true } } },
     })
 
     if (!occurrence) {
