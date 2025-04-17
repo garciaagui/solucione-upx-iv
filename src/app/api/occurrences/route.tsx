@@ -1,9 +1,15 @@
 import prisma from '@/lib/prisma'
 import { OccurrenceWithRelations } from '@/types/globals'
-import { HttpException, NotFoundException } from '@/utils/exceptions'
+import { NotFoundException } from '@/utils/exceptions'
 import { Status } from '@prisma/client'
 import { NextRequest, NextResponse } from 'next/server'
-import { generateImageUrl, generateUniqueImageName, parseFormData, uploadImage } from './functions'
+import {
+  generateImageUrl,
+  generateUniqueImageName,
+  handleError,
+  parseFormData,
+  uploadImage,
+} from './functions'
 
 export const dynamic = 'force-dynamic'
 
@@ -11,7 +17,7 @@ export async function GET(): Promise<NextResponse> {
   try {
     const occurrences: OccurrenceWithRelations[] = await prisma.occurrence.findMany({
       orderBy: { id: 'desc' },
-      include: { user: true, occurrenceReplies: true },
+      include: { user: true, occurrenceReplies: { include: { user: true } } },
     })
 
     if (!occurrences) {
@@ -26,17 +32,7 @@ export async function GET(): Promise<NextResponse> {
       { status: 200 },
     )
   } catch (error: unknown) {
-    if (error instanceof HttpException) {
-      const { message, status } = error
-      console.error(message, status)
-
-      return NextResponse.json({ message }, { status })
-    } else {
-      const message = 'Erro inesperado ao buscar ocorrências'
-      console.error(message, error)
-
-      return NextResponse.json({ message }, { status: 500 })
-    }
+    return handleError(error)
   }
 }
 
@@ -67,11 +63,6 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       { status: 201 },
     )
   } catch (error: unknown) {
-    const message = error instanceof HttpException ? error.message : 'Erro inesperado'
-    const status = error instanceof HttpException ? error.status : 500
-
-    console.error(message, error)
-
-    return NextResponse.json({ message }, { status })
+    return handleError(error)
   }
 }

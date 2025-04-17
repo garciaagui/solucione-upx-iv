@@ -1,8 +1,9 @@
 import awsS3 from '@/lib/awsS3'
+import { HttpException } from '@/utils/exceptions'
 import { Occurrence } from '@prisma/client'
 import { PutObjectRequest } from 'aws-sdk/clients/s3'
 import { randomBytes } from 'crypto'
-import { NextRequest } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 
 type PartialOccurrence = Omit<Occurrence, 'id' | 'status' | 'image' | 'createdAt' | 'updatedAt'>
 
@@ -77,4 +78,14 @@ export const parseFormData = async (
     fields,
     image: { buffer, name: file.name },
   }
+}
+
+export const handleError = (error: unknown): NextResponse => {
+  const message =
+    error instanceof HttpException ? error.message : 'Erro inesperado ao buscar ocorrência'
+  const status = error instanceof HttpException ? error.status : 500
+
+  console.error(message, error)
+
+  return NextResponse.json({ message }, { status })
 }

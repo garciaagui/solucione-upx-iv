@@ -1,5 +1,6 @@
+import ImageFallback from '@/components/image-fallback'
 import { Skeleton } from '@/components/ui/skeleton'
-import { CameraOff, User2 } from 'lucide-react'
+import { UserCircle } from 'lucide-react'
 import Image from 'next/image'
 import { useState } from 'react'
 
@@ -7,15 +8,6 @@ interface ImageContainerProps {
   title: string
   url: string
   username: string
-}
-
-function ImageFallback() {
-  return (
-    <div className="flex h-full w-full items-center justify-center gap-2 bg-zinc-800 text-white">
-      <CameraOff size={14} />
-      <span className="text-sm">Erro ao carregar imagem</span>
-    </div>
-  )
 }
 
 export default function ImageContainer({ title, url, username }: ImageContainerProps) {
@@ -58,9 +50,9 @@ export default function ImageContainer({ title, url, username }: ImageContainerP
 
       {isLoaded && (
         <div className="absolute bottom-3 left-4 z-10 text-white">
-          <h3 className="text-lg font-semibold drop-shadow">{title}</h3>
-          <div className="mt-1 flex items-center gap-1 text-sm text-white/90">
-            <User2 size={16} />
+          <h3 className="text-lg font-extrabold tracking-tight drop-shadow">{title}</h3>
+          <div className="mt-1 flex items-center gap-1.5 text-sm text-white">
+            <UserCircle size={14} />
             <span className="drop-shadow">{username}</span>
           </div>
         </div>
