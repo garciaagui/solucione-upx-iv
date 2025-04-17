@@ -16,15 +16,15 @@ export default function OccurrenceCard({ data }: Props) {
   return (
     <Card className="relative mx-auto w-full max-w-2xl overflow-hidden rounded-2xl border border-muted bg-background shadow-md transition-shadow hover:shadow-xl">
       <ImageContainer title={title} url={image} username={user.name} />
-      <CardHeader className="flex flex-row items-center justify-between px-4 text-muted-foreground">
+      <CardHeader className="flex flex-row items-center justify-between px-4">
         <StatusBadge status={status} />
         <div className="flex items-center gap-1 text-xs">
           <CalendarDays size={14} />
           <span>{formatDate(createdAt)}</span>
         </div>
       </CardHeader>
-      <CardContent className="flex items-center gap-2 px-4 pb-4 text-sm text-muted-foreground">
-        <MapPin size={16} />
+      <CardContent className="flex items-center gap-1.5 px-4 pb-4 text-sm">
+        <MapPin size={14} />
         <span>
           <strong>{neighborhood}</strong> - {street}
         </span>
