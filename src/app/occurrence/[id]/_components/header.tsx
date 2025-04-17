@@ -2,7 +2,7 @@ import StatusBadge from '@/components/status-badge'
 import { Badge } from '@/components/ui/badge'
 import { OccurrenceWithRelations } from '@/types/globals'
 import { formatDate } from '@/utils/functions/date'
-import { ChevronLeft } from 'lucide-react'
+import { ChevronLeft, UserCircle } from 'lucide-react'
 import Link from 'next/link'
 
 interface Props {
@@ -25,8 +25,11 @@ export default function Header({ data }: Props) {
       <div className="space-y-2">
         <h1 className="text-2xl font-extrabold tracking-tight">{title}</h1>
 
-        <div className="flex flex-wrap items-center gap-4">
-          <span className="text-sm font-medium text-muted-foreground">por {user.name}</span>
+        <div className="flex flex-wrap items-center gap-2">
+          <Badge variant="secondary" className="gap-1">
+            <UserCircle size={12} />
+            {user.name}
+          </Badge>
           <StatusBadge status={status} />
           <Badge>{formatDate(createdAt)}</Badge>
         </div>
