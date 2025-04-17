@@ -17,7 +17,7 @@ export async function GET(): Promise<NextResponse> {
   try {
     const occurrences: OccurrenceWithRelations[] = await prisma.occurrence.findMany({
       orderBy: { id: 'desc' },
-      include: { user: true, occurrenceReplies: true },
+      include: { user: true, occurrenceReplies: { include: { user: true } } },
     })
 
     if (!occurrences) {
