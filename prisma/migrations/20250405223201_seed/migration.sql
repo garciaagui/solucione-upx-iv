@@ -16,6 +16,6 @@ INSERT INTO "occurrences" (title, description, neighborhood, street, zip_code, r
 -- Inserindo respostas das ocorrências
 INSERT INTO "occurrences_replies" (description, image_url, user_id, occurrence_id, occurrence_status, created_at, updated_at) VALUES
   ('Problema localizado e o conserto foi agendado para amanhã.', '', 2, 1, 'Andamento', '2024-01-06T00:00:00', NOW()),
-  ('Após vazamento de água na rua principal, nossa equipe respondeu prontamente, localizou e reparou a fonte, com medidas preventivas para evitar recorrências. Priorizamos a rápida resolução para garantir o bem-estar da comunidade', 'https://pub-373564433a1a4faebf35e76ccb084c38.r2.dev/conserto-vazamento-agua.jpg', 2, 1, 'Finalizado', '2024-01-08T00:00:00', NOW()),
+  ('Após vazamento de água na rua principal, nossa equipe respondeu prontamente, localizou e reparou a fonte, com medidas preventivas para evitar recorrências. Priorizamos a rápida resolução para garantir o bem-estar da comunidade', 'https://pub-192c7de9eb344c6b87b7ac901aa60c7e.r2.dev/conserto-vazamento-agua.jpg', 2, 1, 'Finalizado', '2024-01-08T00:00:00', NOW()),
   ('A equipe de manutenção está trabalhando para resolver o problema.', '', 2, 3, 'Andamento', '2024-01-05T00:00:00', NOW()),
   ('O departamento responsável foi informado e em breve traremos uma solução.', '', 2, 5, 'Andamento', '2024-01-06T00:00:00', NOW());
