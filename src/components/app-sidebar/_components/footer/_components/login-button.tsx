@@ -6,7 +6,9 @@ import { useState } from 'react'
 
 export default function LoginButton() {
   const [openDialog, setOpenDialog] = useState(false)
-  const { open } = useSidebar()
+  const { open, openMobile } = useSidebar()
+
+  const isSidebarOpen = open || openMobile
 
   return (
     <>
@@ -14,7 +16,7 @@ export default function LoginButton() {
         size="lg"
         className={clsx(
           'flex items-center gap-2 transition-all duration-300 ease-in-out',
-          open ? 'justify-start' : 'justify-center',
+          isSidebarOpen ? 'justify-start' : 'justify-center',
           'data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground',
         )}
         onClick={() => setOpenDialog(true)}
@@ -23,7 +25,7 @@ export default function LoginButton() {
         <span
           className={clsx(
             'whitespace-nowrap text-sm transition-all duration-300',
-            open
+            isSidebarOpen
               ? 'ml-1 max-w-[100px] translate-x-0 opacity-100'
               : 'ml-0 max-w-0 -translate-x-2 overflow-hidden opacity-0',
           )}
