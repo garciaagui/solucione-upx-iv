@@ -4,6 +4,7 @@ import { NotFoundException } from '@/utils/exceptions'
 import { Status } from '@prisma/client'
 import { NextRequest, NextResponse } from 'next/server'
 import {
+  checkProfanity,
   generateImageUrl,
   generateUniqueImageName,
   handleError,
@@ -43,6 +44,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     const imageUniqueName = generateUniqueImageName(name)
     const imageUrl = generateImageUrl(imageUniqueName)
 
+    await checkProfanity(fields)
     await uploadImage(buffer, imageUniqueName)
 
     const creationData = {

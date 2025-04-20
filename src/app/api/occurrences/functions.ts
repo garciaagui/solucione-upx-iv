@@ -1,5 +1,6 @@
 import awsS3 from '@/lib/awsS3'
-import { HttpException } from '@/utils/exceptions'
+import startGemini from '@/lib/gemini'
+import { BadRequestException, HttpException } from '@/utils/exceptions'
 import { Occurrence } from '@prisma/client'
 import { PutObjectRequest } from 'aws-sdk/clients/s3'
 import { randomBytes } from 'crypto'
@@ -77,6 +78,27 @@ export const parseFormData = async (
   return {
     fields,
     image: { buffer, name: file.name },
+  }
+}
+
+export const checkProfanity = async (fields: PartialOccurrence) => {
+  const gemini = startGemini()
+
+  const response = await gemini.sendMessage(
+    `Verifique a presença de palavrões nos seguintes campos:
+      - "Título": "${fields.title}",
+      - "Descrição": "${fields.description}",
+      - "Bairro": "${fields.neighborhood}",
+      - "Rua": "${fields.street}",
+      - "Referência": "${fields.reference}"
+
+    Se houver palavrões, retorne "true". Caso contrário, retorne "false"`,
+  )
+
+  const result = response.response.text()
+
+  if (result.toLowerCase().includes('true')) {
+    throw new BadRequestException('Um ou mais campos contêm linguagem ofensiva. Por favor, revise.')
   }
 }
 
