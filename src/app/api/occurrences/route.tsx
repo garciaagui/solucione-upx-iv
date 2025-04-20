@@ -44,7 +44,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     const imageUniqueName = generateUniqueImageName(name)
     const imageUrl = generateImageUrl(imageUniqueName)
 
-    await checkProfanity(fields)
+    await checkProfanity(fields, buffer)
     await uploadImage(buffer, imageUniqueName)
 
     const creationData = {

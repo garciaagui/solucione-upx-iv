@@ -1,5 +1,5 @@
 import awsS3 from '@/lib/awsS3'
-import startGemini from '@/lib/gemini'
+import { gemini, initialPrompt } from '@/lib/gemini'
 import { BadRequestException, HttpException } from '@/utils/exceptions'
 import { Occurrence } from '@prisma/client'
 import { PutObjectRequest } from 'aws-sdk/clients/s3'
@@ -81,24 +81,43 @@ export const parseFormData = async (
   }
 }
 
-export const checkProfanity = async (fields: PartialOccurrence) => {
-  const gemini = startGemini()
+export const checkProfanity = async (fields: PartialOccurrence, imageBuffer: Buffer) => {
+  const base64Image = imageBuffer.toString('base64')
 
-  const response = await gemini.sendMessage(
-    `Verifique a presença de palavrões nos seguintes campos:
-      - "Título": "${fields.title}",
-      - "Descrição": "${fields.description}",
-      - "Bairro": "${fields.neighborhood}",
-      - "Rua": "${fields.street}",
-      - "Referência": "${fields.reference}"
+  const content = [
+    { text: initialPrompt },
+    {
+      text: `
+      Campos a serem avaliados:
+        - "Título": "${fields.title}",
+        - "Descrição": "${fields.description}",
+        - "Bairro": "${fields.neighborhood}",
+        - "Rua": "${fields.street}",
+        - "Referência": "${fields.reference}"`.trim(),
+    },
+    {
+      inlineData: {
+        mimeType: 'image/jpeg',
+        data: base64Image,
+      },
+    },
+  ]
 
-    Se houver palavrões, retorne "true". Caso contrário, retorne "false"`,
-  )
+  const { response } = await gemini.generateContent({
+    contents: [
+      {
+        role: 'user',
+        parts: content,
+      },
+    ],
+  })
 
-  const result = response.response.text()
+  const result = response.text().toLowerCase().trim()
 
-  if (result.toLowerCase().includes('true')) {
-    throw new BadRequestException('Um ou mais campos contêm linguagem ofensiva. Por favor, revise.')
+  if (result.includes('true')) {
+    throw new BadRequestException(
+      'Um ou mais campos contêm conteúdo impróprio ou ofensivo. Por favor, revise.',
+    )
   }
 }
 
