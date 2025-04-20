@@ -81,8 +81,7 @@ export const parseFormData = async (
 }
 
 export const handleError = (error: unknown): NextResponse => {
-  const message =
-    error instanceof HttpException ? error.message : 'Erro inesperado ao buscar ocorrência'
+  const message = error instanceof HttpException ? error.message : 'Erro inesperado'
   const status = error instanceof HttpException ? error.status : 500
 
   console.error(message, error)
