@@ -2,7 +2,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 
 export default function OccurrenceSkeleton() {
   return (
-    <div className="mx-auto max-w-4xl space-y-8 px-8 pb-6 pt-4">
+    <div className="mx-auto max-w-4xl space-y-8 px-0 py-4 md:px-8">
       {/* Header Skeleton */}
       <div className="flex items-center gap-4">
         <Skeleton className="h-6 w-6 rounded-sm" /> {/* Ícone de voltar */}
