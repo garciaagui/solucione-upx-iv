@@ -2,7 +2,7 @@
 CREATE TYPE "StatusUpdate" AS ENUM ('Andamento', 'Finalizado');
 
 -- CreateEnum
-CREATE TYPE "Role" AS ENUM ('user', 'employee', 'admin');
+CREATE TYPE "Role" AS ENUM ('user', 'admin');
 
 -- CreateEnum
 CREATE TYPE "Status" AS ENUM ('Aberto', 'Andamento', 'Finalizado');

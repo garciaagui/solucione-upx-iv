@@ -1,7 +1,7 @@
 -- Inserindo usuários
 INSERT INTO "users" (name, email, password, role, created_at, updated_at) VALUES
   ('João Silva', 'joao@example.com', '123456', 'admin', NOW(), NOW()),
-  ('Maria Oliveira', 'maria@example.com', '123456', 'employee', NOW(), NOW()),
+  ('Maria Oliveira', 'maria@example.com', '123456', 'admin', NOW(), NOW()),
   ('Carlos Santos', 'carlos@example.com', '123456', 'user', NOW(), NOW()),
   ('Ana Moares', 'ana@example.com', '123456', 'user', NOW(), NOW());
 
