@@ -31,8 +31,15 @@ export const generateFormData = (data: CreateOccurrenceType, userId: number): Fo
 }
 
 export const requestOccurrenceCreation = async (data: FormData) => {
-  await fetch('/api/occurrences', {
+  const response = await fetch('/api/occurrences', {
     method: 'POST',
     body: data,
   })
+
+  if (!response.ok) {
+    const error = await response.json()
+    throw new Error(error.message || 'Erro ao criar ocorrência')
+  }
+
+  return response.json()
 }

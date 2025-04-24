@@ -1,5 +1,6 @@
 import awsS3 from '@/lib/awsS3'
-import { HttpException } from '@/utils/exceptions'
+import { gemini, initialPrompt } from '@/lib/gemini'
+import { BadRequestException, HttpException } from '@/utils/exceptions'
 import { Occurrence } from '@prisma/client'
 import { PutObjectRequest } from 'aws-sdk/clients/s3'
 import { randomBytes } from 'crypto'
@@ -80,9 +81,48 @@ export const parseFormData = async (
   }
 }
 
+export const checkProfanity = async (fields: PartialOccurrence, imageBuffer: Buffer) => {
+  const base64Image = imageBuffer.toString('base64')
+
+  const content = [
+    { text: initialPrompt },
+    {
+      text: `
+      Campos a serem avaliados:
+        - "Título": "${fields.title}",
+        - "Descrição": "${fields.description}",
+        - "Bairro": "${fields.neighborhood}",
+        - "Rua": "${fields.street}",
+        - "Referência": "${fields.reference}"`.trim(),
+    },
+    {
+      inlineData: {
+        mimeType: 'image/jpeg',
+        data: base64Image,
+      },
+    },
+  ]
+
+  const { response } = await gemini.generateContent({
+    contents: [
+      {
+        role: 'user',
+        parts: content,
+      },
+    ],
+  })
+
+  const result = response.text().toLowerCase().trim()
+
+  if (result.includes('true')) {
+    throw new BadRequestException(
+      'Um ou mais campos contêm conteúdo impróprio ou ofensivo. Por favor, revise.',
+    )
+  }
+}
+
 export const handleError = (error: unknown): NextResponse => {
-  const message =
-    error instanceof HttpException ? error.message : 'Erro inesperado ao buscar ocorrência'
+  const message = error instanceof HttpException ? error.message : 'Erro inesperado'
   const status = error instanceof HttpException ? error.status : 500
 
   console.error(message, error)
