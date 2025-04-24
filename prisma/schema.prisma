@@ -65,7 +65,6 @@ enum StatusUpdate {
 
 enum Role {
     user
-    employee
     admin
 }
 
