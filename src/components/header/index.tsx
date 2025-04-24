@@ -1,9 +1,13 @@
 'use client'
 
+import { useSession } from 'next-auth/react'
 import { Separator } from '../ui/separator'
 import { CreateOccurrenceButton, SidebarButton } from './_components'
 
 export default function Header() {
+  const { data } = useSession()
+  const isAdmin = data?.token.user?.role === 'admin'
+
   return (
     <div className="sticky top-0 z-50 flex shrink-0 items-center gap-8 border-b bg-background p-4">
       <div className="flex items-center gap-2">
@@ -11,9 +15,13 @@ export default function Header() {
         <span className="text-2xl font-semibold tracking-tight text-primary">Solucione</span>
       </div>
 
-      <Separator orientation="vertical" />
+      {!isAdmin ? (
+        <>
+          <Separator orientation="vertical" />
 
-      <CreateOccurrenceButton />
+          <CreateOccurrenceButton />
+        </>
+      ) : null}
     </div>
   )
 }
