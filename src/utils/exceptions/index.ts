@@ -7,6 +7,14 @@ export abstract class HttpException extends Error {
   }
 }
 
+export class BadRequestException extends HttpException {
+  private static status = 400
+
+  constructor(message: string) {
+    super(BadRequestException.status, message)
+  }
+}
+
 export class NotFoundException extends HttpException {
   private static status = 404
 
