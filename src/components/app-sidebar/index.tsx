@@ -6,8 +6,9 @@ import { ActionsMenu, Footer, NavMenu } from './_components'
 import SidebarSkeleton from './_components/sidebar-skeleton'
 
 export default function AppSidebar() {
-  const { status } = useSession()
+  const { data, status } = useSession()
   const isLoading = status === 'loading'
+  const isAdmin = data?.token.user?.role === 'admin'
 
   if (isLoading) return SidebarSkeleton()
 
@@ -15,7 +16,7 @@ export default function AppSidebar() {
     <Sidebar collapsible="icon">
       <SidebarContent>
         <NavMenu />
-        <ActionsMenu />
+        {!isAdmin ? <ActionsMenu /> : null}
       </SidebarContent>
       <SidebarSeparator />
       <Footer />

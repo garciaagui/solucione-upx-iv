@@ -1,3 +1,4 @@
+import { Role } from '@prisma/client'
 import 'next-auth'
 
 declare module 'next-auth' {
@@ -5,6 +6,7 @@ declare module 'next-auth' {
     id: string
     name: string
     email: string
+    role: Role
   }
 
   type Session = {
