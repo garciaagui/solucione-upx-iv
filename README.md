@@ -15,46 +15,11 @@
 
 ## Sobre o Projeto
 
-Projeto **25** do curso de Desenvolvimento Web da [Trybe][trybe-site-url].
+Projeto desenvolvido para a disciplina de UPX - Usina de Projetos Experimentais IV, pertencente ao curso EAD de Análise e Desenvolvimento de Sistemas do [Centro Universitário Facens][facens-url].
 
-O TFC é uma aplicação fullstack que oferece informações sobre jogos e classificações de futebol.
+A Solucione é uma plataforma de envio de reclamações relacionadas à infraestrutura, meio ambiente e mobilidade urbana. O projeto tem como ideia atuar em conjunto com as prefeituras, oferecendo um canal adicional e mais acessível para o registro dessas demandas.
 
-Fui responsável pelo desenvolvimento do back-end dockerizado utilizando modelagem de dados através do Sequelize, de forma que o front-end pudesse consumir os dados da API adequadamente. A arquitetura segue o modelo MSC e foram aplicados os princípios e conceitos de POO e SOLID.
-
-<details>
-  <summary><strong> 🧱 Caso queira se aprofundar na estrutura do projeto, é só clicar aqui.</strong></summary><br />
-
-O projeto é composto de 4 entidades:
-
-1️⃣ **Banco de dados:**
-
-- É um container docker MySQL já configurado no `docker-compose` através de um serviço definido como `db`.
-- Tem o papel de fornecer dados para o serviço de back-end.
-- Você também pode conectar a um Cliente MySQL (Workbench, Beekeeper, DBeaver e etc), colocando as credenciais configuradas no `docker-compose` no serviço `db`.
-
-2️⃣ **Back-end:**
-
-- Roda na porta `3001` do `localhost`, porta pela qual o front-end faz requisições por padrão;
-- A aplicação é inicializada a partir do arquivo `app/backend/src/server.ts`;
-- O `express` é executado e a aplicação ouve a porta que vem das variáveis de ambiente;
-- Todas as dependências extras (tal como `joi`, `boom`, `express-async-errors`...) devem ser listadas em `app/backend/packages.npm`.
-
-3️⃣ **Front-end:**
-
-- Roda na porta `3000` do `localhost`;
-- O front se comunica com serviço de back-end pela url `http://localhost:3001`.
-
-4️⃣ **Docker:**
-
-- O `docker-compose` tem a responsabilidade de unir todos os serviços conteinerizados (backend, frontend e db) e subir o projeto completo com o comando `npm run compose:up` ou `npm run compose:up:dev`;
-</details>
-
-<details>
-  <summary><strong> 🎞️ Aqui você pode conferir uma demonstração do projeto.</strong></summary><br />
-  
-  https://user-images.githubusercontent.com/70448374/216853287-5550cb20-0d01-42da-85c4-c1fc1551faa7.mp4
-
-</details>
+Esta aplicação foi desenvolvida com Next.js para o backend e frontend. Utiliza um container Docker com PostgreSQL para o banco de dados, Prisma como ORM e R2 da Cloudflare para armazenamento de imagens.
 
 <br/>
 
@@ -296,14 +261,6 @@ Abaixo você pode conferir um detalhamento dos endpoints utilizados no projeto. 
 
 <br/>
 
-## Sobre a Trybe
-
-_"A [Trybe][trybe-site-url] é uma escola do futuro para qualquer pessoa que queira melhorar de vida e construir uma carreira de sucesso em tecnologia, onde a pessoa só paga quando conseguir um bom trabalho."_
-
-_"O programa conta com mais de 1.500 horas de aulas online, aborda introdução ao desenvolvimento de software, front-end, back-end, ciência da computação, engenharia de software, metodologias ágeis e habilidades comportamentais._"
-
-<br/>
-
 ## Contato
 
 Projeto desenvolvido por Guilherme Garcia. Seguem abaixo minhas redes sociais e meios de contato. 🤘
@@ -317,7 +274,7 @@ Projeto desenvolvido por Guilherme Garcia. Seguem abaixo minhas redes sociais e 
 
 <!-- MARKDOWN LINKS & IMAGES -->
 
-[trybe-site-url]: https://www.betrybe.com/
+[facens-url]: https://facens.br/
 [axios-url]: https://axios-http.com/docs/intro
 [bcryptjs-url]: https://www.npmjs.com/package/bcryptjs
 [chai-url]: https://www.chaijs.com/
