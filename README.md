@@ -15,7 +15,7 @@
 
 ## Sobre o Projeto
 
-Projeto desenvolvido para a disciplina de UPX - Usina de Projetos Experimentais IV, pertencente ao curso EAD de Análise e Desenvolvimento de Sistemas do <a href="https://facens.br/" target="_blank">Centro Universitário Facens</a>.
+Projeto desenvolvido para a disciplina de UPX - Usina de Projetos Experimentais IV, pertencente ao curso EAD de Análise e Desenvolvimento de Sistemas do <a href="https://facens.br" target="_blank">Centro Universitário Facens</a>.
 
 A Solucione é uma plataforma de envio de reclamações relacionadas à infraestrutura, meio ambiente e mobilidade urbana. O projeto tem como ideia atuar em conjunto com as prefeituras, oferecendo um canal adicional e mais acessível para o registro dessas demandas.
 
@@ -25,51 +25,39 @@ Esta aplicação foi desenvolvida com Next.js para o backend e frontend. Utiliza
 
 ## Tecnologias
 
-Para garantir a qualidade do código, fora utilizado o [ESlint][eslint-url]. Para virtualizar a aplicação em containers, o [Docker][docker-url] foi o escolhido.
+<ul>
+  <li>
+    <a href="https://nextjs.org" target="_blank">Next.js</a> → Framework React.js utilizado na construção de toda estrutura do frontend e das rotas de API. 
+  </li>
 
-Abaixo você pode conferir integralmente as tecnologias empregadas no projeto.
+  <li>
+    <a href="https://zod.dev/?id=introduction" target="_blank">Zod</a> + <a href="https://react-hook-form.com" target="_blank">React Hook Form</a> → Validação e gerenciamento de formulários.
+  </li>
 
-<details>
-  <summary><strong>✨ Front-end</strong></summary><br />
+  <li>
+    <a href="https://ui.shadcn.com" target="_blank">shadcn/ui</a> → Conjunto de componentes acessíveis e performáticos. 
+  </li>
 
-- [HTML5][html5-url]
-- [CSS3][css3-url]
-- [JavaScript][javascript-url]
-- [React.js][react-url]
-- [React Router][react-router-url]
-- [Axios][axios-url]
-- [dotenv][dotenv-url]
+  <li>
+    <a href="https://tailwindcss.com" target="_blank">Tailwind CSS</a> → Framework CSS utilizado na estilização dos componentes e páginas.
+  </li>
 
----
+  <li>
+    <a href="https://eslint.org" target="_blank">ESLint</a> + <a href="https://prettier.io/docs" target="_blank">Prettier</a> → Formatação, alinhamento e qualidade de código.
+  </li>
 
-</details>
+  <li>
+    <a href="https://next-auth.js.org/getting-started/introduction" target="_blank">NextAuth.js</a> → Autenticação de usuários.
+  </li>
 
-<details>
-  <summary><strong>⚙️ Back-end</strong></summary><br />
+  <li>
+    <a href="https://ai.google.dev/aistudio?hl=pt-br" target="_blank">Google - API Gemini</a> → Análise e validação de conteúdo.
+  </li>
 
-- [Node.js][node-url]
-- [Typescript][typescript-url]
-- [MySQL][mysql-url]
-- [Express][express-url]
-- [Sequelize][sequelize-url]
-- [JWT][jwt-url]
-- [Bcryptjs][bcryptjs-url]
-- [dotenv][dotenv-url]
-
----
-
-</details>
-
-<details>
-  <summary><strong>🧪 Testes</strong></summary><br />
-
-- [Chai][chai-url]
-- [Mocha][mocha-url]
-- [Sinon.js][sinon-url]
-
----
-
-</details>
+  <li>
+    <a href="https://www.prisma.io/orm" target="_blank">Prisma</a> → ORM (Object-Relational Mapper) que facilita a interação com bancos de dados e a manipulação de dados.
+  </li>
+</ul>
 
 <br/>
 
