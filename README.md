@@ -1,6 +1,6 @@
 <a name="readme-top"></a>
 
-<h1 align="center">Projeto Solucione</h1>
+<h1 align="center">Solucione</h1>
 
 ## Sumário
 
@@ -15,7 +15,7 @@
 
 ## Sobre o Projeto
 
-Projeto desenvolvido para a disciplina de UPX - Usina de Projetos Experimentais IV, pertencente ao curso EAD de Análise e Desenvolvimento de Sistemas do [Centro Universitário Facens][facens-url].
+Projeto desenvolvido para a disciplina de UPX - Usina de Projetos Experimentais IV, pertencente ao curso EAD de Análise e Desenvolvimento de Sistemas do <a href="https://facens.br/" target="_blank">Centro Universitário Facens</a>.
 
 A Solucione é uma plataforma de envio de reclamações relacionadas à infraestrutura, meio ambiente e mobilidade urbana. O projeto tem como ideia atuar em conjunto com as prefeituras, oferecendo um canal adicional e mais acessível para o registro dessas demandas.
 
