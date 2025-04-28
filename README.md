@@ -62,12 +62,12 @@ Esta aplicação foi desenvolvida com Next.js para o backend e frontend. Utiliza
 
 ## Funcionalidades
 
-<ul>
-  <li>Há três maneiras de visualizar a classificação: geral (que engloba todas as partidas), jogos como mandante e jogos como visitante.</li>
-  <li>Consultar todos os jogos do campeonato, sendo possível visualizar o resultado dos jogos finalizados e dos que ainda estão em andamento.</li>
-  <li>Com o usuário <strong>admin</strong> logado, é possível editar os placares das partidas em andamento e finalizá-las. Jogos já finalizados não podem ser alterados.</li>
-  <li>Com o usuário <strong>admin</strong> logado, é possível adicionar uma nova partida.</li>
-</ul>
+- **Login e autenticação de usuários**: Permite que os usuários façam login com credenciais e acessem a plataforma de forma segura.
+- **Logout de usuários**: Desfaz a autenticação, encerrando a sessão do usuário na aplicação.
+- **Listagem de reclamações**: Exibe na tela inicial todas as reclamações registradas na plataforma.
+- **Detalhes de reclamação**: Apresenta informações detalhadas sobre uma reclamação específica.
+- **Criação de reclamações**: Permite que os usuários registrem novas reclamações no sistema.
+- **Validação de conteúdo impróprio**: Utiliza a inteligência artificial do Google Gemini para detectar e bloquear conteúdo ofensivo ou inadequado em texto e imagens.
 
 <br/>
 
