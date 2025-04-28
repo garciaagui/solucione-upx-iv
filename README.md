@@ -25,20 +25,38 @@ Esta aplicação foi desenvolvida com Next.js para o backend e frontend. Utiliza
 
 ## Tecnologias
 
+<details>
+  <summary><strong>💻 Desenvolvimento</strong></summary>
+
+- [AWS SDK][awssdk] → Conjunto de ferramentas da Amazon utilizado na interação com buckets da R2 Cloudflare.
+- [Docker][docker] → Sistema de containers utilizado para criar e executar o banco de dados PostgreSQL de forma isolada.
+- [Google - API Gemini][gemini] → Análise e validação de conteúdo.
 - [Next.js][nextjs] → Framework React.js utilizado na construção de toda estrutura do frontend e das rotas de API.
-- [Zod][zod] + [React Hook Form][reacthookform] → Validação e gerenciamento de formulários.
+- [NextAuth.js][nextauth] → Autenticação de usuários.
+- [React TanStack Query][tanstackquery] → Biblioteca utilizada no gerenciamento de estado de dados assíncronos.
 - [shadcn/ui][shadcn] → Conjunto de componentes acessíveis e performáticos.
 - [Tailwind CSS][tailwind] → Framework CSS utilizado na estilização dos componentes e páginas.
-- [ESLint][eslint] + [Prettier][prettier] → Formatação, alinhamento e qualidade de código.
-- [NextAuth.js][nextauth] → Autenticação de usuários.
-- [Google - API Gemini][gemini] → Análise e validação de conteúdo.
-- [Prisma][prisma] → ORM (Object-Relational Mapper) utilizado na manipulação de dados e na interação com bancos de dados.
-- [PostgreSQL][postgresql] → Banco de dados relacional, utilizado no armazenamento das informações dos usuários e das reclamações.
-- [Cloudflare R2][r2] → Banco de dados de objetos, utilizado no armazenamento das imagens.
-- [AWS SDK][awssdk] → Conjunto de ferramentas da Amazon utilizado na interação com buckets da R2 Cloudflare.
-- [React TanStack Query][tanstackquery] → Biblioteca utilizada no gerenciamento de estado de dados assíncronos.
 - [TypeScript][typescript] → Linguagem de programação fortemente tipada baseada em Javascript. Utilizada no desenvolvimento do projeto.
-- [Docker][docker] → Sistema de containers utilizado para criar e executar o banco de dados PostgreSQL de forma isolada.
+- [Zod][zod] + [React Hook Form][reacthookform] → Validação e gerenciamento de formulários.
+
+</details>
+
+<details>
+  <summary><strong>🗄️ Banco de Dados</strong></summary>
+  
+- [Cloudflare R2][r2] → Banco de dados de objetos, utilizado no armazenamento das imagens.
+- [PostgreSQL][postgresql] → Banco de dados relacional, utilizado no armazenamento das informações dos usuários e das reclamações.
+- [Prisma][prisma] → ORM (Object-Relational Mapper) utilizado na manipulação de dados e na interação com bancos de dados.
+
+</details>
+
+<details>
+  <summary><strong>✨ Alinhamento e qualidade de código</strong></summary>
+
+- [ESLint][eslint] → Ferramenta de linting para garantir a qualidade do código e encontrar problemas.
+- [Prettier][prettier] → Ferramenta de formatação de código para manter o estilo consistente.
+
+</details>
 
 <br/>
 
