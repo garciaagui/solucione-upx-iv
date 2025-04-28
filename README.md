@@ -15,7 +15,7 @@
 
 ## Sobre o Projeto
 
-Projeto desenvolvido para a disciplina de UPX - Usina de Projetos Experimentais IV, pertencente ao curso EAD de Análise e Desenvolvimento de Sistemas do <a href="https://facens.br" target="_blank">Centro Universitário Facens</a>.
+Projeto desenvolvido para a disciplina de UPX - Usina de Projetos Experimentais IV, pertencente ao curso EAD de Análise e Desenvolvimento de Sistemas do [Centro Universitário Facens][facens].
 
 A Solucione é uma plataforma de envio de reclamações relacionadas à infraestrutura, meio ambiente e mobilidade urbana. O projeto tem como ideia atuar em conjunto com as prefeituras, oferecendo um canal adicional e mais acessível para o registro dessas demandas.
 
@@ -25,63 +25,20 @@ Esta aplicação foi desenvolvida com Next.js para o backend e frontend. Utiliza
 
 ## Tecnologias
 
-<ul>
-  <li>
-    <a href="https://nextjs.org" target="_blank">Next.js</a> → Framework React.js utilizado na construção de toda estrutura do frontend e das rotas de API. 
-  </li>
-
-  <li>
-    <a href="https://zod.dev/?id=introduction" target="_blank">Zod</a> + <a href="https://react-hook-form.com" target="_blank">React Hook Form</a> → Validação e gerenciamento de formulários.
-  </li>
-
-  <li>
-    <a href="https://ui.shadcn.com" target="_blank">shadcn/ui</a> → Conjunto de componentes acessíveis e performáticos. 
-  </li>
-
-  <li>
-    <a href="https://tailwindcss.com" target="_blank">Tailwind CSS</a> → Framework CSS utilizado na estilização dos componentes e páginas.
-  </li>
-
-  <li>
-    <a href="https://eslint.org" target="_blank">ESLint</a> + <a href="https://prettier.io/docs" target="_blank">Prettier</a> → Formatação, alinhamento e qualidade de código.
-  </li>
-
-  <li>
-    <a href="https://next-auth.js.org/getting-started/introduction" target="_blank">NextAuth.js</a> → Autenticação de usuários.
-  </li>
-
-  <li>
-    <a href="https://ai.google.dev/aistudio?hl=pt-br" target="_blank">Google - API Gemini</a> → Análise e validação de conteúdo.
-  </li>
-
-  <li>
-    <a href="https://www.prisma.io/orm" target="_blank">Prisma</a> → ORM (Object-Relational Mapper) utilizado na manipulação de dados e na interação com bancos de dados.
-  </li>
-
-  <li>
-    <a href="https://www.postgresql.org" target="_blank">PostgreSQL</a> → Banco de dados relacional, utilizado no armazenamento das informações dos usuários e das reclamações.
-  </li>
-
-  <li>
-    <a href="https://developers.cloudflare.com/r2" target="_blank">PostgreSQL</a> → Banco de dados de objetos, utilizado no armazenamento das imagens.
-  </li>
-
-  <li>
-    <a href="https://aws.amazon.com/pt/sdk-for-javascript" target="_blank">AWS SDK</a> → Conjunto de ferramentas da Amazon utilizado na interação com buckets da R2 Cloudflare.
-  </li>
-
-  <li>
-    <a href="https://tanstack.com/query/latest" target="_blank">React TanStack Query</a> → Biblioteca utilizada no gerenciamento de estado de dados assíncronos.
-  </li>
-
-  <li>
-    <a href="https://www.typescriptlang.org" target="_blank">Typescript</a> → Linguagem de programação fortemente tipada baseada em Javascript. Utilizada no desenvolvimento do projeto.
-  </li>
-
-  <li>
-    <a href="https://www.docker.com" target="_blank">Docker</a> → Sistema de containers utilizado para criar e executar o banco de dados PostgreSQL de forma isolada.
-  </li>
-</ul>
+- [Next.js][nextjs] → Framework React.js utilizado na construção de toda estrutura do frontend e das rotas de API.
+- [Zod][zod] + [React Hook Form][reacthookform] → Validação e gerenciamento de formulários.
+- [shadcn/ui][shadcn] → Conjunto de componentes acessíveis e performáticos.
+- [Tailwind CSS][tailwind] → Framework CSS utilizado na estilização dos componentes e páginas.
+- [ESLint][eslint] + [Prettier][prettier] → Formatação, alinhamento e qualidade de código.
+- [NextAuth.js][nextauth] → Autenticação de usuários.
+- [Google - API Gemini][gemini] → Análise e validação de conteúdo.
+- [Prisma][prisma] → ORM (Object-Relational Mapper) utilizado na manipulação de dados e na interação com bancos de dados.
+- [PostgreSQL][postgresql] → Banco de dados relacional, utilizado no armazenamento das informações dos usuários e das reclamações.
+- [Cloudflare R2][r2] → Banco de dados de objetos, utilizado no armazenamento das imagens.
+- [AWS SDK][awssdk] → Conjunto de ferramentas da Amazon utilizado na interação com buckets da R2 Cloudflare.
+- [React TanStack Query][tanstackquery] → Biblioteca utilizada no gerenciamento de estado de dados assíncronos.
+- [TypeScript][typescript] → Linguagem de programação fortemente tipada baseada em Javascript. Utilizada no desenvolvimento do projeto.
+- [Docker][docker] → Sistema de containers utilizado para criar e executar o banco de dados PostgreSQL de forma isolada.
 
 <br/>
 
@@ -157,7 +114,7 @@ npm run test:coverage
 
 ## Endpoints
 
-Abaixo você pode conferir um detalhamento dos endpoints utilizados no projeto. Para realizar as requisições HTTP e consultar o comportamento de cada endpoint, você pode utilizar a extensão [Thunder Client](https://www.thunderclient.com/).
+Abaixo você pode conferir um detalhamento dos endpoints utilizados no projeto. Para realizar as requisições HTTP e consultar o comportamento de cada endpoint, você pode utilizar a extensão [Thunder Client][thunder-client].
 
 > ⚠️ Atente-se ao token gerado durante o login, ele será necessário para outras operações. Lembre-se também que seu tempo de expiração é de 1h.
 
@@ -284,35 +241,31 @@ Projeto desenvolvido por Guilherme Garcia. Seguem abaixo minhas redes sociais e 
 
 <p align="right"><a href="#readme-top">Voltar ao topo</a></p>
 
-<!-- MARKDOWN LINKS & IMAGES -->
+<!-- MARKDOWN LINKS & BADGES -->
 
-[facens-url]: https://facens.br/
-[axios-url]: https://axios-http.com/docs/intro
-[bcryptjs-url]: https://www.npmjs.com/package/bcryptjs
-[chai-url]: https://www.chaijs.com/
-[cors-url]: https://www.npmjs.com/package/cors
-[css3-url]: https://developer.mozilla.org/en-US/docs/Web/CSS
-[docker-url]: https://www.docker.com/
-[dotenv-url]: https://www.dotenv.org/
-[eslint-url]: https://eslint.org/
-[express-url]: https://expressjs.com/
-[html5-url]: https://developer.mozilla.org/en-US/docs/Web/HTML
-[javascript-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript
-[jest-url]: https://jestjs.io/
-[jwt-url]: https://jwt.io/
-[mocha-url]: https://mochajs.org/
-[mysql-url]: https://www.mysql.com/
-[node-url]: https://nodejs.org/en/
-[react-url]: https://reactjs.org/
-[react-router-url]: https://reactrouter.com/en/main
-[sequelize-url]: https://sequelize.org/
-[sinon-url]: https://sinonjs.org/
-[typescript-url]: https://www.typescriptlang.org/
-[gmail-badge]: https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white
-[gmail-url]: mailto:garciaguig@gmail.com
-[linkedin-badge]: https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white
-[linkedin-url]: https://www.linkedin.com/in/garciaagui/
+[awssdk]: https://aws.amazon.com/pt/sdk-for-javascript
+[docker]: https://www.docker.com
+[eslint]: https://eslint.org
+[prettier]: https://prettier.io/docs
+[facens]: https://facens.br
+[gemini]: https://ai.google.dev/aistudio?hl=pt-br
 [github-badge]: https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white
 [github-url]: https://github.com/garciaagui
+[gmail-badge]: https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white
+[gmail-url]: mailto:garciaguig@gmail.com
 [instagram-badge]: https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white
 [instagram-url]: https://www.instagram.com/garciaagui/
+[linkedin-badge]: https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white
+[linkedin-url]: https://www.linkedin.com/in/garciaagui/
+[nextjs]: https://nextjs.org
+[nextauth]: https://next-auth.js.org/getting-started/introduction
+[postgresql]: https://www.postgresql.org
+[prisma]: https://www.prisma.io/orm
+[reacthookform]: https://react-hook-form.com
+[shadcn]: https://ui.shadcn.com
+[tailwind]: https://tailwindcss.com
+[tanstackquery]: https://tanstack.com/query/latest
+[thunder-client]: https://www.thunderclient.com
+[typescript]: https://www.typescriptlang.org
+[zod]: https://zod.dev/?id=introduction
+[r2]: https://developers.cloudflare.com/r2
