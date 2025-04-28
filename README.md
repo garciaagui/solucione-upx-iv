@@ -294,68 +294,50 @@ Abaixo você pode conferir um detalhamento dos endpoints utilizados no projeto. 
 
 Para rodar o projeto localmente, siga os passos abaixo.
 
-1. Verifique se a sua máquina possui as configurações mínimas para execução do projeto;
+1. Verifique se a sua máquina possui as configurações mínimas para execução do projeto:
 
-- Sistema Operacional Distribuição Unix;
-- Node versão igual ou superior à `16.14.0 LTS`;
-- Docker;
-- Docker-compose versão igual ou superior à `1.29.2`.
+- Sistema Operacional Distribuição Unix (Linux/macOS);
+- Node versão igual ou superior à `20.0.0 LTS`;
+- Docker versão igual ou superior à `24.0.0`;
+- Docker Compose versão igual ou superior à `2.20.0`.
 
-2. Clone o repositório;
-
-```
-
-git clone git@github.com:garciaagui/trybe-futebol-clube.git
+2. Clone o repositório:
 
 ```
-
-3. Navegue até a raiz do projeto;
-
+git clone git@github.com:garciaagui/solucione-upx-iv.git
 ```
 
-cd trybe-futebol-clube/
+3. Navegue até a raiz do projeto:
 
 ```
-
-4. Na raiz do projeto, instale as dependências com o comando abaixo;
-
+cd solucione-upx-iv/
 ```
 
-npm run postinstall
+4. Instale as dependências com o comando abaixo:
 
 ```
-
-5. Na raiz do projeto, vá até a diretório `app` e execute o comando abaixo para subir os containers. Ao fazê-lo, três containers serão inicializados:
-
-- **app_backend**: referente ao back-end;
-- **app_frontend**: referente ao front-end;
-- **db**: referente ao banco de dados.
-
+npm install
 ```
 
-cd app/ && npm run compose:up:dev
+5. Execute o comando abaixo para subir o container do banco de dados. Ao fazê-lo, o container **project_upx_db** será inicializado:
 
 ```
-
-6. No navegador, visite `http://localhost:3000`. Se tudo ocorreu bem, será possível utilizar a aplicação.
-
-<details>
-  <summary><strong> ℹ️ Para instruções adicionais, clique aqui.</strong></summary><br />
-
-- Para executar os testes do back-end, vá até o diretório `app/backend/` e utilize o comando abaixo.
-
+docker compose up
 ```
 
-npm run test:coverage
+6. Execute o comando abaixo para criar e aplicar as migrations no banco de dados. Ao fazê-lo, o banco será atualizado conforme o esquema definido no Prisma:
 
 ```
+npx prisma migrate dev
+```
 
-- Para inicializar a aplicação fora do container e conectar com seu banco local, siga os passos abaixo.
+7. Inicie a aplicação:
 
-1. Vá até o diretório `app/backend/`;
-2. Renomeie o arquivo `.env.example` para `.env`;
-3. Configure os valores de acordo com o cenário do seu ambiente (credenciais de banco de dados, secrets desejadas e etc).
-</details>
+```
+npm run dev
+```
+
+8. No navegador, visite `http://localhost:3000`. Se tudo ocorreu bem, será possível utilizar a aplicação.
 
 <br/>
 
