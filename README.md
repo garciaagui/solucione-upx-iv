@@ -55,7 +55,31 @@ Esta aplicação foi desenvolvida com Next.js para o backend e frontend. Utiliza
   </li>
 
   <li>
-    <a href="https://www.prisma.io/orm" target="_blank">Prisma</a> → ORM (Object-Relational Mapper) que facilita a interação com bancos de dados e a manipulação de dados.
+    <a href="https://www.prisma.io/orm" target="_blank">Prisma</a> → ORM (Object-Relational Mapper) utilizado na manipulação de dados e na interação com bancos de dados.
+  </li>
+
+  <li>
+    <a href="https://www.postgresql.org" target="_blank">PostgreSQL</a> → Banco de dados relacional, utilizado no armazenamento das informações dos usuários e das reclamações.
+  </li>
+
+  <li>
+    <a href="https://developers.cloudflare.com/r2" target="_blank">PostgreSQL</a> → Banco de dados de objetos, utilizado no armazenamento das imagens.
+  </li>
+
+  <li>
+    <a href="https://aws.amazon.com/pt/sdk-for-javascript" target="_blank">AWS SDK</a> → Conjunto de ferramentas da Amazon utilizado na interação com buckets da R2 Cloudflare.
+  </li>
+
+  <li>
+    <a href="https://tanstack.com/query/latest" target="_blank">React TanStack Query</a> → Biblioteca utilizada no gerenciamento de estado de dados assíncronos.
+  </li>
+
+  <li>
+    <a href="https://www.typescriptlang.org" target="_blank">Typescript</a> → Linguagem de programação fortemente tipada baseada em Javascript. Utilizada no desenvolvimento do projeto.
+  </li>
+
+  <li>
+    <a href="https://www.docker.com" target="_blank">Docker</a> → Sistema de containers utilizado para criar e executar o banco de dados PostgreSQL de forma isolada.
   </li>
 </ul>
 
