@@ -8,8 +8,8 @@
   <li><a href="#sobre-o-projeto">Sobre o Projeto</a></li>
   <li><a href="#tecnologias">Tecnologias</a></li>
   <li><a href="#funcionalidades">Funcionalidades</a></li>
-  <li><a href="#como-executar-o-projeto">Como Executar o Projeto</a></li>
   <li><a href="#endpoints">Endpoints</a></li>
+  <li><a href="#como-executar-o-projeto">Como Executar o Projeto</a></li>
   <li><a href="#contato">Contato</a></li>
 </ol>
 
@@ -71,6 +71,225 @@ Esta aplicação foi desenvolvida com Next.js para o backend e frontend. Utiliza
 
 <br/>
 
+## Endpoints
+
+Abaixo você pode conferir um detalhamento dos endpoints utilizados no projeto. Para realizar as requisições HTTP e consultar o comportamento de cada endpoint, você pode utilizar a extensão [Thunder Client][thunder-client].
+
+> ⚠️ As URLs abaixo consideram que o projeto está rodando na porta `3000`. Tenha isso em mente ao testar as rotas.
+
+<details>
+  <summary><strong>Auth</strong></summary>
+
+#### POST /auth/login
+
+- URL: `http://localhost:3000/api/auth/login`
+- Exemplo do corpo da requisição:
+
+```
+{
+  "email": "joao@example.com",
+  "password": "123456"
+}
+```
+
+- Exemplo de retorno bem-sucedido:
+
+```
+{
+  "message": "Login realizado com sucesso!",
+  "data": {
+    "user": {
+      "id": 1,
+      "name": "João Silva",
+      "email": "joao@example.com",
+      "role": "admin"
+    }
+  }
+}
+```
+
+</details>
+
+<details>
+  <summary><strong>Occurrences</strong></summary>
+
+#### GET /occurrences
+
+- Retorna todas as reclamações registradas no banco de dados.
+- URL: `http://localhost:3000/api/occurrences`
+- Exemplo de retorno bem-sucedido:
+
+```
+{
+  "message": "Ocorrências encontradas",
+  "data": [
+    {
+      "id": 2,
+      "title": "Lâmpada queimada no parque",
+      "description": "Uma das lâmpadas do poste no parque está queimada, deixando a área escura à noite.",
+      "street": "Rua das Flores",
+      "neighborhood": "Vila Nova",
+      "zipCode": "56.812-350",
+      "reference": "Próximo à esquina",
+      "status": "Aberto",
+      "image": "https://pub-192c7de9eb344c6b87b7ac901aa60c7e.r2.dev/lampada-queimada.jpg",
+      "userId": 4,
+      "createdAt": "2025-04-02T10:00:00.000Z",
+      "updatedAt": "2025-04-24T23:02:13.781Z",
+      "user": {
+        "id": 4,
+        "name": "Ana Moares",
+        "email": "ana@example.com",
+        "role": "user",
+        "createdAt": "2025-04-24T23:02:13.781Z",
+        "updatedAt": "2025-04-24T23:02:13.781Z"
+      },
+      "occurrenceReplies": []
+    },
+    {
+      "id": 1,
+      "title": "Vazamento de água na rua principal",
+      "description": "Há um vazamento de água na calçada em frente ao supermercado.",
+      "street": "Rua Principal",
+      "neighborhood": "Centro",
+      "zipCode": "25.689-420",
+      "reference": "Em frente ao estacionamento da praça",
+      "status": "Finalizado",
+      "image": "https://pub-192c7de9eb344c6b87b7ac901aa60c7e.r2.dev/vazamento-agua.jpg",
+      "userId": 3,
+      "createdAt": "2025-04-01T12:00:00.000Z",
+      "updatedAt": "2025-04-24T23:02:13.781Z",
+      "user": {
+        "id": 3,
+        "name": "Carlos Santos",
+        "email": "carlos@example.com",
+        "role": "user",
+        "createdAt": "2025-04-24T23:02:13.781Z",
+        "updatedAt": "2025-04-24T23:02:13.781Z"
+      },
+      "occurrenceReplies": [
+        {
+          "id": 1,
+          "description": "Problema localizado e o conserto foi agendado para amanhã.",
+          "imageUrl": "",
+          "userId": 2,
+          "occurrenceId": 1,
+          "occurrenceStatus": "Andamento",
+          "createdAt": "2025-04-06T00:00:00.000Z",
+          "updatedAt": "2025-04-24T23:02:13.781Z",
+          "user": {
+            "id": 2,
+            "name": "Maria Oliveira",
+            "email": "maria@example.com",
+            "role": "admin",
+            "createdAt": "2025-04-24T23:02:13.781Z",
+            "updatedAt": "2025-04-24T23:02:13.781Z"
+          }
+        },
+        {
+          "id": 2,
+          "description": "Após vazamento de água na rua principal, nossa equipe respondeu prontamente, localizou e reparou a fonte, com medidas preventivas para evitar recorrências. Priorizamos a rápida resolução para garantir o bem-estar da comunidade",
+          "imageUrl": "https://pub-192c7de9eb344c6b87b7ac901aa60c7e.r2.dev/conserto-vazamento-agua.jpg",
+          "userId": 2,
+          "occurrenceId": 1,
+          "occurrenceStatus": "Finalizado",
+          "createdAt": "2025-04-08T00:00:00.000Z",
+          "updatedAt": "2025-04-24T23:02:13.781Z",
+          "user": {
+            "id": 2,
+            "name": "Maria Oliveira",
+            "email": "maria@example.com",
+            "role": "admin",
+            "createdAt": "2025-04-24T23:02:13.781Z",
+            "updatedAt": "2025-04-24T23:02:13.781Z"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+#### GET /occurrences/:id
+
+- Retorna a reclamação de acordo com o id passado no endpoint.
+- Exemplo de URL: `http://localhost:3000/api/occurrences/4`
+- Exemplo de retorno bem-sucedido:
+
+```
+{
+  "message": "Ocorrência encontrada",
+  "data": {
+    "id": 4,
+    "title": "Passeio com buracos na Avenida Central",
+    "description": "Os buracos no passeio estão representando um perigo para os pedestres.",
+    "street": "Rua das Árvores",
+    "neighborhood": "Jardim Botânico",
+    "zipCode": "98.145-710",
+    "reference": "Próximo à escola",
+    "status": "Aberto",
+    "image": "https://pub-192c7de9eb344c6b87b7ac901aa60c7e.r2.dev/passeio-buracos.jpg",
+    "userId": 3,
+    "createdAt": "2025-04-04T15:00:00.000Z",
+    "updatedAt": "2025-04-24T23:02:13.781Z",
+    "user": {
+      "id": 3,
+      "name": "Carlos Santos",
+      "email": "carlos@example.com",
+      "password": "123456",
+      "role": "user",
+      "createdAt": "2025-04-24T23:02:13.781Z",
+      "updatedAt": "2025-04-24T23:02:13.781Z"
+    },
+    "occurrenceReplies": []
+  }
+}
+```
+
+#### POST /occurrences
+
+- Cria uma nova reclamação.
+- URL: `http://localhost:3000/api/occurrences`
+- O corpo da requisição precisa estar no formato `form`. Segue abaixo exemplo dos campos de texto:
+
+```
+{
+  "title": "Buraco na rua principal",
+  "description": "Grande buraco na pista colocando em risco a segurança dos motoristas.",
+  "street": "Avenida Central, 1234",
+  "neighborhood": "Centro",
+  "zipCode": "12345-678",
+  "reference": "Próximo ao supermercado Central"
+}
+```
+
+- Para requisições do tipo `form`, arquivos geralmente possuem um campo específico de envio.
+- Exemplo de retorno bem-sucedido:
+
+```
+{
+  message: 'Ocorrência criada!',
+  data: {
+    id: 6,
+    title: 'Buraco na rua principal',
+    description: 'Grande buraco na pista colocando em risco a segurança dos motoristas.',
+    street: 'Avenida Central, 1234',
+    neighborhood: 'Centro',
+    zipCode: '12.345-678',
+    reference: 'Próximo ao supermercado Central',
+    status: 'Aberto',
+    image: 'https://exemplo.com/imagens/ocorrencia-buraco.jpg',
+    userId: 4,
+    createdAt: 2025-04-28T23:44:17.896Z,
+    updatedAt: 2025-04-28T23:44:17.896Z
+},
+},
+```
+
+</details>
+
+<br/>
+
 ## Como Executar o Projeto
 
 Para rodar o projeto localmente, siga os passos abaixo.
@@ -85,19 +304,25 @@ Para rodar o projeto localmente, siga os passos abaixo.
 2. Clone o repositório;
 
 ```
+
 git clone git@github.com:garciaagui/trybe-futebol-clube.git
+
 ```
 
 3. Navegue até a raiz do projeto;
 
 ```
+
 cd trybe-futebol-clube/
+
 ```
 
 4. Na raiz do projeto, instale as dependências com o comando abaixo;
 
 ```
+
 npm run postinstall
+
 ```
 
 5. Na raiz do projeto, vá até a diretório `app` e execute o comando abaixo para subir os containers. Ao fazê-lo, três containers serão inicializados:
@@ -107,7 +332,9 @@ npm run postinstall
 - **db**: referente ao banco de dados.
 
 ```
+
 cd app/ && npm run compose:up:dev
+
 ```
 
 6. No navegador, visite `http://localhost:3000`. Se tudo ocorreu bem, será possível utilizar a aplicação.
@@ -118,7 +345,9 @@ cd app/ && npm run compose:up:dev
 - Para executar os testes do back-end, vá até o diretório `app/backend/` e utilize o comando abaixo.
 
 ```
+
 npm run test:coverage
+
 ```
 
 - Para inicializar a aplicação fora do container e conectar com seu banco local, siga os passos abaixo.
@@ -126,124 +355,6 @@ npm run test:coverage
 1. Vá até o diretório `app/backend/`;
 2. Renomeie o arquivo `.env.example` para `.env`;
 3. Configure os valores de acordo com o cenário do seu ambiente (credenciais de banco de dados, secrets desejadas e etc).
-</details>
-
-<br/>
-
-## Endpoints
-
-Abaixo você pode conferir um detalhamento dos endpoints utilizados no projeto. Para realizar as requisições HTTP e consultar o comportamento de cada endpoint, você pode utilizar a extensão [Thunder Client][thunder-client].
-
-> ⚠️ Atente-se ao token gerado durante o login, ele será necessário para outras operações. Lembre-se também que seu tempo de expiração é de 1h.
-
-<details>
-  <summary><strong>Login</strong></summary>
-
-### POST /login
-
-- Valida o login do usuário e retorna um token gerado com jsonwebtoken (jwt).
-- O token gerado deve ser inserido no Header `Authorization` para autenticar outras operações. Lembre-se de guardá-lo e tenha em mente que seu tempo de expiração é de 1h.
-- URL: `http://localhost:3001/login`
-- O corpo da requisição deve conter o seguinte formato:
-
-```
-{
-  "email": "string",
-  "password": "string"
-}
-```
-
-### GET /login/validate
-
-- Valida o login do usuário e retorna o `role` (admin ou user) do usuário.
-- 🔑 O token é validado neste endpoint.
-- URL: `http://localhost:3001/login/validate`
-
----
-
-</details>
-
-<details>
-  <summary><strong>Teams</strong></summary>
-  
-### GET /teams
-- Retorna todos os times registrados no banco de dados.
-- URL: `http://localhost:3001/teams`
-
-### GET /teams/:id
-
-- Retorna o time de acordo com o id passado no endpoint.
-- Exemplo de URL: `http://localhost:3001/teams/1`
-
----
-
-</details>
-  
-<details>
-  <summary><strong>Matches</strong></summary>
-  
-### GET /matches
-- Retorna todas as partidas registradas no banco de dados.
-- URL: `http://localhost:3001/matches`
-
-### POST /matches
-
-- Registra uma nova partida.
-- 🔑 O token é validado neste endpoint.
-- URL: `http://localhost:3001/matches`
-- O corpo da requisição deve conter o seguinte formato:
-
-```
-{
-  "homeTeamId": number, // O valor deve ser o id do time
-  "awayTeamId": number, // O valor deve ser o id do time
-  "homeTeamGoals": number,
-  "awayTeamGoals": number,
-}
-```
-
-### PATCH /matches/:id
-
-- Atualiza o placar da partida cujo id foi passado no endpoint.
-- Exemplo de URL: `http://localhost:3001/matches/42`
-- O corpo da requisição deve conter o seguinte formato:
-
-```
-{
-  "homeTeamGoals": number,
-  "awayTeamGoals": number
-}
-```
-
-### PATCH /matches/:id/finish
-
-- Finaliza a partida cujo id foi passado no endpoint.
-- Exemplo de URL: `http://localhost:3001/matches/42/finish`
-- Nada precisa ser inserido no corpo da requisição.
-
----
-
-</details>
-
-<details>
-  <summary><strong>Leaderboard</strong></summary>
-  
-### GET /leaderboard
-- Descrição: Retorna a classificação geral do campeonato (considera todas as partidas).
-- URL: `http://localhost:3001/leaderboard`
-
-### GET /leaderboard/home
-
-- Descrição: Retorna a classificação baseada somente nos jogos disputados em casa.
-- URL: `http://localhost:3001/leaderboard/home`
-
-### GET /leaderboard/away
-
-- Descrição: Retorna a classificação baseada somente nos jogos disputados como visitante.
-- URL: `http://localhost:3001/leaderboard/away`
-
----
-
 </details>
 
 <br/>
