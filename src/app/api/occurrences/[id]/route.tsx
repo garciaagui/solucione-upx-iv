@@ -2,6 +2,7 @@ import prisma from '@/lib/prisma'
 import { OccurrenceWithRelations } from '@/types/globals'
 import { NotFoundException } from '@/utils/exceptions'
 import { NextRequest, NextResponse } from 'next/server'
+import { DEFAULT_OCCURRENCE_INCLUDE } from '../constants'
 import { handleError } from '../functions'
 
 export const dynamic = 'force-dynamic'
@@ -18,7 +19,7 @@ export async function GET(_req: NextRequest, { params }: ParamsType): Promise<Ne
   try {
     const occurrence: OccurrenceWithRelations | null = await prisma.occurrence.findUnique({
       where: { id: Number(id) },
-      include: { user: true, occurrenceReplies: { include: { user: true } } },
+      include: DEFAULT_OCCURRENCE_INCLUDE,
     })
 
     if (!occurrence) {
