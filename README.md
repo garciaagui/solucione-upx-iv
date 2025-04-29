@@ -68,6 +68,7 @@ Esta aplicação foi desenvolvida com Next.js para o backend e frontend. Utiliza
 - **Detalhes de reclamação**: Apresenta informações detalhadas sobre uma reclamação específica.
 - **Criação de reclamações**: Permite que os usuários registrem novas reclamações no sistema.
 - **Validação de conteúdo impróprio**: Utiliza a inteligência artificial do Google Gemini para detectar e bloquear conteúdo ofensivo ou inadequado em texto e imagens.
+- **Mudança de tema**: Oferece a opção de alternar entre temas claro e escuro para melhorar a experiência do usuário.
 
 <br/>
 
