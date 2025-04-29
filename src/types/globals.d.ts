@@ -2,7 +2,7 @@ import { Prisma } from '@prisma/client'
 
 export type OccurrenceWithRelations = Prisma.OccurrenceGetPayload<{
   include: {
-    user: true
-    occurrenceReplies: { include: { user: true } }
+    user: { omit: { password: true } }
+    occurrenceReplies: { include: { user: { omit: { password: true } } } }
   }
 }>
