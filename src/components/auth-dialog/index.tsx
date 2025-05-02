@@ -1,7 +1,7 @@
 'use client'
 
 import { Dialog, DialogContent } from '@/components/ui/dialog'
-import Login from './_components/login'
+import { Login, Register } from './_components'
 import { AuthDialogProvider, useAuthDialog } from './_utils/context'
 
 interface Props {
@@ -10,20 +10,25 @@ interface Props {
 }
 
 function AuthDialogContent({ isOpen, handleOpen }: Props) {
-  const { loading, loginForm } = useAuthDialog()
+  const { loading, loginForm, selectedForm, setSelectedForm } = useAuthDialog()
   const { reset } = loginForm
 
   const handleDialogOpenChange = (open: boolean) => {
     if (!loading) {
       handleOpen(open)
       reset()
+      setSelectedForm('login')
     }
   }
 
   return (
     <Dialog open={isOpen} onOpenChange={handleDialogOpenChange}>
       <DialogContent>
-        <Login handleOpen={handleOpen} />
+        {selectedForm === 'login' ? (
+          <Login handleOpen={handleOpen} />
+        ) : (
+          <Register handleOpen={handleOpen} />
+        )}
       </DialogContent>
     </Dialog>
   )
