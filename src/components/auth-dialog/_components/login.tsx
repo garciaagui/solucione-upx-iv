@@ -23,7 +23,7 @@ interface Props {
 }
 
 export default function Login({ handleOpen }: Props) {
-  const { loading, loginForm, setLoading } = useAuthDialog()
+  const { loading, loginForm, setLoading, setSelectedForm } = useAuthDialog()
   const { control, handleSubmit } = loginForm
 
   const login = async (data: LoginFormValues) => {
@@ -89,6 +89,17 @@ export default function Login({ handleOpen }: Props) {
           <Button disabled={loading} type="submit" className="mt-2">
             {!loading ? 'Entrar' : <LoadingMessage message="Entrando..." />}
           </Button>
+
+          <div className="mt-4 text-center text-sm">
+            Não tem conta?{' '}
+            <button
+              type="button"
+              className="font-medium text-primary underline transition-all duration-200 ease-in-out hover:text-muted-foreground"
+              onClick={() => setSelectedForm('register')}
+            >
+              Cadastre-se
+            </button>
+          </div>
         </form>
       </Form>
     </>
