@@ -1,13 +1,14 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { createContext, ReactNode, useContext, useState } from 'react'
 import { useForm, UseFormReturn } from 'react-hook-form'
-import { LoginFormValues, loginSchema } from '.'
+import { LoginFormValues, loginSchema, RegisterFormValues, registerSchema } from '.'
 
 type SelectedFormValues = 'login' | 'register'
 
 interface ContextValue {
   loading: boolean
   loginForm: UseFormReturn<LoginFormValues>
+  registerForm: UseFormReturn<RegisterFormValues>
   selectedForm: SelectedFormValues
   setLoading: (value: boolean) => void
   setSelectedForm: (value: SelectedFormValues) => void
@@ -31,8 +32,19 @@ export const AuthDialogProvider = ({ children }: ProviderProps) => {
     },
   })
 
+  const registerForm = useForm<RegisterFormValues>({
+    resolver: zodResolver(registerSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      password: '',
+    },
+  })
+
   return (
-    <Context.Provider value={{ loading, loginForm, selectedForm, setLoading, setSelectedForm }}>
+    <Context.Provider
+      value={{ loading, loginForm, registerForm, selectedForm, setLoading, setSelectedForm }}
+    >
       {children}
     </Context.Provider>
   )
