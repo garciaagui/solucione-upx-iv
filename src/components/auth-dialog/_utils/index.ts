@@ -44,7 +44,7 @@ export const registerSchema = z
           message: 'A senha inserida não atende aos requisitos',
         },
       ),
-    confirmPassword: z.string(),
+    confirmPassword: z.string({ required_error: 'Insira a senha' }),
   })
   .refine((data) => data.password === data.confirmPassword, {
     path: ['confirmPassword'],
