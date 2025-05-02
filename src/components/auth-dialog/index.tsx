@@ -31,7 +31,7 @@ interface Props {
   handleOpen: (open: boolean) => void
 }
 
-export default function LoginDialog({ isOpen, handleOpen }: Props) {
+export default function AuthDialog({ isOpen, handleOpen }: Props) {
   const [loading, setLoading] = useState(false)
 
   const form = useForm<LoginType>({
