@@ -3,10 +3,14 @@ import { createContext, ReactNode, useContext, useState } from 'react'
 import { useForm, UseFormReturn } from 'react-hook-form'
 import { LoginFormValues, loginSchema } from '.'
 
+type SelectedFormValues = 'login' | 'register'
+
 interface ContextValue {
   loading: boolean
   loginForm: UseFormReturn<LoginFormValues>
+  selectedForm: SelectedFormValues
   setLoading: (value: boolean) => void
+  setSelectedForm: (value: SelectedFormValues) => void
 }
 
 interface ProviderProps {
@@ -17,6 +21,7 @@ const Context = createContext<ContextValue | undefined>(undefined)
 
 export const AuthDialogProvider = ({ children }: ProviderProps) => {
   const [loading, setLoading] = useState(false)
+  const [selectedForm, setSelectedForm] = useState<SelectedFormValues>('login')
 
   const loginForm = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -26,7 +31,11 @@ export const AuthDialogProvider = ({ children }: ProviderProps) => {
     },
   })
 
-  return <Context.Provider value={{ loading, loginForm, setLoading }}>{children}</Context.Provider>
+  return (
+    <Context.Provider value={{ loading, loginForm, selectedForm, setLoading, setSelectedForm }}>
+      {children}
+    </Context.Provider>
+  )
 }
 
 export const useAuthDialog = () => {
