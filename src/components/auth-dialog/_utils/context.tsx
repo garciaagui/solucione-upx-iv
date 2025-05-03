@@ -26,6 +26,7 @@ export const AuthDialogProvider = ({ children }: ProviderProps) => {
 
   const loginForm = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
+    mode: 'onChange',
     defaultValues: {
       email: '',
       password: '',
@@ -34,10 +35,12 @@ export const AuthDialogProvider = ({ children }: ProviderProps) => {
 
   const registerForm = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema),
+    mode: 'onChange',
     defaultValues: {
       name: '',
       email: '',
       password: '',
+      confirmPassword: '',
     },
   })
 
