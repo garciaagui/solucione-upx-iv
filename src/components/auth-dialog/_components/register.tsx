@@ -13,15 +13,20 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { QUERY_KEYS } from '@/constants/query-keys'
+import { ToastError, ToastSuccess } from '@/utils/toast'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { RegisterFormValues } from '../_utils'
 import { useAuthDialog } from '../_utils/context'
+import { requestRegister } from '../_utils/functions'
 
 interface Props {
   handleOpen: (open: boolean) => void
 }
 
 export default function Register({ handleOpen }: Props) {
-  const { loading, registerForm, setSelectedForm } = useAuthDialog()
+  const queryClient = useQueryClient()
+  const { loading, registerForm, setLoading, setSelectedForm } = useAuthDialog()
   const { control, handleSubmit, reset } = registerForm
 
   const handleSelectedFormChange = () => {
@@ -29,8 +34,30 @@ export default function Register({ handleOpen }: Props) {
     reset()
   }
 
-  const register = async (data: RegisterFormValues) => {
-    console.log(data)
+  const registerMutation = useMutation({
+    mutationFn: async (data: RegisterFormValues) => {
+      setLoading(true)
+      await requestRegister(data)
+    },
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.USERS],
+      })
+      handleOpen(false)
+      handleSelectedFormChange()
+      ToastSuccess('Usuário cadastrado com sucesso!')
+    },
+    onError: (error) => {
+      console.error(error)
+      ToastError(error.message)
+    },
+    onSettled: () => {
+      setLoading(false)
+    },
+  })
+
+  const handleRegistration = (data: RegisterFormValues) => {
+    registerMutation.mutate(data)
   }
 
   return (
@@ -41,7 +68,11 @@ export default function Register({ handleOpen }: Props) {
       </DialogHeader>
 
       <Form {...registerForm}>
-        <form onSubmit={handleSubmit(register)} className="flex flex-col gap-4" id="login-form">
+        <form
+          onSubmit={handleSubmit(handleRegistration)}
+          className="flex flex-col gap-4"
+          id="register-form"
+        >
           <FormField
             control={control}
             disabled={loading}
@@ -114,7 +145,7 @@ export default function Register({ handleOpen }: Props) {
             )}
           />
 
-          <Button disabled={loading} type="submit" className="mt-2">
+          <Button disabled={loading} type="submit">
             {!loading ? 'Cadastrar' : <LoadingMessage message="Finalizando..." />}
           </Button>
 
