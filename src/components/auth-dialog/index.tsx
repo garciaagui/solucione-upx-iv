@@ -3,7 +3,7 @@
 import { Dialog, DialogContent } from '@/components/ui/dialog'
 import { useState } from 'react'
 import ConfirmDialog from '../confirm-dialog'
-import { Login, Register } from './_components'
+import { AnimationWrapper, Login, Register } from './_components'
 import { AuthDialogProvider, useAuthDialog } from './_utils/context'
 
 interface Props {
@@ -43,11 +43,13 @@ function AuthDialogContent({ isOpen, handleOpen }: Props) {
     <>
       <Dialog open={isOpen} onOpenChange={handleDialogOpenChange}>
         <DialogContent className="max-h-[100vh] overflow-y-auto">
-          {selectedForm === 'login' ? (
-            <Login handleOpen={handleOpen} />
-          ) : (
-            <Register handleOpen={handleOpen} />
-          )}
+          <AnimationWrapper>
+            {selectedForm === 'login' ? (
+              <Login handleOpen={handleOpen} />
+            ) : (
+              <Register handleOpen={handleOpen} />
+            )}
+          </AnimationWrapper>
         </DialogContent>
       </Dialog>
 
