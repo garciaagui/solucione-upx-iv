@@ -24,7 +24,12 @@ interface Props {
 
 export default function Login({ handleOpen }: Props) {
   const { loading, loginForm, setLoading, setSelectedForm } = useAuthDialog()
-  const { control, handleSubmit } = loginForm
+  const { control, handleSubmit, reset } = loginForm
+
+  const handleSelectedFormChange = () => {
+    setSelectedForm('register')
+    reset()
+  }
 
   const login = async (data: LoginFormValues) => {
     setLoading(true)
@@ -95,7 +100,7 @@ export default function Login({ handleOpen }: Props) {
             <button
               type="button"
               className="font-medium text-primary underline transition-all duration-200 ease-in-out hover:text-muted-foreground"
-              onClick={() => setSelectedForm('register')}
+              onClick={handleSelectedFormChange}
             >
               Cadastre-se
             </button>
