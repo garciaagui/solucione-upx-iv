@@ -23,7 +23,7 @@ function AuthDialogContent({ isOpen, handleOpen }: Props) {
 
   return (
     <Dialog open={isOpen} onOpenChange={handleDialogOpenChange}>
-      <DialogContent>
+      <DialogContent className="max-h-[100vh] overflow-y-auto">
         {selectedForm === 'login' ? (
           <Login handleOpen={handleOpen} />
         ) : (
