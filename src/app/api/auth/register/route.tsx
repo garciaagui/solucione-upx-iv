@@ -1,5 +1,6 @@
 import prisma from '@/lib/prisma'
 import { ConflictException, HttpException } from '@/utils/exceptions'
+import { hash } from 'bcryptjs'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(req: NextRequest) {
@@ -14,11 +15,13 @@ export async function POST(req: NextRequest) {
       throw new ConflictException('Já existe um usuário com este e-mail')
     }
 
+    const hashedPassword = await hash(password, 10)
+
     const newUser = await prisma.user.create({
       data: {
         name,
         email,
-        password,
+        password: hashedPassword,
         role: 'user',
       },
     })
