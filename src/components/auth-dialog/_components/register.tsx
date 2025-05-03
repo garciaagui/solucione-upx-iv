@@ -6,6 +6,7 @@ import { DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/di
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -36,7 +37,7 @@ export default function Register({ handleOpen }: Props) {
     <>
       <DialogHeader>
         <DialogTitle className="text-2xl font-semibold">Cadastro</DialogTitle>
-        <DialogDescription>Insira suas credenciais para acessar a plataforma</DialogDescription>
+        <DialogDescription>Preencha os campos abaixo para completar seu cadastro</DialogDescription>
       </DialogHeader>
 
       <Form {...registerForm}>
@@ -66,6 +67,9 @@ export default function Register({ handleOpen }: Props) {
                 <FormControl>
                   <Input placeholder="Ex.: joao@mail.com" type="email" {...field} />
                 </FormControl>
+                <FormDescription>
+                  Insira um e-mail real. Ele precisará ser validado para efetivar o cadastro.
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -81,6 +85,15 @@ export default function Register({ handleOpen }: Props) {
                 <FormControl>
                   <Input placeholder="**********" type="password" {...field} />
                 </FormControl>
+                <FormDescription>
+                  <span>A senha precisa conter, pelo menos:</span>
+                  <ul>
+                    <li>- 1 número;</li>
+                    <li>- 1 letra minúscula;</li>
+                    <li>- 1 letra maiúscula;</li>
+                    <li>- 1 carectere especial.</li>
+                  </ul>
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
