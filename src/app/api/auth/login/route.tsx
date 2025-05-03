@@ -1,5 +1,6 @@
 import prisma from '@/lib/prisma'
 import { HttpException, NotFoundException, UnauthorizedException } from '@/utils/exceptions'
+import { compareSync } from 'bcryptjs'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(req: NextRequest) {
@@ -14,8 +15,10 @@ export async function POST(req: NextRequest) {
       throw new NotFoundException('Usuário não encontrado')
     }
 
-    if (user.password !== password) {
-      throw new UnauthorizedException('Senha inválida')
+    const isValidPassword = compareSync(password, user.password)
+
+    if (!isValidPassword) {
+      throw new UnauthorizedException('Senha incorreta')
     }
 
     return NextResponse.json(
