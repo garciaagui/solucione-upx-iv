@@ -1,6 +1,8 @@
 'use client'
 
 import { Dialog, DialogContent } from '@/components/ui/dialog'
+import { useState } from 'react'
+import ConfirmDialog from '../confirm-dialog'
 import { Login, Register } from './_components'
 import { AuthDialogProvider, useAuthDialog } from './_utils/context'
 
@@ -10,27 +12,53 @@ interface Props {
 }
 
 function AuthDialogContent({ isOpen, handleOpen }: Props) {
-  const { loading, loginForm, selectedForm, setSelectedForm } = useAuthDialog()
-  const { reset } = loginForm
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false)
+  const { loading, loginForm, registerForm, selectedForm, setSelectedForm } = useAuthDialog()
+
+  const resetForms = () => {
+    loginForm.reset()
+    registerForm.reset()
+  }
 
   const handleDialogOpenChange = (open: boolean) => {
-    if (!loading) {
+    const hasFilledFields = registerForm.formState.isDirty
+
+    if (!open && hasFilledFields && !loading) {
+      setShowConfirmDialog(true)
+    } else if (!loading) {
       handleOpen(open)
-      reset()
+      resetForms()
       setSelectedForm('login')
     }
   }
 
+  const closeConfirmDialog = () => {
+    setShowConfirmDialog(false)
+    handleOpen(false)
+    resetForms()
+    setSelectedForm('login')
+  }
+
   return (
-    <Dialog open={isOpen} onOpenChange={handleDialogOpenChange}>
-      <DialogContent className="max-h-[100vh] overflow-y-auto">
-        {selectedForm === 'login' ? (
-          <Login handleOpen={handleOpen} />
-        ) : (
-          <Register handleOpen={handleOpen} />
-        )}
-      </DialogContent>
-    </Dialog>
+    <>
+      <Dialog open={isOpen} onOpenChange={handleDialogOpenChange}>
+        <DialogContent className="max-h-[100vh] overflow-y-auto">
+          {selectedForm === 'login' ? (
+            <Login handleOpen={handleOpen} />
+          ) : (
+            <Register handleOpen={handleOpen} />
+          )}
+        </DialogContent>
+      </Dialog>
+
+      <ConfirmDialog
+        open={showConfirmDialog}
+        description="Há informações preenchidas. Deseja sair?"
+        title="Abandonar cadastro?"
+        onConfirm={closeConfirmDialog}
+        onOpenChange={setShowConfirmDialog}
+      />
+    </>
   )
 }
 
