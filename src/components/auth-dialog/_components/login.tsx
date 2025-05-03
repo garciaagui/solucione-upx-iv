@@ -54,7 +54,7 @@ export default function Login({ handleOpen }: Props) {
 
   return (
     <>
-      <DialogHeader>
+      <DialogHeader className="mb-4">
         <DialogTitle className="text-2xl font-semibold">Login</DialogTitle>
         <DialogDescription>Insira suas credenciais para acessar a plataforma</DialogDescription>
       </DialogHeader>

@@ -35,7 +35,7 @@ export default function Register({ handleOpen }: Props) {
 
   return (
     <>
-      <DialogHeader>
+      <DialogHeader className="mb-4">
         <DialogTitle className="text-2xl font-semibold">Cadastro</DialogTitle>
         <DialogDescription>Preencha os campos abaixo para completar seu cadastro</DialogDescription>
       </DialogHeader>
