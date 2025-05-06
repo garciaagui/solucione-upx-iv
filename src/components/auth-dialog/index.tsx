@@ -4,6 +4,7 @@ import { Dialog, DialogContent } from '@/components/ui/dialog'
 import { useState } from 'react'
 import ConfirmDialog from '../confirm-dialog'
 import { AnimationWrapper, Login, Register } from './_components'
+import VerifyEmailDialog from './_components/verify-email-dialog'
 import { AuthDialogProvider, useAuthDialog } from './_utils/context'
 
 interface Props {
@@ -13,6 +14,7 @@ interface Props {
 
 function AuthDialogContent({ isOpen, handleOpen }: Props) {
   const [showConfirmDialog, setShowConfirmDialog] = useState(false)
+  const [showVerifyDialog, setShowVerifyDialog] = useState(false)
   const { loading, loginForm, registerForm, selectedForm, setSelectedForm } = useAuthDialog()
 
   const resetForms = () => {
@@ -47,7 +49,10 @@ function AuthDialogContent({ isOpen, handleOpen }: Props) {
             {selectedForm === 'login' ? (
               <Login handleOpen={handleOpen} />
             ) : (
-              <Register handleOpen={handleOpen} />
+              <Register
+                handleOpen={handleOpen}
+                openVerifyDialog={() => setShowVerifyDialog(true)}
+              />
             )}
           </AnimationWrapper>
         </DialogContent>
@@ -60,6 +65,8 @@ function AuthDialogContent({ isOpen, handleOpen }: Props) {
         onConfirm={closeConfirmDialog}
         onOpenChange={setShowConfirmDialog}
       />
+
+      <VerifyEmailDialog open={showVerifyDialog} onOpenChange={setShowVerifyDialog} />
     </>
   )
 }

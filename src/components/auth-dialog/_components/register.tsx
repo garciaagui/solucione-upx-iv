@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { QUERY_KEYS } from '@/constants/query-keys'
-import { ToastError, ToastSuccess } from '@/utils/toast'
+import { ToastError } from '@/utils/toast'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { RegisterFormValues } from '../_utils'
 import { useAuthDialog } from '../_utils/context'
@@ -22,9 +22,10 @@ import { requestRegister } from '../_utils/functions'
 
 interface Props {
   handleOpen: (open: boolean) => void
+  openVerifyDialog: () => void
 }
 
-export default function Register({ handleOpen }: Props) {
+export default function Register({ handleOpen, openVerifyDialog }: Props) {
   const queryClient = useQueryClient()
   const { loading, registerForm, setLoading, setSelectedForm } = useAuthDialog()
   const { control, handleSubmit, reset } = registerForm
@@ -43,9 +44,9 @@ export default function Register({ handleOpen }: Props) {
       await queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.USERS],
       })
+      openVerifyDialog()
       handleOpen(false)
       handleSelectedFormChange()
-      ToastSuccess('Usuário cadastrado com sucesso!')
     },
     onError: (error) => {
       console.error(error)
