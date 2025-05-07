@@ -46,7 +46,7 @@ export async function POST(req: NextRequest) {
     const verificationUrl = `${process.env.NEXT_PUBLIC_URL}/auth/verify-email?token=${token}`
 
     await resend.emails.send({
-      from: 'Solucione <onboarding@resend.dev>',
+      from: 'Solucione <donotreply@whiterun.online>',
       to: email,
       subject: 'Verifique seu e-mail',
       html: `
