@@ -1,5 +1,6 @@
 'use client'
 
+import { HttpException } from '@/utils/exceptions'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { IconWrapper, OutputContainer } from './_components'
@@ -31,9 +32,10 @@ export default function VerifyEmail() {
 
         setStatus('success')
         setMessage(data.message)
-      } catch (err: any) {
+      } catch (err) {
+        const error = err as HttpException
         setStatus('error')
-        setMessage(err.message)
+        setMessage(error.message || 'Erro ao verificar e-mail')
       }
     }
 
