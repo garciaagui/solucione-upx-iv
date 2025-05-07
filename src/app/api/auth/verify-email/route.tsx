@@ -1,6 +1,6 @@
 import prisma from '@/lib/prisma'
 import { HttpException, NotFoundException, UnauthorizedException } from '@/utils/exceptions'
-import jwt, { JwtPayload } from 'jsonwebtoken'
+import jwt, { JsonWebTokenError, JwtPayload } from 'jsonwebtoken'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(req: NextRequest) {
@@ -14,8 +14,12 @@ export async function GET(req: NextRequest) {
     let decoded: JwtPayload
     try {
       decoded = jwt.verify(token, process.env.JWT_SECRET!) as JwtPayload
-    } catch (err) {
-      throw new UnauthorizedException('Token inválido ou expirado')
+    } catch (error) {
+      const err = error as JsonWebTokenError
+
+      if (err.name === 'TokenExpiredError') throw new UnauthorizedException('Token expirado')
+      
+      throw new UnauthorizedException('Token inválido')
     }
 
     const { email } = decoded
