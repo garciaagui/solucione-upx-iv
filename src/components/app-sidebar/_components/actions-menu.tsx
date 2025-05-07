@@ -1,7 +1,7 @@
 import { BookPlus } from 'lucide-react'
 
+import AuthDialog from '@/components/auth-dialog'
 import CreateOccurrence from '@/components/create-occurrence'
-import LoginDialog from '@/components/login-dialog'
 import {
   SidebarGroup,
   SidebarGroupContent,
@@ -31,7 +31,7 @@ function CreateOccurrenceItem() {
       {isLoggedIn ? (
         <CreateOccurrence isOpen={openDialog} handleOpen={setOpenDialog} />
       ) : (
-        <LoginDialog isOpen={openDialog} handleOpen={setOpenDialog} />
+        <AuthDialog isOpen={openDialog} handleOpen={setOpenDialog} />
       )}
     </>
   )

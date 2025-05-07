@@ -1,4 +1,4 @@
-import LoginDialog from '@/components/login-dialog'
+import AuthDialog from '@/components/auth-dialog'
 import { SidebarMenuButton, useSidebar } from '@/components/ui/sidebar'
 import clsx from 'clsx'
 import { LogIn } from 'lucide-react'
@@ -34,7 +34,7 @@ export default function LoginButton() {
         </span>
       </SidebarMenuButton>
 
-      <LoginDialog isOpen={openDialog} handleOpen={setOpenDialog} />
+      <AuthDialog isOpen={openDialog} handleOpen={setOpenDialog} />
     </>
   )
 }

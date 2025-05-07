@@ -15,6 +15,14 @@ export class BadRequestException extends HttpException {
   }
 }
 
+export class ConflictException extends HttpException {
+  private static status = 409
+
+  constructor(message: string) {
+    super(ConflictException.status, message)
+  }
+}
+
 export class NotFoundException extends HttpException {
   private static status = 404
 

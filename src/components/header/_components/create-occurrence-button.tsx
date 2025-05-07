@@ -1,7 +1,7 @@
 'use client'
 
+import AuthDialog from '@/components/auth-dialog'
 import CreateOccurrence from '@/components/create-occurrence'
-import LoginDialog from '@/components/login-dialog'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { BookPlus } from 'lucide-react'
@@ -27,7 +27,7 @@ export default function CreateOccurrenceButton() {
       {isLoggedIn ? (
         <CreateOccurrence isOpen={openDialog} handleOpen={setOpenDialog} />
       ) : (
-        <LoginDialog isOpen={openDialog} handleOpen={setOpenDialog} />
+        <AuthDialog isOpen={openDialog} handleOpen={setOpenDialog} />
       )}
     </>
   )

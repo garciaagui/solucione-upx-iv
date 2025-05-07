@@ -1,9 +1,9 @@
 -- Inserindo usuários
 INSERT INTO "users" (name, email, password, role, created_at, updated_at) VALUES
-  ('João Silva', 'joao@example.com', '123456', 'admin', NOW(), NOW()),
-  ('Maria Oliveira', 'maria@example.com', '123456', 'admin', NOW(), NOW()),
-  ('Carlos Santos', 'carlos@example.com', '123456', 'user', NOW(), NOW()),
-  ('Ana Moares', 'ana@example.com', '123456', 'user', NOW(), NOW());
+  ('João Silva', 'joao@example.com', '$2b$10$bs7J/7bLtDjIk6Iop2xuQuIX4ya0o3QY.o4WVAC0S94tUePLrev3q', 'admin', NOW(), NOW()),
+  ('Maria Oliveira', 'maria@example.com', '$2b$10$OyuhdHtx0KtfhwRxVnBWV.ujXwiJrUtCDZt13Oty6mg7xityDbH6K', 'admin', NOW(), NOW()),
+  ('Carlos Santos', 'carlos@example.com', '$2b$10$nTt0xPvcS607UanR86MMWegE/ML9NZDk5.02EQlMEM9FJgtwGfBbW', 'user', NOW(), NOW()),
+  ('Ana Moares', 'ana@example.com', '$2b$10$Yzq1n4MH2M9s3kACd7LIWeNClUm6FpJf8LKsbqlFksgjGE.GUarCG', 'user', NOW(), NOW());
 
 -- Inserindo ocorrências
 INSERT INTO "occurrences" (title, description, neighborhood, street, zip_code, reference, status, image, user_id, created_at, updated_at) VALUES
