@@ -34,7 +34,7 @@ export const sendVerificationEmail = async (username: string, email: string, tok
   })
 }
 
-export const verifyToken = (token: string | null) => {
+export const decodeAndVerifyToken = (token: string | null) => {
   if (!token) {
     throw new UnauthorizedException('Token não fornecido')
   }

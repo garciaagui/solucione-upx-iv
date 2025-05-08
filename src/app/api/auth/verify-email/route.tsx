@@ -1,12 +1,12 @@
 import prisma from '@/lib/prisma'
 import { HttpException } from '@/utils/exceptions'
 import { NextRequest, NextResponse } from 'next/server'
-import { findUserByEmail, verifyToken } from '../_utils/functions'
+import { decodeAndVerifyToken, findUserByEmail } from '../_utils/functions'
 
 export async function GET(req: NextRequest) {
   try {
     const token = req.nextUrl.searchParams.get('token')
-    const email = verifyToken(token)
+    const email = decodeAndVerifyToken(token)
     const user = await findUserByEmail(email)
 
     if (user.emailVerified) {
