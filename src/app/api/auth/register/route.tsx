@@ -1,5 +1,6 @@
 import prisma from '@/lib/prisma'
 import { ConflictException, HttpException } from '@/utils/exceptions'
+import { Role } from '@prisma/client'
 import { hash } from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import { NextRequest, NextResponse } from 'next/server'
@@ -18,28 +19,25 @@ export async function POST(req: NextRequest) {
     }
 
     let newUser
+
     const hashedPassword = await hash(password, 10)
     const token = jwt.sign({ email }, process.env.JWT_SECRET!, { expiresIn: '10m' })
+
+    const payload = {
+      name,
+      password: hashedPassword,
+      role: 'user' as Role,
+      verifyToken: token,
+    }
 
     if (existingUser && !existingUser.emailVerified) {
       newUser = await prisma.user.update({
         where: { email },
-        data: {
-          name,
-          password: hashedPassword,
-          role: 'user',
-          verifyToken: token,
-        },
+        data: payload,
       })
     } else {
       newUser = await prisma.user.create({
-        data: {
-          name,
-          email,
-          password: hashedPassword,
-          role: 'user',
-          verifyToken: token,
-        },
+        data: { ...payload, email },
       })
     }
 
