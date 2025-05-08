@@ -2,8 +2,8 @@ import prisma from '@/lib/prisma'
 import { OccurrenceWithRelations } from '@/types/globals'
 import { NotFoundException } from '@/utils/exceptions'
 import { NextRequest, NextResponse } from 'next/server'
-import { DEFAULT_OCCURRENCE_INCLUDE } from '../constants'
-import { handleError } from '../functions'
+import { DEFAULT_OCCURRENCE_INCLUDE } from '../_utils/constants'
+import { handleError } from '../_utils/functions'
 
 export const dynamic = 'force-dynamic'
 

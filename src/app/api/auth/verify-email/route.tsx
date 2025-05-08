@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
       const err = error as JsonWebTokenError
 
       if (err.name === 'TokenExpiredError') throw new UnauthorizedException('Token expirado')
-      
+
       throw new UnauthorizedException('Token inválido')
     }
 
