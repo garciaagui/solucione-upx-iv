@@ -1,20 +1,13 @@
-import prisma from '@/lib/prisma'
-import { HttpException, NotFoundException, UnauthorizedException } from '@/utils/exceptions'
+import { HttpException, UnauthorizedException } from '@/utils/exceptions'
 import { compareSync } from 'bcryptjs'
 import { NextRequest, NextResponse } from 'next/server'
+import { findUserByEmail } from '../_utils/functions'
 
 export async function POST(req: NextRequest) {
   try {
     const { email, password } = await req.json()
 
-    const user = await prisma.user.findUnique({
-      where: { email },
-    })
-
-    if (!user) {
-      throw new NotFoundException('Usuário não encontrado')
-    }
-
+    const user = await findUserByEmail(email)
     const isValidPassword = compareSync(password, user.password)
 
     if (!isValidPassword) {

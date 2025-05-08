@@ -1,7 +1,8 @@
 import prisma from '@/lib/prisma'
-import { HttpException, NotFoundException, UnauthorizedException } from '@/utils/exceptions'
+import { HttpException, UnauthorizedException } from '@/utils/exceptions'
 import jwt, { JsonWebTokenError, JwtPayload } from 'jsonwebtoken'
 import { NextRequest, NextResponse } from 'next/server'
+import { findUserByEmail } from '../_utils/functions'
 
 export async function GET(req: NextRequest) {
   try {
@@ -24,11 +25,7 @@ export async function GET(req: NextRequest) {
 
     const { email } = decoded
 
-    const user = await prisma.user.findUnique({ where: { email } })
-
-    if (!user) {
-      throw new NotFoundException('Usuário não encontrado')
-    }
+    const user = await findUserByEmail(email)
 
     if (user.emailVerified) {
       return NextResponse.json({ message: 'E-mail já verificado.' }, { status: 200 })

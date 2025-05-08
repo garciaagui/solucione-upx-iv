@@ -4,14 +4,13 @@ import { ConflictException, HttpException } from '@/utils/exceptions'
 import { hash } from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import { NextRequest, NextResponse } from 'next/server'
+import { findUserByEmail } from '../_utils/functions'
 
 export async function POST(req: NextRequest) {
   try {
     const { name, email, password } = await req.json()
 
-    const existingUser = await prisma.user.findUnique({
-      where: { email },
-    })
+    const existingUser = await findUserByEmail(email)
 
     if (existingUser && existingUser.emailVerified) {
       throw new ConflictException('Já existe um usuário com este e-mail')
