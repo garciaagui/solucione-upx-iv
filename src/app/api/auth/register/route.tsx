@@ -1,16 +1,17 @@
 import prisma from '@/lib/prisma'
-import resend from '@/lib/resend'
 import { ConflictException, HttpException } from '@/utils/exceptions'
 import { hash } from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import { NextRequest, NextResponse } from 'next/server'
-import { findUserByEmail } from '../_utils/functions'
+import { sendVerificationEmail } from '../_utils/functions'
 
 export async function POST(req: NextRequest) {
   try {
     const { name, email, password } = await req.json()
 
-    const existingUser = await findUserByEmail(email)
+    const existingUser = await prisma.user.findUnique({
+      where: { email },
+    })
 
     if (existingUser && existingUser.emailVerified) {
       throw new ConflictException('Já existe um usuário com este e-mail')
@@ -42,22 +43,7 @@ export async function POST(req: NextRequest) {
       })
     }
 
-    const verificationUrl = `${process.env.NEXT_PUBLIC_URL}/auth/verify-email?token=${token}`
-
-    await resend.emails.send({
-      from: 'Solucione <donotreply@whiterun.online>',
-      to: email,
-      subject: 'Verifique seu e-mail',
-      html: `
-        <p>Olá, ${name},</p>
-        <p>Por favor, clique no botão abaixo para confirmar seu e-mail e validar seu cadastro:</p>
-        <a href="${verificationUrl}" style="background-color:#4F46E5;padding:12px 20px;color:white;border-radius:6px;text-decoration:none">Confirmar e-mail</a>
-        <br />
-        <br />
-        <p>Atenciosamente, </p>
-        <p style="font-weight:900">Solucione</p>
-        `,
-    })
+    await sendVerificationEmail(name, email, token)
 
     return NextResponse.json(
       {
