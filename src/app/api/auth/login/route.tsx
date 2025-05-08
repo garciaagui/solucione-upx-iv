@@ -1,6 +1,7 @@
-import { HttpException, UnauthorizedException } from '@/utils/exceptions'
+import { UnauthorizedException } from '@/utils/exceptions'
 import { compareSync } from 'bcryptjs'
 import { NextRequest, NextResponse } from 'next/server'
+import { handleError } from '../../_utils/functions'
 import { findUserByEmail } from '../_utils/functions'
 
 export async function POST(req: NextRequest) {
@@ -22,16 +23,6 @@ export async function POST(req: NextRequest) {
       { status: 200 },
     )
   } catch (error: unknown) {
-    if (error instanceof HttpException) {
-      const { message, status } = error
-      console.error(message, status)
-
-      return NextResponse.json({ message }, { status })
-    } else {
-      const message = 'Erro inesperado ao realizar login'
-      console.error(message, error)
-
-      return NextResponse.json({ message }, { status: 500 })
-    }
+    return handleError(error)
   }
 }

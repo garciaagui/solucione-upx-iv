@@ -1,9 +1,10 @@
 import prisma from '@/lib/prisma'
-import { ConflictException, HttpException } from '@/utils/exceptions'
+import { ConflictException } from '@/utils/exceptions'
 import { Role } from '@prisma/client'
 import { hash } from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import { NextRequest, NextResponse } from 'next/server'
+import { handleError } from '../../_utils/functions'
 import { sendVerificationEmail } from '../_utils/functions'
 
 export async function POST(req: NextRequest) {
@@ -57,11 +58,6 @@ export async function POST(req: NextRequest) {
       { status: 201 },
     )
   } catch (error: unknown) {
-    const message = error instanceof HttpException ? error.message : 'Erro inesperado'
-    const status = error instanceof HttpException ? error.status : 500
-
-    console.error(message, error)
-
-    return NextResponse.json({ message }, { status })
+    return handleError(error)
   }
 }

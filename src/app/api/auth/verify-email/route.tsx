@@ -1,6 +1,6 @@
 import prisma from '@/lib/prisma'
-import { HttpException } from '@/utils/exceptions'
 import { NextRequest, NextResponse } from 'next/server'
+import { handleError } from '../../_utils/functions'
 import { decodeAndVerifyToken, findUserByEmail } from '../_utils/functions'
 
 export async function GET(req: NextRequest) {
@@ -23,11 +23,6 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json({ message: 'E-mail verificado com sucesso.' }, { status: 200 })
   } catch (error: unknown) {
-    const message = error instanceof HttpException ? error.message : 'Erro inesperado'
-    const status = error instanceof HttpException ? error.status : 500
-
-    console.error(message, error)
-
-    return NextResponse.json({ message }, { status })
+    return handleError(error)
   }
 }
