@@ -1,6 +1,7 @@
 import prisma from '@/lib/prisma'
 import resend from '@/lib/resend'
-import { NotFoundException } from '@/utils/exceptions'
+import { NotFoundException, UnauthorizedException } from '@/utils/exceptions'
+import jwt, { JsonWebTokenError, JwtPayload } from 'jsonwebtoken'
 
 export const findUserByEmail = async (email: string) => {
   const user = await prisma.user.findUnique({
@@ -31,4 +32,25 @@ export const sendVerificationEmail = async (username: string, email: string, tok
         <p style="font-weight:900">Solucione</p>
         `,
   })
+}
+
+export const verifyToken = (token: string | null) => {
+  if (!token) {
+    throw new UnauthorizedException('Token não fornecido')
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as JwtPayload
+    const { email } = decoded
+
+    return email
+  } catch (error) {
+    const err = error as JsonWebTokenError
+
+    if (err.name === 'TokenExpiredError') {
+      throw new UnauthorizedException('Token expirado')
+    }
+
+    throw new UnauthorizedException('Token inválido')
+  }
 }

@@ -1,30 +1,12 @@
 import prisma from '@/lib/prisma'
-import { HttpException, UnauthorizedException } from '@/utils/exceptions'
-import jwt, { JsonWebTokenError, JwtPayload } from 'jsonwebtoken'
+import { HttpException } from '@/utils/exceptions'
 import { NextRequest, NextResponse } from 'next/server'
-import { findUserByEmail } from '../_utils/functions'
+import { findUserByEmail, verifyToken } from '../_utils/functions'
 
 export async function GET(req: NextRequest) {
   try {
     const token = req.nextUrl.searchParams.get('token')
-
-    if (!token) {
-      throw new UnauthorizedException('Token não fornecido')
-    }
-
-    let decoded: JwtPayload
-    try {
-      decoded = jwt.verify(token, process.env.JWT_SECRET!) as JwtPayload
-    } catch (error) {
-      const err = error as JsonWebTokenError
-
-      if (err.name === 'TokenExpiredError') throw new UnauthorizedException('Token expirado')
-
-      throw new UnauthorizedException('Token inválido')
-    }
-
-    const { email } = decoded
-
+    const email = verifyToken(token)
     const user = await findUserByEmail(email)
 
     if (user.emailVerified) {
