@@ -3,6 +3,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { handleError } from '../../_utils/functions'
 import { decodeAndVerifyToken, findUserByEmail } from '../_utils/functions'
 
+export const dynamic = 'force-dynamic'
+
 export async function GET(req: NextRequest) {
   try {
     const token = req.nextUrl.searchParams.get('token')

@@ -1,7 +1,7 @@
 'use client'
 
+import { Separator } from '@/components/ui/separator'
 import { useSession } from 'next-auth/react'
-import { Separator } from '../ui/separator'
 import { CreateOccurrenceButton, SidebarButton } from './_components'
 
 export default function Header() {

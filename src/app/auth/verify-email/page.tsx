@@ -1,16 +1,14 @@
 'use client'
 
-import { HttpException } from '@/utils/exceptions'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
+import { Suspense, useEffect, useState } from 'react'
 import { IconWrapper, OutputContainer } from './_components'
 
-export default function VerifyEmail() {
+function VerifyEmailContent() {
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading')
   const [message, setMessage] = useState('Verificando seu e-mail, aguarde...')
 
   const searchParams = useSearchParams()
-  const router = useRouter()
 
   useEffect(() => {
     const token = searchParams.get('token')
@@ -33,19 +31,33 @@ export default function VerifyEmail() {
         setStatus('success')
         setMessage(data.message)
       } catch (err) {
-        const error = err as HttpException
+        const error = err as Error
         setStatus('error')
         setMessage(error.message || 'Erro ao verificar e-mail')
       }
     }
 
     verifyEmail()
-  }, [searchParams, router])
+  }, [searchParams])
 
   return (
-    <main className="flex flex-col items-center justify-center py-4 text-center">
+    <>
       <IconWrapper status={status} />
       <OutputContainer status={status} message={message} />
+    </>
+  )
+}
+
+export default function VerifyEmail() {
+  return (
+    <main className="flex flex-col items-center justify-center py-4 text-center">
+      <Suspense
+        fallback={
+          <OutputContainer status={'loading'} message={'Verificando seu e-mail, aguarde...'} />
+        }
+      >
+        <VerifyEmailContent />
+      </Suspense>
     </main>
   )
 }
