@@ -10,16 +10,16 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { LoginFormValues, loginSchema } from '@/schemas/login'
 import { ToastError, ToastSuccess } from '@/utils/toast'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { signIn, SignInResponse } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
-import { loginSchema, LoginType } from './_utils'
 
 export default function Login() {
   const router = useRouter()
-  const loginForm = useForm<LoginType>({
+  const loginForm = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
       email: '',
@@ -29,7 +29,7 @@ export default function Login() {
 
   const { handleSubmit, control } = loginForm
 
-  const login = async (data: LoginType) => {
+  const login = async (data: LoginFormValues) => {
     const response = (await signIn('credentials', {
       ...data,
       redirect: false,

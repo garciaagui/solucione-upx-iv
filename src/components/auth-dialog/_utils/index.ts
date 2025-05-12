@@ -1,20 +1,5 @@
 import { z } from 'zod'
 
-export const loginSchema = z.object({
-  email: z
-    .string()
-    .min(1, {
-      message: 'O e-mail é obrigatório',
-    })
-    .email({
-      message: 'Formato de e-mail inválido',
-    })
-    .toLowerCase(),
-  password: z.string().min(1, {
-    message: 'A senha é obrigatória',
-  }),
-})
-
 export const registerSchema = z
   .object({
     name: z.string().min(10, {
@@ -51,5 +36,4 @@ export const registerSchema = z
     message: 'As senhas não coincidem',
   })
 
-export type LoginFormValues = z.infer<typeof loginSchema>
 export type RegisterFormValues = z.infer<typeof registerSchema>

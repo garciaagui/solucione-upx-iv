@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from 'zod'
 
 export const loginSchema = z.object({
   email: z
@@ -10,12 +10,9 @@ export const loginSchema = z.object({
       message: 'Formato de e-mail inválido',
     })
     .toLowerCase(),
-  password: z
-    .string()
-    .min(1, {
-      message: 'A senha é obrigatória',
-    })
+  password: z.string().min(1, {
+    message: 'A senha é obrigatória',
+  }),
 })
 
-export type LoginType = z.infer<typeof loginSchema>;
-
+export type LoginFormValues = z.infer<typeof loginSchema>

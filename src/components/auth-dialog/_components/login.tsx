@@ -14,8 +14,8 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { LoginFormValues } from '@/schemas/login'
 import { ToastError, ToastSuccess } from '@/utils/toast'
-import { LoginFormValues } from '../_utils'
 import { useAuthDialog } from '../_utils/context'
 
 interface Props {
