@@ -14,9 +14,9 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { QUERY_KEYS } from '@/constants/query-keys'
+import { RegisterFormValues } from '@/schemas/register'
 import { ToastError } from '@/utils/toast'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { RegisterFormValues } from '../_utils'
 import { useAuthDialog } from '../_utils/context'
 import { requestRegister } from '../_utils/functions'
 

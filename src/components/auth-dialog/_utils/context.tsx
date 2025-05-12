@@ -1,8 +1,8 @@
 import { LoginFormValues, loginSchema } from '@/schemas/login'
+import { RegisterFormValues, registerSchema } from '@/schemas/register'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { createContext, ReactNode, useContext, useState } from 'react'
 import { useForm, UseFormReturn } from 'react-hook-form'
-import { RegisterFormValues, registerSchema } from '.'
 
 type SelectedFormValues = 'login' | 'register'
 

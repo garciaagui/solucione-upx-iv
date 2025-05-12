@@ -1,4 +1,4 @@
-import { RegisterFormValues } from '.'
+import { RegisterFormValues } from '@/schemas/register'
 
 export const requestRegister = async (data: RegisterFormValues) => {
   const { name, email, password } = data
