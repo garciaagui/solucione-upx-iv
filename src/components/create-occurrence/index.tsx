@@ -9,6 +9,7 @@ import {
 import { Form } from '@/components/ui/form'
 import { QUERY_KEYS } from '@/constants/query-keys'
 import { StepperProvider, useStepper } from '@/contexts/stepper'
+import { occurrenceSchema, OcurrenceFormValues } from '@/schemas/occurrence'
 import { ToastError, ToastSuccess } from '@/utils/toast'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
@@ -17,8 +18,13 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import StepperProgress from '../stepper-progress'
 import { FirstStep, SecondStep, ThirdStep } from './_components'
-import { createOccurrenceSchema, CreateOccurrenceType, steps } from './_utils/constants'
 import { generateFormData, requestOccurrenceCreation } from './_utils/functions'
+
+const STEPS = [
+  { step: 1, label: 'Descrição' },
+  { step: 2, label: 'Localização' },
+  { step: 3, label: 'Imagem' },
+]
 
 interface Props {
   isOpen: boolean
@@ -35,8 +41,8 @@ function Component({ isOpen, handleOpen }: Props) {
 
   const userId = Number(session?.token.user.id)
 
-  const form = useForm<CreateOccurrenceType>({
-    resolver: zodResolver(createOccurrenceSchema),
+  const form = useForm<OcurrenceFormValues>({
+    resolver: zodResolver(occurrenceSchema),
     mode: 'onChange',
     defaultValues: {
       firstStep: {
@@ -80,7 +86,7 @@ function Component({ isOpen, handleOpen }: Props) {
   }
 
   const createMutation = useMutation({
-    mutationFn: async (data: CreateOccurrenceType) => {
+    mutationFn: async (data: OcurrenceFormValues) => {
       setLoading(true)
       const formData = generateFormData(data, userId)
       await requestOccurrenceCreation(formData)
@@ -102,7 +108,7 @@ function Component({ isOpen, handleOpen }: Props) {
     },
   })
 
-  const handleCreation = (formData: CreateOccurrenceType) => {
+  const handleCreation = (formData: OcurrenceFormValues) => {
     createMutation.mutate(formData)
   }
 
@@ -131,7 +137,7 @@ function Component({ isOpen, handleOpen }: Props) {
             </DialogDescription>
 
             <div className="py-2">
-              <StepperProgress currentStep={currentStep} stepsArray={steps} />
+              <StepperProgress currentStep={currentStep} stepsArray={STEPS} />
             </div>
           </DialogHeader>
 
