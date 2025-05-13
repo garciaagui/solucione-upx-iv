@@ -21,10 +21,17 @@ export default function Login() {
   }
 
   return (
-    <main className="flex h-screen flex-col items-center gap-8 px-20 py-48">
-      <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">Seja bem-vindo(a)</h3>
+    <main className="flex h-screen flex-col items-center gap-8 py-48">
+      <div className="text-center">
+        <h1 className="text-3xl font-bold tracking-tight text-primary">
+          Bem-vindo(a) à Solucione.
+        </h1>
+        <span className="text-muted-foreground">
+          Insira suas credenciais para acessar a plataforma
+        </span>
+      </div>
 
-      <div className="w-1/2">
+      <div className="w-4/5 md:w-1/2">
         <LoginForm form={form} onSuccess={onSuccess} />
       </div>
     </main>
