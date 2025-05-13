@@ -59,7 +59,7 @@ export default function LoginForm({ form, onSuccess }: Props) {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="Seu e-mail" type="email" {...field} />
+                <Input placeholder="examplo@mail.com" type="email" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -74,7 +74,7 @@ export default function LoginForm({ form, onSuccess }: Props) {
             <FormItem>
               <FormLabel>Senha</FormLabel>
               <FormControl>
-                <Input placeholder="Sua senha" type="password" {...field} />
+                <Input placeholder="**********" type="password" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
