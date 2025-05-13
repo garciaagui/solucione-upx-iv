@@ -3,11 +3,11 @@ import { Button } from '@/components/ui/button'
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { useStepper } from '@/contexts/stepper'
+import { OcurrenceFormValues } from '@/schemas/occurrence'
 import { UseFormReturn } from 'react-hook-form'
-import { CreateOccurrenceType } from '../_utils/constants'
 
 interface Props {
-  form: UseFormReturn<CreateOccurrenceType>
+  form: UseFormReturn<OcurrenceFormValues>
   loading: boolean
 }
 

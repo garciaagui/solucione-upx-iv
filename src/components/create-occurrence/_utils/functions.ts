@@ -1,4 +1,4 @@
-import { CreateOccurrenceType } from './constants'
+import { OcurrenceFormValues } from '@/schemas/occurrence'
 
 export const zipCodeMask = (value: string): string => {
   if (!value) return ''
@@ -10,7 +10,7 @@ export const zipCodeMask = (value: string): string => {
   return value
 }
 
-export const generateFormData = (data: CreateOccurrenceType, userId: number): FormData => {
+export const generateFormData = (data: OcurrenceFormValues, userId: number): FormData => {
   const { firstStep, secondStep, thirdStep } = data
   const formData = new FormData()
 

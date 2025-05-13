@@ -3,11 +3,11 @@ import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/comp
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { useStepper } from '@/contexts/stepper'
+import { OcurrenceFormValues } from '@/schemas/occurrence'
 import { UseFormReturn } from 'react-hook-form'
-import { CreateOccurrenceType } from '../_utils/constants'
 
 interface Props {
-  form: UseFormReturn<CreateOccurrenceType>
+  form: UseFormReturn<OcurrenceFormValues>
   closeDialog: () => void
 }
 
