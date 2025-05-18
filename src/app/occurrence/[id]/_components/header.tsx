@@ -13,7 +13,7 @@ export default function Header({ data }: Props) {
   const { createdAt, status, title, user } = data
 
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex w-full items-center gap-4">
       <Link
         href="/home"
         passHref
@@ -26,12 +26,12 @@ export default function Header({ data }: Props) {
         <h1 className="text-2xl font-extrabold tracking-tight">{title}</h1>
 
         <div className="flex flex-wrap items-center gap-2">
-          <Badge variant="secondary" className="gap-1">
+          <Badge variant="outline" className="gap-1">
             <UserCircle size={12} />
             {user.name}
           </Badge>
+          <Badge variant="outline">{formatDate(createdAt)}</Badge>
           <StatusBadge status={status} />
-          <Badge>{formatDate(createdAt)}</Badge>
         </div>
       </div>
     </div>
