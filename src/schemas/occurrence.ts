@@ -61,4 +61,21 @@ export const occurrenceSchema = z.object({
   thirdStep: thirdStepSchema,
 })
 
+export const updateOccurrenceSchema = z.object({
+  description: z
+    .string({
+      required_error: 'A descrição é obrigatória',
+    })
+    .min(40, {
+      message: 'A descrição precisa ter no mínimo 40 caracteres',
+    })
+    .max(255, {
+      message: 'A descrição pode ter no máximo 255 caracteres',
+    }),
+  image: z.custom<File>((file) => file instanceof File, {
+    message: 'A imagem é obrigatória',
+  }),
+})
+
 export type OcurrenceFormValues = z.infer<typeof occurrenceSchema>
+export type UpdateOccurrenceFormValues = z.infer<typeof updateOccurrenceSchema>
