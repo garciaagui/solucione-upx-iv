@@ -1,8 +1,10 @@
 import StatusBadge from '@/components/status-badge'
 import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import { OccurrenceWithRelations } from '@/types/globals'
 import { formatDate } from '@/utils/functions/date'
-import { ChevronLeft, UserCircle } from 'lucide-react'
+import { ChevronLeft, RefreshCcw, UserCircle } from 'lucide-react'
+import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 
 interface Props {
@@ -10,6 +12,9 @@ interface Props {
 }
 
 export default function Header({ data }: Props) {
+  const { data: session } = useSession()
+  const isAdmin = session?.token.user?.role === 'admin'
+
   const { createdAt, status, title, user } = data
 
   return (
@@ -34,6 +39,13 @@ export default function Header({ data }: Props) {
           <StatusBadge status={status} />
         </div>
       </div>
+
+      {isAdmin && status !== 'Finalizado' ? (
+        <Button className="ml-auto">
+          <RefreshCcw />
+          Atualizar status
+        </Button>
+      ) : null}
     </div>
   )
 }
