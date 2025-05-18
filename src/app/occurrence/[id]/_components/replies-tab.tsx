@@ -43,9 +43,11 @@ function ImageContainer({ url }: ImageContainerProps) {
   return (
     <Accordion type="single" collapsible>
       <AccordionItem value="item-1" className="border-none">
-        <AccordionTrigger>Visualizar imagem</AccordionTrigger>
+        <AccordionTrigger className="rounded-lg px-2 hover:bg-primary-foreground hover:no-underline">
+          Visualizar imagem
+        </AccordionTrigger>
         <AccordionContent>
-          <div className="relative h-96 w-full overflow-hidden rounded-lg">
+          <div className="relative mt-2 h-96 w-full overflow-hidden rounded-lg">
             {!isLoaded && <Skeleton className="h-full w-full object-cover" />}
 
             {!hasError ? (
@@ -93,7 +95,10 @@ export default function RepliesTab({ data }: Props) {
                 </div>
               </div>
 
-              <p className="text-muted-foreground">{description}</p>
+              <div className="flex flex-col items-start gap-0.5">
+                <span className="font-bold">Descrição</span>
+                <p className="text-muted-foreground">{description}</p>
+              </div>
 
               <ImageContainer url={imageUrl} />
             </CardContent>
