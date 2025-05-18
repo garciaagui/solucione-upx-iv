@@ -1,6 +1,21 @@
 import { z } from 'zod'
 
-const firstStepSchema = z.object({
+const description = z
+  .string({
+    required_error: 'A descrição é obrigatória',
+  })
+  .min(40, {
+    message: 'A descrição precisa ter no mínimo 40 caracteres',
+  })
+  .max(255, {
+    message: 'A descrição pode ter no máximo 255 caracteres',
+  })
+
+const image = z.custom<File>((file) => file instanceof File, {
+  message: 'A imagem é obrigatória',
+})
+
+const firstStep = z.object({
   title: z
     .string({
       required_error: 'O título é obrigatório',
@@ -11,19 +26,10 @@ const firstStepSchema = z.object({
     .max(127, {
       message: 'O título pode ter no máximo 127 caracteres',
     }),
-  description: z
-    .string({
-      required_error: 'A descrição é obrigatória',
-    })
-    .min(40, {
-      message: 'A descrição precisa ter no mínimo 40 caracteres',
-    })
-    .max(255, {
-      message: 'A descrição pode ter no máximo 255 caracteres',
-    }),
+  description,
 })
 
-const secondStepSchema = z.object({
+const secondStep = z.object({
   neighborhood: z
     .string({
       required_error: 'O bairro é obrigatório',
@@ -49,33 +55,20 @@ const secondStepSchema = z.object({
   reference: z.string().optional(),
 })
 
-const thirdStepSchema = z.object({
-  image: z.custom<File>((file) => file instanceof File, {
-    message: 'A imagem é obrigatória',
-  }),
+const thirdStep = z.object({
+  image,
 })
 
-export const occurrenceSchema = z.object({
-  firstStep: firstStepSchema,
-  secondStep: secondStepSchema,
-  thirdStep: thirdStepSchema,
+export const createOccurrenceSchema = z.object({
+  firstStep,
+  secondStep,
+  thirdStep,
 })
 
 export const updateOccurrenceSchema = z.object({
-  description: z
-    .string({
-      required_error: 'A descrição é obrigatória',
-    })
-    .min(40, {
-      message: 'A descrição precisa ter no mínimo 40 caracteres',
-    })
-    .max(255, {
-      message: 'A descrição pode ter no máximo 255 caracteres',
-    }),
-  image: z.custom<File>((file) => file instanceof File, {
-    message: 'A imagem é obrigatória',
-  }),
+  description,
+  image,
 })
 
-export type OcurrenceFormValues = z.infer<typeof occurrenceSchema>
+export type CreateOcurrenceFormValues = z.infer<typeof createOccurrenceSchema>
 export type UpdateOccurrenceFormValues = z.infer<typeof updateOccurrenceSchema>
