@@ -9,7 +9,7 @@ import {
 import { Form } from '@/components/ui/form'
 import { QUERY_KEYS } from '@/constants/query-keys'
 import { StepperProvider, useStepper } from '@/contexts/stepper'
-import { occurrenceSchema, OcurrenceFormValues } from '@/schemas/occurrence'
+import { createOccurrenceSchema, CreateOcurrenceFormValues } from '@/schemas/occurrence'
 import { ToastError, ToastSuccess } from '@/utils/toast'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
@@ -41,8 +41,8 @@ function Component({ isOpen, handleOpen }: Props) {
 
   const userId = Number(session?.token.user.id)
 
-  const form = useForm<OcurrenceFormValues>({
-    resolver: zodResolver(occurrenceSchema),
+  const form = useForm<CreateOcurrenceFormValues>({
+    resolver: zodResolver(createOccurrenceSchema),
     mode: 'onChange',
     defaultValues: {
       firstStep: {
@@ -86,7 +86,7 @@ function Component({ isOpen, handleOpen }: Props) {
   }
 
   const createMutation = useMutation({
-    mutationFn: async (data: OcurrenceFormValues) => {
+    mutationFn: async (data: CreateOcurrenceFormValues) => {
       setLoading(true)
       const formData = generateFormData(data, userId)
       await requestOccurrenceCreation(formData)
@@ -108,7 +108,7 @@ function Component({ isOpen, handleOpen }: Props) {
     },
   })
 
-  const handleCreation = (formData: OcurrenceFormValues) => {
+  const handleCreation = (formData: CreateOcurrenceFormValues) => {
     createMutation.mutate(formData)
   }
 
