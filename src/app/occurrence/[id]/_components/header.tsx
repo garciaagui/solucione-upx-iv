@@ -9,9 +9,10 @@ import Link from 'next/link'
 
 interface Props {
   data: OccurrenceWithRelations
+  openUpdateDialog: () => void
 }
 
-export default function Header({ data }: Props) {
+export default function Header({ data, openUpdateDialog }: Props) {
   const { data: session } = useSession()
   const isAdmin = session?.token.user?.role === 'admin'
 
@@ -41,7 +42,7 @@ export default function Header({ data }: Props) {
       </div>
 
       {isAdmin && status !== 'Finalizado' ? (
-        <Button className="ml-auto">
+        <Button className="ml-auto" onClick={openUpdateDialog}>
           <RefreshCcw />
           Atualizar status
         </Button>
