@@ -3,15 +3,14 @@ import { OccurrenceWithRelations } from '@/types/globals'
 import { NotFoundException } from '@/utils/exceptions'
 import { Status } from '@prisma/client'
 import { NextRequest, NextResponse } from 'next/server'
-import { handleError } from '../_utils/functions'
-import { DEFAULT_OCCURRENCE_INCLUDE } from './_utils/constants'
 import {
-  checkProfanity,
   generateImageUrl,
   generateUniqueImageName,
-  parseFormData,
+  handleError,
   uploadImage,
-} from './_utils/functions'
+} from '../_utils/functions'
+import { DEFAULT_OCCURRENCE_INCLUDE } from './_utils/constants'
+import { checkProfanity, parseFormData } from './_utils/functions'
 
 export const dynamic = 'force-dynamic'
 
