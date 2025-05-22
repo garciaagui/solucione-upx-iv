@@ -2,6 +2,7 @@ import LoadingMessage from '@/components/loading-message'
 import { Button } from '@/components/ui/button'
 import {
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -57,6 +58,9 @@ export default function Form({ form, isLoading, onSubmit }: Props) {
                   }}
                 />
               </FormControl>
+              <FormDescription>
+                A imagem é opcional, mas recomendada para melhor entendimento da solução.
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}

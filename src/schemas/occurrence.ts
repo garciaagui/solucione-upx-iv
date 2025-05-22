@@ -11,10 +11,6 @@ const description = z
     message: 'A descrição pode ter no máximo 255 caracteres',
   })
 
-const image = z.custom<File>((file) => file instanceof File, {
-  message: 'A imagem é obrigatória',
-})
-
 const firstStep = z.object({
   title: z
     .string({
@@ -56,7 +52,9 @@ const secondStep = z.object({
 })
 
 const thirdStep = z.object({
-  image,
+  image: z.custom<File>((file) => file instanceof File, {
+    message: 'A imagem é obrigatória',
+  }),
 })
 
 export const createOccurrenceSchema = z.object({
@@ -67,7 +65,12 @@ export const createOccurrenceSchema = z.object({
 
 export const updateOccurrenceSchema = z.object({
   description,
-  image,
+  image: z
+    .custom<File>((file) => file instanceof File, {
+      message: 'A imagem é obrigatória',
+    })
+    .nullable()
+    .optional(),
 })
 
 export type CreateOcurrenceFormValues = z.infer<typeof createOccurrenceSchema>

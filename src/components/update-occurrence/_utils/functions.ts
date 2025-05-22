@@ -12,9 +12,12 @@ export const generateFormData = (
 
   formData.set('userId', String(adminId))
   formData.set('description', description)
-  formData.set('image', image)
   formData.set('occurrenceId', String(occurrenceId))
   formData.set('occurrenceStatus', occurrenceStatus)
+
+  if (image) {
+    formData.set('image', image)
+  }
 
   return formData
 }

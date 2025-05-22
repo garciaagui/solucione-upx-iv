@@ -14,13 +14,17 @@ export const dynamic = 'force-dynamic'
 export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
     const { fields, image, occurrenceStatus } = await parseFormData(req)
-    const { buffer, name } = image
 
-    const imageUniqueName = generateUniqueImageName(name)
-    const imageUrl = generateImageUrl(imageUniqueName)
+    let imageUrl: string | undefined
 
-    await checkProfanity(fields.description, buffer)
-    await uploadImage(buffer, imageUniqueName)
+    if (image) {
+      const { buffer, name } = image
+      const imageUniqueName = generateUniqueImageName(name)
+      imageUrl = generateImageUrl(imageUniqueName)
+
+      await checkProfanity(fields.description, buffer)
+      await uploadImage(buffer, imageUniqueName)
+    }
 
     const newStatus = occurrenceStatus === Status.Aberto ? Status.Andamento : Status.Finalizado
 
@@ -33,7 +37,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       data: {
         ...fields,
         occurrenceStatus: newStatus,
-        imageUrl,
+        imageUrl, // optional
       },
     })
 

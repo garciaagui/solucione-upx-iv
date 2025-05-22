@@ -7,7 +7,7 @@ import { convertFileToBuffer } from '../../_utils/functions'
 interface ParseFormDataResponse {
   fields: Pick<OccurrenceReply, 'description' | 'occurrenceId' | 'userId'>
   occurrenceStatus: string
-  image: { buffer: Buffer; name: string }
+  image?: { buffer: Buffer; name: string }
 }
 
 export const parseFormData = async (req: NextRequest): Promise<ParseFormDataResponse> => {
@@ -29,12 +29,17 @@ export const parseFormData = async (req: NextRequest): Promise<ParseFormDataResp
 
   const occurrenceStatus = rawFields.occurrenceStatus as Status
 
-  const file = formData.get('image') as File
+  const file = formData.get('image') as File | undefined
+
+  if (!file || file.size === 0) {
+    return { fields, occurrenceStatus }
+  }
+
   const buffer = await convertFileToBuffer(file)
 
   return {
     fields,
-    occurrenceStatus: occurrenceStatus,
+    occurrenceStatus,
     image: { buffer, name: file.name },
   }
 }
