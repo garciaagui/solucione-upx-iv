@@ -36,7 +36,11 @@ export default function Occurrence() {
         </TabsContent>
       </Tabs>
 
-      <UpdateOccurrence isOpen={openUpdateDialog} handleOpen={setOpenUpdateDialog} />
+      <UpdateOccurrence
+        isOpen={openUpdateDialog}
+        occurrence={data}
+        handleOpen={setOpenUpdateDialog}
+      />
     </div>
   )
 }

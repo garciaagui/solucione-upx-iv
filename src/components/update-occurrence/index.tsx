@@ -8,6 +8,7 @@ import {
 } from '@/components/ui/dialog'
 import { QUERY_KEYS } from '@/constants/query-keys'
 import { UpdateOccurrenceFormValues, updateOccurrenceSchema } from '@/schemas/occurrence'
+import { OccurrenceWithRelations } from '@/types/globals'
 import { ToastError, ToastSuccess } from '@/utils/toast'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
@@ -15,19 +16,21 @@ import { useSession } from 'next-auth/react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Form } from './_components'
+import { generateFormData, requestReplyCreation } from './_utils/functions'
 
 interface Props {
   isOpen: boolean
+  occurrence: OccurrenceWithRelations
   handleOpen: (open: boolean) => void
 }
 
-export default function UpdateOccurrence({ isOpen, handleOpen }: Props) {
+export default function UpdateOccurrence({ isOpen, occurrence, handleOpen }: Props) {
   const [showConfirmDialog, setShowConfirmDialog] = useState(false)
 
   const { data: session } = useSession()
   const queryClient = useQueryClient()
 
-  const userId = Number(session?.token.user.id)
+  const adminId = Number(session?.token.user.id)
 
   const form = useForm<UpdateOccurrenceFormValues>({
     resolver: zodResolver(updateOccurrenceSchema),
@@ -60,15 +63,26 @@ export default function UpdateOccurrence({ isOpen, handleOpen }: Props) {
     reset()
   }
 
+  const invalidateQueries = async () => {
+    await Promise.all([
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.OCCURRENCES] }),
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.OCCURRENCE_BY_ID] }),
+    ])
+  }
+
   const updateMutation = useMutation({
-    mutationFn: async (data: UpdateOccurrenceFormValues) => {
-      // const formData = generateFormData(data, userId)
-      // await requestOccurrenceUpdate(formData)
+    mutationFn: async (formValues: UpdateOccurrenceFormValues) => {
+      const occurrenceValues = {
+        occurrenceId: occurrence.id,
+        occurrenceStatus: occurrence.status,
+      }
+
+      const formData = generateFormData(adminId, formValues, occurrenceValues)
+      await requestReplyCreation(formData)
     },
     onSuccess: async () => {
-      await queryClient.invalidateQueries({
-        queryKey: [QUERY_KEYS.OCCURRENCES],
-      })
+      await invalidateQueries()
+
       handleOpen(false)
       reset()
       ToastSuccess('Atualização registrada com sucesso')

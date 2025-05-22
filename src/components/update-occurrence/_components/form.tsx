@@ -30,13 +30,16 @@ export default function Form({ form, onSubmit }: Props) {
       <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
         <FormField
           control={control}
-          disabled={isSubmitting}
           name="description"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Descrição</FormLabel>
               <FormControl>
-                <Textarea placeholder="Detalhe o andamento da resolução do problema" {...field} />
+                <Textarea
+                  disabled={isSubmitting}
+                  placeholder="Detalhe o andamento da resolução do problema"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -45,7 +48,6 @@ export default function Form({ form, onSubmit }: Props) {
 
         <FormField
           control={control}
-          disabled={isSubmitting}
           name="image"
           render={({ field }) => (
             <FormItem>
@@ -53,6 +55,7 @@ export default function Form({ form, onSubmit }: Props) {
               <FormControl>
                 <Input
                   accept="image/*"
+                  disabled={isSubmitting}
                   type="file"
                   onChange={(e) => {
                     const file = e.target.files?.[0]
