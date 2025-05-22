@@ -15,31 +15,25 @@ import { UseFormReturn } from 'react-hook-form'
 
 interface Props {
   form: UseFormReturn<UpdateOccurrenceFormValues>
+  isLoading: boolean
   onSubmit: (data: UpdateOccurrenceFormValues) => void
 }
 
-export default function Form({ form, onSubmit }: Props) {
-  const {
-    control,
-    handleSubmit,
-    formState: { isSubmitting },
-  } = form
+export default function Form({ form, isLoading, onSubmit }: Props) {
+  const { control, handleSubmit } = form
 
   return (
     <FormWrapper {...form}>
       <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
         <FormField
           control={control}
+          disabled={isLoading}
           name="description"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Descrição</FormLabel>
               <FormControl>
-                <Textarea
-                  disabled={isSubmitting}
-                  placeholder="Detalhe o andamento da resolução do problema"
-                  {...field}
-                />
+                <Textarea placeholder="Detalhe o andamento da resolução do problema" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -48,6 +42,7 @@ export default function Form({ form, onSubmit }: Props) {
 
         <FormField
           control={control}
+          disabled={isLoading}
           name="image"
           render={({ field }) => (
             <FormItem>
@@ -55,7 +50,6 @@ export default function Form({ form, onSubmit }: Props) {
               <FormControl>
                 <Input
                   accept="image/*"
-                  disabled={isSubmitting}
                   type="file"
                   onChange={(e) => {
                     const file = e.target.files?.[0]
@@ -68,9 +62,11 @@ export default function Form({ form, onSubmit }: Props) {
           )}
         />
 
-        <Button disabled={isSubmitting} type="submit">
-          {!isSubmitting ? 'Finalizar' : <LoadingMessage message="Aguarde..." />}
-        </Button>
+        <div className="flex w-full justify-end">
+          <Button disabled={isLoading} type="submit">
+            {!isLoading ? 'Finalizar' : <LoadingMessage message="Aguarde..." />}
+          </Button>
+        </div>
       </form>
     </FormWrapper>
   )

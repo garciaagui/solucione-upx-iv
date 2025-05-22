@@ -25,6 +25,7 @@ interface Props {
 }
 
 export default function UpdateOccurrence({ isOpen, occurrence, handleOpen }: Props) {
+  const [isLoading, setIsLoading] = useState(false)
   const [showConfirmDialog, setShowConfirmDialog] = useState(false)
 
   const { data: session } = useSession()
@@ -42,16 +43,16 @@ export default function UpdateOccurrence({ isOpen, occurrence, handleOpen }: Pro
   })
 
   const {
-    formState: { isDirty, isSubmitting },
+    formState: { isDirty },
     reset,
   } = form
 
   const handleDialogOpenChange = (open: boolean) => {
     const hasFilledFields = isDirty
 
-    if (!open && hasFilledFields && !isSubmitting) {
+    if (!open && hasFilledFields && !isLoading) {
       setShowConfirmDialog(true)
-    } else if (!isSubmitting) {
+    } else if (!isLoading) {
       handleOpen(open)
       if (!open) reset()
     }
@@ -72,6 +73,8 @@ export default function UpdateOccurrence({ isOpen, occurrence, handleOpen }: Pro
 
   const updateMutation = useMutation({
     mutationFn: async (formValues: UpdateOccurrenceFormValues) => {
+      setIsLoading(true)
+
       const occurrenceValues = {
         occurrenceId: occurrence.id,
         occurrenceStatus: occurrence.status,
@@ -91,6 +94,9 @@ export default function UpdateOccurrence({ isOpen, occurrence, handleOpen }: Pro
       console.error(error)
       ToastError(error.message)
     },
+    onSettled: () => {
+      setIsLoading(false)
+    },
   })
 
   const handleUpdate = (formData: UpdateOccurrenceFormValues) => {
@@ -109,7 +115,7 @@ export default function UpdateOccurrence({ isOpen, occurrence, handleOpen }: Pro
             </DialogDescription>
           </DialogHeader>
 
-          <Form form={form} onSubmit={handleUpdate} />
+          <Form form={form} isLoading={isLoading} onSubmit={handleUpdate} />
         </DialogContent>
       </Dialog>
 
