@@ -1,6 +1,7 @@
 'use client'
 
 import ImageFallback from '@/components/image-fallback'
+import StatusBadge from '@/components/status-badge'
 import {
   Accordion,
   AccordionContent,
@@ -90,7 +91,7 @@ export default function RepliesTab({ data }: Props) {
                 <Badge variant="secondary">Responsável: {user.name}</Badge>
 
                 <div className="flex items-center gap-2">
-                  <Badge variant="secondary">{occurrenceStatus}</Badge>
+                  <StatusBadge status={occurrenceStatus} />
                   <Badge variant="secondary">{formatDate(createdAt)}</Badge>
                 </div>
               </div>
