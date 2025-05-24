@@ -2,12 +2,12 @@ import { Button } from '@/components/ui/button'
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { useStepper } from '@/contexts/stepper'
-import { OcurrenceFormValues } from '@/schemas/occurrence'
+import { CreateOcurrenceFormValues } from '@/schemas/occurrence'
 import { UseFormReturn } from 'react-hook-form'
 import { zipCodeMask } from '../_utils/functions'
 
 interface Props {
-  form: UseFormReturn<OcurrenceFormValues>
+  form: UseFormReturn<CreateOcurrenceFormValues>
 }
 
 export default function SecondStep({ form }: Props) {
