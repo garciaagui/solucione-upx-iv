@@ -29,11 +29,14 @@ Esta aplicação foi desenvolvida com Next.js para o backend e frontend. Utiliza
   <summary><strong>💻 Desenvolvimento</strong></summary>
 
 - [AWS SDK][awssdk] → Conjunto de ferramentas da Amazon utilizado na interação com buckets da R2 Cloudflare.
+- [bcryptjs][bcryptjs] → Utilizado para realizar o hash seguro das senhas dos usuários.
 - [Docker][docker] → Sistema de containers utilizado para criar e executar o banco de dados PostgreSQL de forma isolada.
+- [framer-motion][framer-motion] → Animações e transições suaves aplicadas na interface.
 - [Google - API Gemini][gemini] → Análise e validação de conteúdo.
 - [Next.js][nextjs] → Framework React.js utilizado na construção de toda estrutura do frontend e das rotas de API.
 - [NextAuth.js][nextauth] → Autenticação de usuários.
 - [React TanStack Query][tanstackquery] → Biblioteca utilizada no gerenciamento de estado de dados assíncronos.
+- [Resend][resend] → Envio de e-mails para verificação de e-mail e confirmação do cadastro.
 - [shadcn/ui][shadcn] → Conjunto de componentes acessíveis e performáticos.
 - [Tailwind CSS][tailwind] → Framework CSS utilizado na estilização dos componentes e páginas.
 - [TypeScript][typescript] → Linguagem de programação fortemente tipada baseada em Javascript. Utilizada no desenvolvimento do projeto.
@@ -62,11 +65,13 @@ Esta aplicação foi desenvolvida com Next.js para o backend e frontend. Utiliza
 
 ## Funcionalidades
 
+- **Cadastro de usuário com verificação de e-mail**: Permite o cadastro de novos usuários mediante verificação de e-mail.
 - **Login e autenticação de usuários**: Permite que os usuários façam login com credenciais e acessem a plataforma de forma segura.
 - **Logout de usuários**: Desfaz a autenticação, encerrando a sessão do usuário na aplicação.
 - **Listagem de reclamações**: Exibe na tela inicial todas as reclamações registradas na plataforma.
 - **Detalhes de reclamação**: Apresenta informações detalhadas sobre uma reclamação específica.
 - **Criação de reclamações**: Permite que os usuários registrem novas reclamações no sistema.
+- **Atualização de status das reclamações**: Permite que administradores alterem o status das ocorrências.
 - **Validação de conteúdo impróprio**: Utiliza a inteligência artificial do Google Gemini para detectar e bloquear conteúdo ofensivo ou inadequado em texto e imagens.
 - **Mudança de tema**: Oferece a opção de alternar entre temas claro e escuro para melhorar a experiência do usuário.
 
@@ -356,10 +361,12 @@ Projeto desenvolvido por Guilherme Garcia. Seguem abaixo minhas redes sociais e 
 <!-- MARKDOWN LINKS & BADGES -->
 
 [awssdk]: https://aws.amazon.com/pt/sdk-for-javascript
+[bcryptjs]: https://www.npmjs.com/package/bcryptjs
 [docker]: https://www.docker.com
 [eslint]: https://eslint.org
 [prettier]: https://prettier.io/docs
 [facens]: https://facens.br
+[framer-motion]: https://www.npmjs.com/package/framer-motion
 [gemini]: https://ai.google.dev/aistudio?hl=pt-br
 [github-badge]: https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white
 [github-url]: https://github.com/garciaagui
@@ -374,6 +381,7 @@ Projeto desenvolvido por Guilherme Garcia. Seguem abaixo minhas redes sociais e 
 [postgresql]: https://www.postgresql.org
 [prisma]: https://www.prisma.io/orm
 [reacthookform]: https://react-hook-form.com
+[resend]: https://resend.com/docs/introduction
 [shadcn]: https://ui.shadcn.com
 [tailwind]: https://tailwindcss.com
 [tanstackquery]: https://tanstack.com/query/latest
