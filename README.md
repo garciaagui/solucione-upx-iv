@@ -9,7 +9,7 @@
   <li><a href="#tecnologias">Tecnologias</a></li>
   <li><a href="#funcionalidades">Funcionalidades</a></li>
   <li><a href="#endpoints">Endpoints</a></li>
-  <li><a href="#demonstracao">Demonstração</a></li>
+  <li><a href="#demonstra%C3%A7%C3%A3o">Demonstração</a></li>
   <li><a href="#como-executar-o-projeto">Como Executar o Projeto</a></li>
   <li><a href="#contato">Contato</a></li>
 </ol>
