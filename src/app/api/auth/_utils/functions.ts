@@ -17,9 +17,10 @@ export const findUserByEmail = async (email: string) => {
 
 export const sendVerificationEmail = async (username: string, email: string, token: string) => {
   const URL = `${process.env.NEXT_PUBLIC_URL}/auth/verify-email?token=${token}`
+  const EMAIL_FROM = `Solucione <${process.env.RESEND_EMAIL}>`
 
   await resend.emails.send({
-    from: 'Solucione <donotreply@whiterun.online>',
+    from: EMAIL_FROM,
     to: email,
     subject: 'Verifique seu e-mail',
     html: `
