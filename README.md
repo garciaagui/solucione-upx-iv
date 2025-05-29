@@ -88,6 +88,7 @@ Abaixo você pode conferir um detalhamento dos endpoints utilizados no projeto. 
 
 #### POST /auth/login
 
+- Login de usuários
 - URL: `http://localhost:3000/api/auth/login`
 - Exemplo do corpo da requisição:
 
@@ -112,6 +113,46 @@ Abaixo você pode conferir um detalhamento dos endpoints utilizados no projeto. 
     }
   }
 }
+```
+
+#### POST /auth/register
+
+- Cadastro de usuários
+- URL: `http://localhost:3000/api/auth/register`
+- Exemplo do corpo da requisição:
+
+```
+{
+  "email": "pedro@example.com",
+  "password": "xX123456789@",
+  "name": "Pedro"
+}
+```
+
+- Após cadastro bem-sucedido, um e-mail de verificação é enviado para o endereço de e-mail informado no cadastro.
+- Exemplo de retorno bem-sucedido:
+
+```
+{
+  "message": "Usuário cadastrado. Verifique seu e-mail.",
+  "data": {
+    "user": {
+      "id": 5,
+      "name": "Pedro",
+      "email": "pedro@example.com"
+    }
+  }
+}
+```
+
+#### GET /auth/verify-email
+
+- Valida o token da verificação de e-mail
+- URL: `http://localhost:3000/api/auth/verify-email?token={token}`
+- Exemplo de retorno bem-sucedido:
+
+```
+{ "message": "E-mail verificado com sucesso." }
 ```
 
 </details>
@@ -288,7 +329,46 @@ Abaixo você pode conferir um detalhamento dos endpoints utilizados no projeto. 
     userId: 4,
     createdAt: 2025-04-28T23:44:17.896Z,
     updatedAt: 2025-04-28T23:44:17.896Z
+  },
 },
+```
+
+</details>
+
+<details>
+  <summary><strong>Replies</strong></summary>
+
+#### POST /replies
+
+- Cria uma nova atualização para uma reclamação.
+- URL: `http://localhost:3000/api/replies`
+- O corpo da requisição precisa estar no formato `form`. Segue abaixo exemplo dos campos de texto:
+
+```
+{
+  "userId": "1",
+  "description": "Problema localizado e serviço iniciado.",
+  "occurrenceId": "2",
+  "occurrenceStatus": "Aberto",
+}
+```
+
+- Para requisições do tipo `form`, arquivos geralmente possuem um campo específico de envio.
+- Exemplo de retorno bem-sucedido:
+
+```
+{
+  message: 'Atualização criada!',
+  data: {
+    id: 8,
+    description: 'O problema foi resolvido e medidas preventivas foram implementadas.',
+    imageUrl: '',
+    userId: 1,
+    occurrenceId: 3,
+    occurrenceStatus: 'Finalizado',
+    createdAt: 2025-05-29T21:48:56.956Z,
+    updatedAt: 2025-05-29T21:48:56.956Z
+  },
 },
 ```
 
@@ -307,43 +387,53 @@ Para rodar o projeto localmente, siga os passos abaixo.
 - Docker versão igual ou superior à `24.0.0`;
 - Docker Compose versão igual ou superior à `2.20.0`.
 
-2. Clone o repositório:
+2. Verifique se possui os elementos necessários dos serviços abaixo:
+
+- API key do Google Gemini;
+- API key do Resend;
+- Bucket criado no Cloudflare R2.
+
+3. Clone o repositório:
 
 ```
 git clone git@github.com:garciaagui/solucione-upx-iv.git
 ```
 
-3. Navegue até a raiz do projeto:
+4. Navegue até a raiz do projeto:
 
 ```
 cd solucione-upx-iv/
 ```
 
-4. Instale as dependências com o comando abaixo:
+5. Instale as dependências com o comando abaixo:
 
 ```
 npm install
 ```
 
-5. Execute o comando abaixo para subir o container do banco de dados. Ao fazê-lo, o container **project_upx_db** será inicializado:
+6. Execute o comando abaixo para subir o container do banco de dados. Ao fazê-lo, o container **project_upx_db** será inicializado:
 
 ```
 docker compose up
 ```
 
-6. Execute o comando abaixo para criar e aplicar as migrations no banco de dados. Ao fazê-lo, o banco será atualizado conforme o esquema definido no Prisma:
+7. Execute o comando abaixo para criar e aplicar as migrations no banco de dados. Ao fazê-lo, o banco será atualizado conforme o esquema definido no Prisma:
 
 ```
 npx prisma migrate dev
 ```
 
-7. Inicie a aplicação:
+8. Preencha as variáveis de ambiente do arquivo `.env`
+
+- ⚠️ O valor padrão associado à variável `RESEND_EMAIL` no `.env.example` utiliza o domínio gratuito oferecido pelo Resend: `@resend.dev`. Com ele, só é possível enviar e-mails ao endereço de e-mail associado à sua conta Resend. Para fins de teste, é suficiente.
+
+9. Inicie a aplicação:
 
 ```
 npm run dev
 ```
 
-8. No navegador, visite `http://localhost:3000`. Se tudo ocorreu bem, será possível utilizar a aplicação.
+10. No navegador, visite `http://localhost:3000`. Se tudo ocorreu bem, será possível utilizar a aplicação.
 
 <br/>
 
