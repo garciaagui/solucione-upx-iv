@@ -9,6 +9,7 @@
   <li><a href="#tecnologias">Tecnologias</a></li>
   <li><a href="#funcionalidades">Funcionalidades</a></li>
   <li><a href="#endpoints">Endpoints</a></li>
+  <li><a href="#demonstracao">Demonstração</a></li>
   <li><a href="#como-executar-o-projeto">Como Executar o Projeto</a></li>
   <li><a href="#contato">Contato</a></li>
 </ol>
@@ -373,6 +374,30 @@ Abaixo você pode conferir um detalhamento dos endpoints utilizados no projeto. 
 ```
 
 </details>
+
+<br/>
+
+## Demonstração
+
+Você pode testar a aplicação através do link abaixo. Use as credenciais fornecidas para acessar com permissões de **usuário comum** ou **administrador**:
+
+### 🔍 Link de Acesso
+
+[https://solucione-upx-iv.vercel.app](https://solucione-upx-iv.vercel.app)
+
+### 🔐 Credenciais de Teste
+
+#### Usuário comum
+
+- **E-mail:** ana@example.com
+- **Senha:** 90JhaZ1_19zx@
+
+#### Administrador
+
+- **E-mail:** joao@example.com
+- **Senha:** xX123456789@
+
+> ⚠️ Os dados cadastrados neste ambiente são públicos e podem ser restaurados a qualquer momento. Não insira informações sensíveis.
 
 <br/>
 
