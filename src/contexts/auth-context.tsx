@@ -14,10 +14,11 @@ interface LoginParams {
 }
 
 interface AuthContextType {
+  isAdmin: boolean
+  isAuthenticated: boolean
+  isLoading: boolean
   loggedUser: User | null
   token: string | null
-  isLoading: boolean
-  isAuthenticated: boolean
   login: (params: LoginParams) => Promise<LoginResponse['data']>
   logout: () => void
 }
@@ -33,6 +34,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [token, setToken] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(true)
 
+  const isAdmin = user?.role === 'admin' || user?.role === 'manager'
   const isAuthenticated = !!user && !!token
 
   useEffect(() => {
@@ -97,10 +99,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
   return (
     <AuthContext.Provider
       value={{
+        isAdmin,
+        isAuthenticated,
+        isLoading: isLoading || isPending,
         loggedUser: user,
         token,
-        isLoading: isLoading || isPending,
-        isAuthenticated,
         login,
         logout,
       }}
