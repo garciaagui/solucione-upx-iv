@@ -1,10 +1,10 @@
 import StatusBadge from '@/components/status-badge'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { useAuth } from '@/contexts/auth-context'
 import { OccurrenceWithRelations } from '@/types/globals'
 import { formatDate } from '@/utils/functions/date'
 import { ChevronLeft, RefreshCcw, UserCircle } from 'lucide-react'
-import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 
 interface Props {
@@ -13,9 +13,7 @@ interface Props {
 }
 
 export default function Header({ data, openUpdateDialog }: Props) {
-  const { data: session } = useSession()
-  const isAdmin = session?.token.user?.role === 'admin'
-
+  const { isAdmin } = useAuth()
   const { createdAt, status, title, user } = data
 
   return (
