@@ -18,7 +18,6 @@ interface AuthContextType {
   isAuthenticated: boolean
   isLoading: boolean
   loggedUser: User | null
-  token: string | null
   login: (params: LoginParams) => Promise<LoginResponse['data']>
   logout: () => void
 }
@@ -31,24 +30,20 @@ interface AuthProviderProps {
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null)
-  const [token, setToken] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(true)
 
   const isAdmin = user?.role === 'admin' || user?.role === 'manager'
-  const isAuthenticated = !!user && !!token
+  const isAuthenticated = !!user
 
   useEffect(() => {
-    const storedToken = localStorage.getItem('auth_token')
     const storedUser = localStorage.getItem('auth_user')
 
-    if (storedToken && storedUser) {
+    if (storedUser) {
       try {
         const parsedUser = JSON.parse(storedUser)
-        setToken(storedToken)
         setUser(parsedUser)
       } catch (error) {
         console.error('Erro ao parsear dados do usuário:', error)
-        localStorage.removeItem('auth_token')
         localStorage.removeItem('auth_user')
       }
     }
@@ -62,10 +57,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       return data
     },
     onSuccess: (data, params) => {
-      localStorage.setItem('auth_token', data.token)
       localStorage.setItem('auth_user', JSON.stringify({ ...data.user }))
-
-      setToken(data.token)
       setUser({ ...data.user })
 
       ToastSuccess('Login bem-sucedido!')
@@ -84,11 +76,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const logout = () => {
     try {
-      localStorage.removeItem('auth_token')
       localStorage.removeItem('auth_user')
 
       setUser(null)
-      setToken(null)
 
       ToastSuccess('Logout realizado com sucesso!')
     } catch (error) {
@@ -103,7 +93,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
         isAuthenticated,
         isLoading: isLoading || isPending,
         loggedUser: user,
-        token,
         login,
         logout,
       }}
