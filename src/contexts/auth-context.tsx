@@ -1,6 +1,6 @@
 'use client'
 
-import { login as loginService } from '@/services/auth'
+import { login as loginService, logout as logoutService } from '@/services/auth'
 import { LoginRequest, LoginResponse } from '@/types/auth'
 import { CustomAxiosError } from '@/types/error'
 import { User } from '@/types/user'
@@ -17,9 +17,10 @@ interface AuthContextType {
   isAdmin: boolean
   isAuthenticated: boolean
   isLoading: boolean
+  isLoggingOut: boolean
   loggedUser: User | null
   login: (params: LoginParams) => Promise<LoginResponse['data']>
-  logout: () => void
+  logout: () => Promise<void>
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -51,7 +52,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     setIsLoading(false)
   }, [])
 
-  const { mutateAsync: login, isPending } = useMutation({
+  const { mutateAsync: login, isPending: isLoggingIn } = useMutation({
     mutationFn: async (params: LoginParams) => {
       const { data } = await loginService(params.data)
       return data
@@ -74,24 +75,29 @@ export function AuthProvider({ children }: AuthProviderProps) {
     },
   })
 
-  const logout = () => {
-    try {
+  const { mutateAsync: logout, isPending: isLoggingOut } = useMutation({
+    mutationFn: async () => {
+      await logoutService()
+    },
+    onSuccess: () => {
       localStorage.removeItem('auth_user')
-
       setUser(null)
 
       ToastSuccess('Logout realizado com sucesso!')
-    } catch (error) {
-      console.error('Erro durante logout:', error)
-    }
-  }
+    },
+    onError: (error: CustomAxiosError) => {
+      const message = error.response?.data.message || 'Erro inesperado no logout'
+      ToastError(message)
+    },
+  })
 
   return (
     <AuthContext.Provider
       value={{
         isAdmin,
         isAuthenticated,
-        isLoading: isLoading || isPending,
+        isLoading: isLoading || isLoggingIn || isLoggingOut,
+        isLoggingOut,
         loggedUser: user,
         login,
         logout,
