@@ -1,9 +1,3 @@
-import { ChevronsUpDown, LogOut, Moon, Sun } from 'lucide-react'
-import { UserSession } from 'next-auth'
-import { signOut } from 'next-auth/react'
-import { useTheme } from 'next-themes'
-import { useState } from 'react'
-
 import ConfirmDialog from '@/components/confirm-dialog'
 import { Avatar as AvatarContainer, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
@@ -17,9 +11,14 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { SidebarMenuButton, useSidebar } from '@/components/ui/sidebar'
+import { useAuth } from '@/contexts/auth-context'
+import { User } from '@/types/user'
+import { ChevronsUpDown, LogOut, Moon, Sun } from 'lucide-react'
+import { useTheme } from 'next-themes'
+import { useState } from 'react'
 
 interface Props {
-  user: UserSession
+  user: User
 }
 
 function UserInfo({ user }: Props) {
@@ -91,9 +90,10 @@ function LogoutButton() {
 export default function Menu({ user }: Props) {
   const [openDialog, setOpenDialog] = useState(false)
   const { isMobile } = useSidebar()
+  const { logout } = useAuth()
 
   const onConfirmLogout = () => {
-    signOut({ redirect: false })
+    logout()
     setOpenDialog(false)
   }
 
