@@ -19,7 +19,7 @@ interface AuthContextType {
   isLoading: boolean
   isLoggingOut: boolean
   loggedUser: User | null
-  login: (params: LoginParams) => Promise<LoginResponse['data']>
+  login: (params: LoginParams) => Promise<LoginResponse['user']>
   logout: () => Promise<void>
 }
 
@@ -54,12 +54,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const { mutateAsync: login, isPending: isLoggingIn } = useMutation({
     mutationFn: async (params: LoginParams) => {
-      const { data } = await loginService(params.data)
-      return data
+      const { user } = await loginService(params.data)
+      return user
     },
-    onSuccess: (data, params) => {
-      localStorage.setItem('auth_user', JSON.stringify({ ...data.user }))
-      setUser({ ...data.user })
+    onSuccess: (user, params) => {
+      localStorage.setItem('auth_user', JSON.stringify({ ...user }))
+      setUser({ ...user })
 
       ToastSuccess('Login bem-sucedido!')
 
