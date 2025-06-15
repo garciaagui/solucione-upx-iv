@@ -8,12 +8,12 @@ import {
 } from '@/components/ui/dialog'
 import { Form } from '@/components/ui/form'
 import { QUERY_KEYS } from '@/constants/query-keys'
+import { useAuth } from '@/contexts/auth-context'
 import { StepperProvider, useStepper } from '@/contexts/stepper'
 import { createOccurrenceSchema, CreateOcurrenceFormValues } from '@/schemas/occurrence'
 import { ToastError, ToastSuccess } from '@/utils/toast'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { useSession } from 'next-auth/react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import StepperProgress from '../stepper-progress'
@@ -35,11 +35,11 @@ function Component({ isOpen, handleOpen }: Props) {
   const [loading, setLoading] = useState(false)
   const [showConfirmDialog, setShowConfirmDialog] = useState(false)
 
-  const { data: session } = useSession()
+  const { loggedUser } = useAuth()
   const { currentStep, resetStep } = useStepper()
   const queryClient = useQueryClient()
 
-  const userId = Number(session?.token.user.id)
+  const userId = Number(loggedUser?.id)
 
   const form = useForm<CreateOcurrenceFormValues>({
     resolver: zodResolver(createOccurrenceSchema),

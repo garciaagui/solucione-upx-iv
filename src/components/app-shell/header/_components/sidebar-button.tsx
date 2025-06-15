@@ -1,13 +1,11 @@
 import { SidebarTrigger, useSidebar } from '@/components/ui/sidebar'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/contexts/auth-context'
 
 export default function SidebarButton() {
   const { open } = useSidebar()
-  const { status } = useSession()
-
-  const isLoading = status === 'loading'
+  const { isLoading } = useAuth()
 
   if (isLoading) return <Skeleton className="size-7 rounded-lg" />
 

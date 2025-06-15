@@ -35,7 +35,6 @@ Esta aplicação foi desenvolvida com Next.js para o backend e frontend. Utiliza
 - [framer-motion][framer-motion] → Animações e transições suaves aplicadas na interface.
 - [Google - API Gemini][gemini] → Análise e validação de conteúdo.
 - [Next.js][nextjs] → Framework React.js utilizado na construção de toda estrutura do frontend e das rotas de API.
-- [NextAuth.js][nextauth] → Autenticação de usuários.
 - [React TanStack Query][tanstackquery] → Biblioteca utilizada no gerenciamento de estado de dados assíncronos.
 - [Resend][resend] → Envio de e-mails para verificação de e-mail e confirmação do cadastro.
 - [shadcn/ui][shadcn] → Conjunto de componentes acessíveis e performáticos.
@@ -492,7 +491,6 @@ Projeto desenvolvido por Guilherme Garcia. Seguem abaixo minhas redes sociais e 
 [linkedin-badge]: https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white
 [linkedin-url]: https://www.linkedin.com/in/garciaagui/
 [nextjs]: https://nextjs.org
-[nextauth]: https://next-auth.js.org/getting-started/introduction
 [postgresql]: https://www.postgresql.org
 [prisma]: https://www.prisma.io/orm
 [reacthookform]: https://react-hook-form.com

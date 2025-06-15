@@ -1,12 +1,11 @@
 'use client'
 
 import { Separator } from '@/components/ui/separator'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/contexts/auth-context'
 import { CreateOccurrenceButton, SidebarButton } from './_components'
 
 export default function Header() {
-  const { data } = useSession()
-  const isAdmin = data?.token.user?.role === 'admin'
+  const { isAdmin } = useAuth()
 
   return (
     <div className="sticky top-0 z-50 flex shrink-0 items-center gap-8 border-b bg-background p-4">

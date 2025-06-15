@@ -1,7 +1,7 @@
 import { AppShell } from '@/components/app-shell'
 import { Toaster } from '@/components/ui/sonner'
+import { AuthProvider } from '@/contexts/auth-context'
 import { QueryProvider } from '@/contexts/query-provider'
-import SessionProvider from '@/contexts/session-provider'
 import ThemeProvider from '@/contexts/theme-provider'
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
@@ -31,8 +31,8 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <SessionProvider>
-          <QueryProvider>
+        <QueryProvider>
+          <AuthProvider>
             <ThemeProvider
               attribute="class"
               defaultTheme="system"
@@ -41,9 +41,9 @@ export default function RootLayout({
             >
               <AppShell>{children}</AppShell>
             </ThemeProvider>
-          </QueryProvider>
-          <Toaster duration={3000} expand={true} />
-        </SessionProvider>
+            <Toaster duration={3000} expand={true} />
+          </AuthProvider>
+        </QueryProvider>
       </body>
     </html>
   )

@@ -10,14 +10,12 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/contexts/auth-context'
 import { useState } from 'react'
 
 function CreateOccurrenceItem() {
   const [openDialog, setOpenDialog] = useState(false)
-  const { status } = useSession()
-
-  const isLoggedIn = status === 'authenticated'
+  const { isAuthenticated } = useAuth()
 
   return (
     <>
@@ -28,7 +26,7 @@ function CreateOccurrenceItem() {
         </SidebarMenuButton>
       </SidebarMenuItem>
 
-      {isLoggedIn ? (
+      {isAuthenticated ? (
         <CreateOccurrence isOpen={openDialog} handleOpen={setOpenDialog} />
       ) : (
         <AuthDialog isOpen={openDialog} handleOpen={setOpenDialog} />
