@@ -1,14 +1,12 @@
 'use client'
 
 import { Sidebar, SidebarContent, SidebarSeparator } from '@/components/ui/sidebar'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/contexts/auth-context'
 import { ActionsMenu, Footer, NavMenu } from './_components'
 import SidebarSkeleton from './_components/sidebar-skeleton'
 
 export default function AppSidebar() {
-  const { data, status } = useSession()
-  const isLoading = status === 'loading'
-  const isAdmin = data?.token.user?.role === 'admin'
+  const { isAdmin, isLoading } = useAuth()
 
   if (isLoading) return SidebarSkeleton()
 

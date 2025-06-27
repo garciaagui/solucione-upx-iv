@@ -7,12 +7,12 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { QUERY_KEYS } from '@/constants/query-keys'
+import { useAuth } from '@/contexts/auth-context'
 import { UpdateOccurrenceFormValues, updateOccurrenceSchema } from '@/schemas/occurrence'
 import { OccurrenceWithRelations } from '@/types/globals'
 import { ToastError, ToastSuccess } from '@/utils/toast'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { useSession } from 'next-auth/react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Form } from './_components'
@@ -28,10 +28,10 @@ export default function UpdateOccurrence({ isOpen, occurrence, handleOpen }: Pro
   const [isLoading, setIsLoading] = useState(false)
   const [showConfirmDialog, setShowConfirmDialog] = useState(false)
 
-  const { data: session } = useSession()
+  const { loggedUser } = useAuth()
   const queryClient = useQueryClient()
 
-  const adminId = Number(session?.token.user.id)
+  const adminId = Number(loggedUser?.id)
 
   const form = useForm<UpdateOccurrenceFormValues>({
     resolver: zodResolver(updateOccurrenceSchema),

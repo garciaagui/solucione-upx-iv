@@ -1,7 +1,5 @@
 'use client'
 
-import { signIn, SignInResponse } from 'next-auth/react'
-
 import LoadingMessage from '@/components/loading-message'
 import { Button } from '@/components/ui/button'
 import {
@@ -13,9 +11,8 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { useAuth } from '@/contexts/auth-context'
 import { LoginFormValues } from '@/schemas/login'
-import { ToastError, ToastSuccess } from '@/utils/toast'
-import { useState } from 'react'
 import { UseFormReturn } from 'react-hook-form'
 
 interface Props {
@@ -24,36 +21,19 @@ interface Props {
 }
 
 export default function LoginForm({ form, onSuccess }: Props) {
-  const [loading, setLoading] = useState(false)
+  const { isLoggingIn, login } = useAuth()
   const { control, handleSubmit } = form
 
-  const login = async (data: LoginFormValues) => {
-    setLoading(true)
-
-    const response = (await signIn('credentials', {
-      ...data,
-      redirect: false,
-    })) as SignInResponse
-
-    const { ok, error } = response
-
-    if (ok) {
-      ToastSuccess('Login bem-sucedido!')
-      onSuccess?.()
-    } else if (!ok && error) {
-      ToastError(error)
-      console.log(error)
-    }
-
-    setLoading(false)
+  const handleLogin = async (data: LoginFormValues) => {
+    await login({ data, onSuccess })
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={handleSubmit(login)} className="flex flex-col gap-4">
+      <form onSubmit={handleSubmit(handleLogin)} className="flex flex-col gap-4">
         <FormField
           control={control}
-          disabled={loading}
+          disabled={isLoggingIn}
           name="email"
           render={({ field }) => (
             <FormItem>
@@ -68,7 +48,7 @@ export default function LoginForm({ form, onSuccess }: Props) {
 
         <FormField
           control={control}
-          disabled={loading}
+          disabled={isLoggingIn}
           name="password"
           render={({ field }) => (
             <FormItem>
@@ -81,8 +61,8 @@ export default function LoginForm({ form, onSuccess }: Props) {
           )}
         />
 
-        <Button disabled={loading} type="submit" className="mt-2">
-          {!loading ? 'Entrar' : <LoadingMessage message="Entrando..." />}
+        <Button disabled={isLoggingIn} type="submit" className="mt-2">
+          {!isLoggingIn ? 'Entrar' : <LoadingMessage message="Entrando..." />}
         </Button>
       </form>
     </Form>
