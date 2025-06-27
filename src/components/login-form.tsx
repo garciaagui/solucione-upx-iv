@@ -21,7 +21,7 @@ interface Props {
 }
 
 export default function LoginForm({ form, onSuccess }: Props) {
-  const { isLoading, login } = useAuth()
+  const { isLoggingIn, login } = useAuth()
   const { control, handleSubmit } = form
 
   const handleLogin = async (data: LoginFormValues) => {
@@ -33,7 +33,7 @@ export default function LoginForm({ form, onSuccess }: Props) {
       <form onSubmit={handleSubmit(handleLogin)} className="flex flex-col gap-4">
         <FormField
           control={control}
-          disabled={isLoading}
+          disabled={isLoggingIn}
           name="email"
           render={({ field }) => (
             <FormItem>
@@ -48,7 +48,7 @@ export default function LoginForm({ form, onSuccess }: Props) {
 
         <FormField
           control={control}
-          disabled={isLoading}
+          disabled={isLoggingIn}
           name="password"
           render={({ field }) => (
             <FormItem>
@@ -61,8 +61,8 @@ export default function LoginForm({ form, onSuccess }: Props) {
           )}
         />
 
-        <Button disabled={isLoading} type="submit" className="mt-2">
-          {!isLoading ? 'Entrar' : <LoadingMessage message="Entrando..." />}
+        <Button disabled={isLoggingIn} type="submit" className="mt-2">
+          {!isLoggingIn ? 'Entrar' : <LoadingMessage message="Entrando..." />}
         </Button>
       </form>
     </Form>

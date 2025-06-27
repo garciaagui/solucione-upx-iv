@@ -17,7 +17,7 @@ interface AuthContextType {
   isAdmin: boolean
   isAuthenticated: boolean
   isLoading: boolean
-  isLoggingOut: boolean
+  isLoggingIn: boolean
   loggedUser: User | null
   login: (params: LoginParams) => Promise<LoginResponse['user']>
   logout: () => Promise<void>
@@ -96,8 +96,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
       value={{
         isAdmin,
         isAuthenticated,
-        isLoading: isLoading || isLoggingIn || isLoggingOut,
-        isLoggingOut,
+        isLoading: isLoading || isLoggingOut,
+        isLoggingIn,
         loggedUser: user,
         login,
         logout,
