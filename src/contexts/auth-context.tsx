@@ -2,9 +2,9 @@
 
 import { login as loginService, logout as logoutService } from '@/services/auth'
 import { LoginRequest, LoginResponse } from '@/types/auth'
-import { CustomAxiosError } from '@/types/error'
 import { User } from '@/types/user'
-import { ToastError, ToastSuccess } from '@/utils/toast'
+import { handleMutationError } from '@/utils/functions/error'
+import { ToastSuccess } from '@/utils/toast'
 import { useMutation } from '@tanstack/react-query'
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react'
 
@@ -69,9 +69,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
         }, 100)
       }
     },
-    onError: (error: CustomAxiosError) => {
-      const message = error.response?.data.message || 'Erro inesperado no login'
-      ToastError(message)
+    onError: (error) => {
+      handleMutationError(error, 'Erro inesperado no login')
     },
   })
 
@@ -85,9 +84,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
       ToastSuccess('Logout realizado com sucesso!')
     },
-    onError: (error: CustomAxiosError) => {
-      const message = error.response?.data.message || 'Erro inesperado no logout'
-      ToastError(message)
+    onError: (error) => {
+      handleMutationError(error, 'Erro inesperado no logout')
     },
   })
 

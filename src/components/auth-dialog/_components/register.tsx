@@ -16,8 +16,7 @@ import { Input } from '@/components/ui/input'
 import { QUERY_KEYS } from '@/constants/query-keys'
 import { RegisterFormValues } from '@/schemas/register'
 import { register } from '@/services/auth'
-import { CustomAxiosError } from '@/types/error'
-import { ToastError } from '@/utils/toast'
+import { handleMutationError } from '@/utils/functions/error'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useAuthDialog } from '../_utils/context'
 
@@ -49,9 +48,8 @@ export default function Register({ handleOpen, openVerifyDialog }: Props) {
       handleOpen(false)
       handleSelectedFormChange()
     },
-    onError: (error: CustomAxiosError) => {
-      const message = error.response?.data.message || 'Erro inesperado ao cadastrar usuário'
-      ToastError(message)
+    onError: (error) => {
+      handleMutationError(error, 'Erro inesperado ao cadastrar usuário')
     },
     onSettled: () => {
       setLoading(false)
