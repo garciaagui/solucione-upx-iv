@@ -22,3 +22,7 @@ export interface RegisterResponse {
     user: UserBasicInfo
   }
 }
+
+export interface VerifyEmailResponse {
+  message: string
+}
