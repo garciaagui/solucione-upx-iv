@@ -1,5 +1,11 @@
 import api from '@/lib/axios'
-import { LoginRequest, LoginResponse } from '@/types/auth'
+import {
+  LoginRequest,
+  LoginResponse,
+  RegisterRequest,
+  RegisterResponse,
+  VerifyEmailResponse,
+} from '@/types/auth'
 
 export const login = async (data: LoginRequest): Promise<LoginResponse> => {
   try {
@@ -14,6 +20,26 @@ export const login = async (data: LoginRequest): Promise<LoginResponse> => {
 export const logout = async (): Promise<void> => {
   try {
     await api.post('auth/logout')
+  } catch (error) {
+    console.log(error)
+    throw error
+  }
+}
+
+export const register = async (data: RegisterRequest): Promise<RegisterResponse> => {
+  try {
+    const response = await api.post('auth/register', data)
+    return response.data
+  } catch (error) {
+    console.log(error)
+    throw error
+  }
+}
+
+export const verifyEmail = async (token: string): Promise<VerifyEmailResponse> => {
+  try {
+    const response = await api.get(`auth/verify-email?token=${token}`)
+    return response.data
   } catch (error) {
     console.log(error)
     throw error

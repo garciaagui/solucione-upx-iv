@@ -1,5 +1,8 @@
 'use client'
 
+import { verifyEmail } from '@/services/auth'
+import { CustomAxiosError } from '@/types/error'
+import { useMutation } from '@tanstack/react-query'
 import { useSearchParams } from 'next/navigation'
 import { Suspense, useEffect, useState } from 'react'
 import { IconWrapper, OutputContainer } from './_components'
@@ -10,6 +13,21 @@ function VerifyEmailContent() {
 
   const searchParams = useSearchParams()
 
+  const { mutateAsync: verifyEmailMutation } = useMutation({
+    mutationFn: async (token: string) => {
+      return await verifyEmail(token)
+    },
+    onSuccess: (data) => {
+      setStatus('success')
+      setMessage(data.message)
+    },
+    onError: (error: CustomAxiosError) => {
+      setStatus('error')
+      const message = error.response?.data.message || 'Erro ao verificar e-mail'
+      setMessage(message)
+    },
+  })
+
   useEffect(() => {
     const token = searchParams.get('token')
 
@@ -19,26 +37,8 @@ function VerifyEmailContent() {
       return
     }
 
-    const verifyEmail = async () => {
-      try {
-        const res = await fetch(`/api/auth/verify-email?token=${token}`)
-        const data = await res.json()
-
-        if (!res.ok) {
-          throw new Error(data.message || 'Erro ao verificar e-mail')
-        }
-
-        setStatus('success')
-        setMessage(data.message)
-      } catch (err) {
-        const error = err as Error
-        setStatus('error')
-        setMessage(error.message || 'Erro ao verificar e-mail')
-      }
-    }
-
-    verifyEmail()
-  }, [searchParams])
+    verifyEmailMutation(token)
+  }, [searchParams, verifyEmailMutation])
 
   return (
     <>

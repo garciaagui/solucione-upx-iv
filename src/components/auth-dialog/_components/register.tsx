@@ -15,10 +15,10 @@ import {
 import { Input } from '@/components/ui/input'
 import { QUERY_KEYS } from '@/constants/query-keys'
 import { RegisterFormValues } from '@/schemas/register'
-import { ToastError } from '@/utils/toast'
+import { register } from '@/services/auth'
+import { handleMutationError } from '@/utils/functions/error'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useAuthDialog } from '../_utils/context'
-import { requestRegister } from '../_utils/functions'
 
 interface Props {
   handleOpen: (open: boolean) => void
@@ -38,7 +38,7 @@ export default function Register({ handleOpen, openVerifyDialog }: Props) {
   const registerMutation = useMutation({
     mutationFn: async (data: RegisterFormValues) => {
       setLoading(true)
-      await requestRegister(data)
+      await register(data)
     },
     onSuccess: async () => {
       await queryClient.invalidateQueries({
@@ -49,8 +49,7 @@ export default function Register({ handleOpen, openVerifyDialog }: Props) {
       handleSelectedFormChange()
     },
     onError: (error) => {
-      console.error(error)
-      ToastError(error.message)
+      handleMutationError(error, 'Erro inesperado ao cadastrar usuário')
     },
     onSettled: () => {
       setLoading(false)
